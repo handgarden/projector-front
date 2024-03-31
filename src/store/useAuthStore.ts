@@ -19,24 +19,28 @@ export const useAuthStore = create<AuthStore>((set) => ({
   status: StateStatus.INITIAL,
   error: null,
   tokenLogin: async () => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = getToken();
+
     if (!accessToken) {
       set({ status: StateStatus.FAILURE, isLogin: false });
       return;
     }
+
     set({ status: StateStatus.PENDING });
+
     const res = await post<null, LoginResponse | null>(
       "/auth/access",
       null,
       accessToken
     );
+
     if (res.status === ResponseStatus.OK) {
       set({
         status: StateStatus.SUCCESS,
         isLogin: true,
       });
     } else {
-      localStorage.removeItem("accessToken");
+      removeToken();
       set({ status: StateStatus.FAILURE, isLogin: false });
     }
   },
@@ -47,21 +51,31 @@ export const useAuthStore = create<AuthStore>((set) => ({
       req
     );
     if (res.status === ResponseStatus.OK) {
-      const loginRes = res.data as LoginResponse;
-      localStorage.setItem("accessToken", loginRes.accessToken);
+      setToken((res.data as LoginResponse).accessToken);
       set({
         status: StateStatus.SUCCESS,
         isLogin: true,
       });
       redirect();
-      return;
     } else {
       const error = res.message;
       set({ error, status: StateStatus.FAILURE, isLogin: false });
     }
   },
   logout: () => {
-    localStorage.removeItem("accessToken");
+    removeToken();
     set({ isLogin: false, status: StateStatus.INITIAL });
   },
 }));
+
+function getToken() {
+  return localStorage.getItem("accessToken");
+}
+
+function setToken(token: string) {
+  localStorage.setItem("accessToken", token);
+}
+
+function removeToken() {
+  localStorage.removeItem("accessToken");
+}
