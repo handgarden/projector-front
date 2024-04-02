@@ -22,7 +22,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     const accessToken = getToken();
 
     if (!accessToken) {
-      set({ status: StateStatus.FAILURE, isLogin: false });
+      set({ isLogin: false });
       return;
     }
 
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       });
     } else {
       removeToken();
-      set({ status: StateStatus.FAILURE, isLogin: false });
+      set({ isLogin: false });
     }
   },
   login: async (req: LoginRequest, redirect: () => void) => {
