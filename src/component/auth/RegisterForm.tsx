@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import { LoginRequest } from "../../types/auth/LoginRequest.type";
 import { DefaultValidationMessage } from "../../message/DefaultValidation.message";
 import { AuthValidationMessage } from "../../message/AuthValidation.message";
+import OrangeLinkButton from "../common/OrangeLinkButton";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
@@ -16,7 +17,7 @@ export default function RegisterForm({ onSubmit, loading }: Props) {
       onFinish={onSubmit}
     >
       <Form.Item<LoginRequest>
-        label="계정"
+        label="Account"
         name="account"
         rules={[
           { required: true, message: DefaultValidationMessage.REQUIRED },
@@ -31,7 +32,7 @@ export default function RegisterForm({ onSubmit, loading }: Props) {
         <Input />
       </Form.Item>
       <Form.Item<LoginRequest>
-        label="비밀번호"
+        label="Password"
         name="password"
         rules={[
           { required: true, message: DefaultValidationMessage.REQUIRED },
@@ -50,9 +51,19 @@ export default function RegisterForm({ onSubmit, loading }: Props) {
         <Input.Password />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" disabled={loading}>
-          회원가입
+        <Button
+          type="primary"
+          htmlType="submit"
+          disabled={loading}
+          style={{ width: "100%" }}
+        >
+          Submit
         </Button>
+      </Form.Item>
+      <Form.Item>
+        <OrangeLinkButton to={-1} type="primary" style={{ width: "100%" }}>
+          Go back
+        </OrangeLinkButton>
       </Form.Item>
     </Form>
   );

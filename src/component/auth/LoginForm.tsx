@@ -1,15 +1,17 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import { LoginRequest } from "../../types/auth/LoginRequest.type";
 import { DefaultValidationMessage } from "../../message/DefaultValidation.message";
 import { AuthValidationMessage } from "../../message/AuthValidation.message";
-import LinkButton from "../common/LinkButton";
+import OrangeLinkButton from "../common/OrangeLinkButton";
+import { StateStatus } from "../../types/common/StateStatus.type";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
   loading: boolean;
+  status: StateStatus;
 };
 
-export default function LoginForm({ onSubmit, loading }: Props) {
+export default function LoginForm({ onSubmit, loading, status }: Props) {
   return (
     <Form
       layout="vertical"
@@ -17,7 +19,7 @@ export default function LoginForm({ onSubmit, loading }: Props) {
       onFinish={onSubmit}
     >
       <Form.Item<LoginRequest>
-        label="계정"
+        label="Account"
         name="account"
         rules={[
           { required: true, message: DefaultValidationMessage.REQUIRED },
@@ -32,7 +34,7 @@ export default function LoginForm({ onSubmit, loading }: Props) {
         <Input />
       </Form.Item>
       <Form.Item<LoginRequest>
-        label="비밀번호"
+        label="Password"
         name="password"
         rules={[
           { required: true, message: DefaultValidationMessage.REQUIRED },
@@ -50,15 +52,41 @@ export default function LoginForm({ onSubmit, loading }: Props) {
       >
         <Input.Password />
       </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          로그인
+
+      <Form.Item
+        style={{
+          margin: status === StateStatus.FAILURE ? "0" : "",
+        }}
+      >
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={loading}
+          style={{
+            width: "100%",
+          }}
+        >
+          Sign in
         </Button>
       </Form.Item>
+      {status === StateStatus.FAILURE && (
+        <Form.Item style={{ margin: "0" }}>
+          <Typography.Text type="danger">
+            {AuthValidationMessage.LOGIN_FAILURE}
+          </Typography.Text>
+        </Form.Item>
+      )}
       <Form.Item>
-        <LinkButton type="primary" to="/register" loading={loading}>
-          회원가입
-        </LinkButton>
+        <OrangeLinkButton
+          to="/register"
+          disabled={loading}
+          style={{
+            width: "100%",
+          }}
+          type="primary"
+        >
+          Create Account
+        </OrangeLinkButton>
       </Form.Item>
     </Form>
   );

@@ -11,7 +11,7 @@ export function AuthGuard({ children }: Props) {
   const location = useLocation();
 
   if (!isLogin) {
-    alert("로그인이 필요합니다.");
+    alert("You need to login to access this page.");
     navigate("/login", { state: { from: location.pathname } });
 
     return null;

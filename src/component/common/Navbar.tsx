@@ -36,7 +36,7 @@ export default function Navbar({ isLogin }: Props) {
         {isLogin ? (
           <LogoutButton />
         ) : (
-          <LinkButton to="/login">로그인</LinkButton>
+          <LinkButton to="/login">Sign in</LinkButton>
         )}
       </CenterCol>
     </CenterRow>

@@ -12,7 +12,7 @@ export default function MainPage() {
       >
         <Title level={2}>Project List</Title>
         <LinkButton to="/create" type="primary">
-          Create
+          Add
         </LinkButton>
       </Row>
     </>

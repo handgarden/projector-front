@@ -1,11 +1,15 @@
-import { Button } from "antd";
 import { Link } from "react-router-dom";
+import ColorButton from "./ColorButton";
 
 type Props = {
   to: string;
   children: React.ReactNode;
   type?: "primary" | "default";
   loading?: boolean;
+  style?: React.CSSProperties;
+  disabled?: boolean;
+  color?: string;
+  hoveredColor?: string;
 };
 
 export default function LinkButton({
@@ -13,12 +17,23 @@ export default function LinkButton({
   children,
   type = "default",
   loading,
+  style,
+  disabled,
+  color,
+  hoveredColor,
 }: Props) {
   return (
     <Link to={to}>
-      <Button type={type} loading={loading}>
+      <ColorButton
+        type={type}
+        color={color}
+        hoveredColor={hoveredColor}
+        loading={loading}
+        style={{ ...style }}
+        disabled={disabled}
+      >
         {children}
-      </Button>
+      </ColorButton>
     </Link>
   );
 }

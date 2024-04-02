@@ -20,8 +20,12 @@ export default function LoginPage() {
 
   return (
     <FlexBox layout="vertical" style={{ marginTop: "10rem" }}>
-      <Title level={2}>로그인</Title>
-      <LoginForm onSubmit={onSubmit} loading={status === StateStatus.PENDING} />
+      <Title level={2}>Sign in</Title>
+      <LoginForm
+        onSubmit={onSubmit}
+        loading={status === StateStatus.PENDING}
+        status={status}
+      />
     </FlexBox>
   );
 }

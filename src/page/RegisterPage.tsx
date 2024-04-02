@@ -25,7 +25,7 @@ export default function RegisterPage() {
 
   return (
     <FlexBox layout="vertical" style={{ marginTop: "10rem" }}>
-      <Title level={2}>회원가입</Title>
+      <Title level={2}>Create Account</Title>
       <RegisterForm
         onSubmit={onSubmit}
         loading={status === StateStatus.PENDING}
