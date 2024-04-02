@@ -5,6 +5,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useEffect } from "react";
 import { StateStatus } from "../types/common/StateStatus.type";
 import RegisterPage from "../page/RegisterPage";
+import MainPage from "../page/MainPage";
 export default function RootRouter() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const status = useAuthStore((state) => state.status);
@@ -18,6 +19,7 @@ export default function RootRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" Component={DefaultLayout}>
+          <Route path="/" index Component={MainPage} />
           <Route
             path="/login"
             Component={
