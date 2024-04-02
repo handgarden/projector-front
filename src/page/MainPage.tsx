@@ -5,11 +5,7 @@ import LinkButton from "../component/common/LinkButton";
 export default function MainPage() {
   return (
     <>
-      <Row
-        justify="space-between"
-        align="middle"
-        style={{ width: "100%", padding: "1rem" }}
-      >
+      <Row justify="space-between" align="middle" style={{ width: "100%" }}>
         <Title level={2}>Project List</Title>
         <LinkButton to="/create" type="primary">
           Add

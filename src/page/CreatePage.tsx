@@ -9,7 +9,7 @@ export default function CreatePage() {
       <Row>
         <Title level={2}>Create</Title>
       </Row>
-      <Row style={{ width: "100%", padding: "1rem" }}>
+      <Row style={{ width: "100%" }}>
         <CreateProjectForm />
       </Row>
     </FlexBox>

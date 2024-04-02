@@ -17,7 +17,8 @@ export default function DefaultLayout() {
           style={{
             width: "100vw",
             height: "95vh",
-            maxWidth: "1000px",
+            maxWidth: "1050px",
+            padding: "1rem 50px",
             margin: "0 auto",
             alignItems: "start",
           }}
