@@ -11,8 +11,8 @@ export default function MainPage() {
         style={{ width: "100%", padding: "1rem" }}
       >
         <Title level={2}>Project List</Title>
-        <LinkButton to="/add" type="primary">
-          Add
+        <LinkButton to="/create" type="primary">
+          Create
         </LinkButton>
       </Row>
     </>

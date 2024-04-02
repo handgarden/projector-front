@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { StateStatus } from "../types/common/StateStatus.type";
 import RegisterPage from "../page/RegisterPage";
 import MainPage from "../page/MainPage";
+import CreatePage from "../page/CreatePage";
+import useAuthGuard from "../hook/useAuthGuard";
 export default function RootRouter() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const status = useAuthStore((state) => state.status);
@@ -14,6 +16,8 @@ export default function RootRouter() {
   useEffect(() => {
     tokenLogin();
   }, [tokenLogin]);
+
+  const { auth } = useAuthGuard();
 
   return (
     <BrowserRouter>
@@ -36,6 +40,7 @@ export default function RootRouter() {
                 : RegisterPage
             }
           />
+          <Route path="/create" element={auth(CreatePage)} />
         </Route>
       </Routes>
     </BrowserRouter>
