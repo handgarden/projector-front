@@ -19,7 +19,7 @@ export default function LoginPage() {
   const status = useAuthStore((state) => state.status);
 
   return (
-    <FlexBox layout="vertical" style={{ marginTop: "10rem" }}>
+    <FlexBox layout="vertical" style={{ marginTop: "5rem" }}>
       <Title level={2}>Sign in</Title>
       <LoginForm
         onSubmit={onSubmit}

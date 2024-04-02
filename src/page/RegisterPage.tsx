@@ -24,7 +24,7 @@ export default function RegisterPage() {
   console.log(error);
 
   return (
-    <FlexBox layout="vertical" style={{ marginTop: "10rem" }}>
+    <FlexBox layout="vertical" style={{ marginTop: "5rem" }}>
       <Title level={2}>Create Account</Title>
       <RegisterForm
         onSubmit={onSubmit}
