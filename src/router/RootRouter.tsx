@@ -4,6 +4,7 @@ import LoginPage from "../page/LoginPage";
 import { useAuthStore } from "../store/useAuthStore";
 import { useEffect } from "react";
 import { StateStatus } from "../types/common/StateStatus.type";
+import RegisterPage from "../page/RegisterPage";
 export default function RootRouter() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const status = useAuthStore((state) => state.status);
@@ -23,6 +24,14 @@ export default function RootRouter() {
               status !== StateStatus.INITIAL && isLogin
                 ? () => <Navigate to="/" />
                 : LoginPage
+            }
+          />
+          <Route
+            path="/register"
+            Component={
+              status !== StateStatus.INITIAL && isLogin
+                ? () => <Navigate to="/" />
+                : RegisterPage
             }
           />
         </Route>

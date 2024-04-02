@@ -2,14 +2,13 @@ import { Button, Form, Input } from "antd";
 import { LoginRequest } from "../../types/auth/LoginRequest.type";
 import { DefaultValidationMessage } from "../../message/DefaultValidation.message";
 import { AuthValidationMessage } from "../../message/AuthValidation.message";
-import LinkButton from "../common/LinkButton";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
   loading: boolean;
 };
 
-export default function LoginForm({ onSubmit, loading }: Props) {
+export default function RegisterForm({ onSubmit, loading }: Props) {
   return (
     <Form
       layout="vertical"
@@ -51,14 +50,9 @@ export default function LoginForm({ onSubmit, loading }: Props) {
         <Input.Password />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          로그인
-        </Button>
-      </Form.Item>
-      <Form.Item>
-        <LinkButton type="primary" to="/register" loading={loading}>
+        <Button type="primary" htmlType="submit" disabled={loading}>
           회원가입
-        </LinkButton>
+        </Button>
       </Form.Item>
     </Form>
   );
