@@ -4,17 +4,21 @@ type Props = {
   layout?: "horizontal" | "vertical";
   style?: React.CSSProperties;
   children: React.ReactNode;
+  justify?: "center" | "end" | "start";
+  align?: "center" | "end" | "start";
 };
 
 export default function FlexBox({
   style,
   children,
   layout = "horizontal",
+  align,
+  justify,
 }: Props) {
   return (
     <Flex
-      justify="center"
-      align="center"
+      justify={justify ?? "center"}
+      align={align ?? "center"}
       style={{
         ...style,
         width: "100%",

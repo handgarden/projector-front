@@ -16,9 +16,22 @@ export default function ImageCol({ style, url, width, height, col }: Props) {
   const parsedHeight = pixelParser.parse(height);
 
   return (
-    <Col span={col} style={{ padding: ".5rem" }}>
+    <Col
+      span={col}
+      style={{
+        padding: ".5rem",
+        height: "250px",
+        minWidth: "300px",
+        minHeight: "100px",
+      }}
+    >
       <Image
-        style={{ objectFit: "fill", height: "100%", ...style }}
+        style={{
+          objectFit: "fill",
+          width: "100%",
+          height: "100%",
+          ...style,
+        }}
         src={url}
         width={parsedWidth ?? "100%"}
         height={parsedHeight ?? "100%"}

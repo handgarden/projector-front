@@ -4,9 +4,11 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../common/component/Navbar";
 import FlexBox from "../common/component/FlexBox";
 import { useAuthStore } from "../store/useAuthStore";
+import useHasInnerLayout from "./hook/useHasInnerLayout";
 
 export default function DefaultLayout() {
   const isLogin = useAuthStore((state) => state.isLogin);
+  const hasInnerLayout = useHasInnerLayout();
   return (
     <Layout>
       <Header style={{ height: "5vh", backgroundColor: "#475c99" }}>
@@ -16,9 +18,10 @@ export default function DefaultLayout() {
         <FlexBox
           style={{
             width: "100vw",
-            height: "95vh",
-            maxWidth: "1050px",
-            padding: "1rem 50px",
+            height: "100%",
+            minHeight: "95vh",
+            maxWidth: "1100px",
+            padding: hasInnerLayout ? "0" : "1rem 50px",
             margin: "0 auto",
             alignItems: "start",
           }}

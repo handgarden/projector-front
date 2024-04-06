@@ -10,9 +10,14 @@ type Props = {
   onChange: (
     info: UploadChangeParam<UploadFile<RestResponse<UploadFileType[]>>>
   ) => void;
+  defaultFileList?: UploadFile<UploadFileType>[];
 };
 
-export default function UploadImage({ action, onChange }: Props) {
+export default function UploadImage({
+  action,
+  onChange,
+  defaultFileList = [],
+}: Props) {
   const token = useJwtToken();
   return (
     <Upload
@@ -23,6 +28,7 @@ export default function UploadImage({ action, onChange }: Props) {
         Authorization: `Bearer ${token}`,
       }}
       name="files"
+      defaultFileList={defaultFileList}
     >
       <Button icon={<UploadOutlined />}>Upload</Button>
     </Upload>

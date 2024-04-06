@@ -1,3 +1,3 @@
-import { Slide } from "./Slide";
+import { SlideType } from "./Slide";
 
-export type SlideForm = Omit<Slide, "imageKeys">;
+export type SlideFormType = Omit<SlideType, "imageKeys">;
