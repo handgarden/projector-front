@@ -2,7 +2,7 @@ import LinkButton from "./LinkButton";
 import CenterCol from "./CenterCol";
 import CenterRow from "./CenterRow";
 import Title from "antd/es/typography/Title";
-import LogoutButton from "../auth/LogoutButton";
+import LogoutButton from "../../auth/component/LogoutButton";
 
 type Props = {
   isLogin: boolean;

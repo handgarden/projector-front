@@ -7,7 +7,7 @@ import { StateStatus } from "../types/common/StateStatus.type";
 import RegisterPage from "../page/RegisterPage";
 import MainPage from "../page/MainPage";
 import CreatePage from "../page/CreatePage";
-import useAuthGuard from "../hook/useAuthGuard";
+import useAuthGuard from "../auth/hook/useAuthGuard";
 export default function RootRouter() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const status = useAuthStore((state) => state.status);

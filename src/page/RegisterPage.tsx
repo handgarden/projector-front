@@ -1,5 +1,5 @@
-import FlexBox from "../component/common/FlexBox";
-import RegisterForm from "../component/auth/RegisterForm";
+import FlexBox from "../common/component/FlexBox";
+import RegisterForm from "../auth/component/RegisterForm";
 import Title from "antd/es/typography/Title";
 import { RegisterRequest } from "../types/auth/RegisterRequest.type";
 import { useRegisterStore } from "../store/useRegisterStore";

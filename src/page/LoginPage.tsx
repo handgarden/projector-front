@@ -1,6 +1,6 @@
 import Title from "antd/es/typography/Title";
-import FlexBox from "../component/common/FlexBox";
-import LoginForm from "../component/auth/LoginForm";
+import FlexBox from "../common/component/FlexBox";
+import LoginForm from "../auth/component/LoginForm";
 import { LoginRequest } from "../types/auth/LoginRequest.type";
 import { useAuthStore } from "../store/useAuthStore";
 import { useLocation, useNavigate } from "react-router-dom";

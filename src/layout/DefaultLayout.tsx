@@ -1,8 +1,8 @@
 import { Layout } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import { Outlet } from "react-router-dom";
-import Navbar from "../component/common/Navbar";
-import FlexBox from "../component/common/FlexBox";
+import Navbar from "../common/component/Navbar";
+import FlexBox from "../common/component/FlexBox";
 import { useAuthStore } from "../store/useAuthStore";
 
 export default function DefaultLayout() {

@@ -1,15 +1,17 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import { LoginRequest } from "../../types/auth/LoginRequest.type";
 import { DefaultValidationMessage } from "../../message/DefaultValidation.message";
 import { AuthValidationMessage } from "../../message/AuthValidation.message";
-import OrangeLinkButton from "../common/OrangeLinkButton";
+import OrangeLinkButton from "../../common/component/OrangeLinkButton";
+import { StateStatus } from "../../types/common/StateStatus.type";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
   loading: boolean;
+  status: StateStatus;
 };
 
-export default function RegisterForm({ onSubmit, loading }: Props) {
+export default function LoginForm({ onSubmit, loading, status }: Props) {
   return (
     <Form
       layout="vertical"
@@ -50,19 +52,40 @@ export default function RegisterForm({ onSubmit, loading }: Props) {
       >
         <Input.Password />
       </Form.Item>
-      <Form.Item>
+
+      <Form.Item
+        style={{
+          margin: status === StateStatus.FAILURE ? "0" : "",
+        }}
+      >
         <Button
           type="primary"
           htmlType="submit"
-          disabled={loading}
-          style={{ width: "100%" }}
+          loading={loading}
+          style={{
+            width: "100%",
+          }}
         >
-          Submit
+          Sign in
         </Button>
       </Form.Item>
+      {status === StateStatus.FAILURE && (
+        <Form.Item style={{ margin: "0" }}>
+          <Typography.Text type="danger">
+            {AuthValidationMessage.LOGIN_FAILURE}
+          </Typography.Text>
+        </Form.Item>
+      )}
       <Form.Item>
-        <OrangeLinkButton to={-1} type="primary" style={{ width: "100%" }}>
-          Go back
+        <OrangeLinkButton
+          to="/register"
+          disabled={loading}
+          style={{
+            width: "100%",
+          }}
+          type="primary"
+        >
+          Create Account
         </OrangeLinkButton>
       </Form.Item>
     </Form>

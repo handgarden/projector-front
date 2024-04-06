@@ -1,6 +1,6 @@
 import { Row } from "antd";
 import Title from "antd/es/typography/Title";
-import LinkButton from "../component/common/LinkButton";
+import LinkButton from "../common/component/LinkButton";
 
 export default function MainPage() {
   return (
