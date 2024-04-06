@@ -73,7 +73,7 @@ export const useProjectStore = create<ProjectStoreType>((set) => ({
   },
   deleteSlide: () => {
     set((prev) => {
-      if (prev.currentSlideIndex < 2) {
+      if (prev.project.slides.length < 2) {
         return prev;
       }
       return {

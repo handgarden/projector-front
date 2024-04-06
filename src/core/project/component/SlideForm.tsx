@@ -85,7 +85,6 @@ export default function SlideForm({ index }: Props) {
           <UploadImage
             action="/api/files/upload"
             onChange={(d) => {
-              console.log(d);
               const files = d.fileList
                 .filter((f) => !!f.response?.data && f.status === "done")
                 .reduce(
