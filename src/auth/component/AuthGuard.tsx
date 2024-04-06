@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../store/useAuthStore";
 import { useEffect } from "react";
+import { useAuthStore } from "../../core/store/useAuthStore";
 
 type Props = {
   children: React.ReactNode;

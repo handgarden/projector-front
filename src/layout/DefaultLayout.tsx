@@ -3,7 +3,7 @@ import { Content, Header } from "antd/es/layout/layout";
 import { Outlet } from "react-router-dom";
 import Navbar from "../common/component/Navbar";
 import FlexBox from "../common/component/FlexBox";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../core/store/useAuthStore";
 
 export default function DefaultLayout() {
   const isLogin = useAuthStore((state) => state.isLogin);

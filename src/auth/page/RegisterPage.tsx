@@ -1,11 +1,11 @@
-import FlexBox from "../common/component/FlexBox";
-import RegisterForm from "../auth/component/RegisterForm";
+import FlexBox from "../../common/component/FlexBox";
+import RegisterForm from "../component/RegisterForm";
 import Title from "antd/es/typography/Title";
-import { RegisterRequest } from "../types/auth/RegisterRequest.type";
-import { useRegisterStore } from "../store/useRegisterStore";
+import { RegisterRequest } from "../../types/auth/RegisterRequest.type";
 import { useLocation, useNavigate } from "react-router-dom";
-import { StateStatus } from "../types/common/StateStatus.type";
+import { StateStatus } from "../../types/common/StateStatus.type";
 import { Typography } from "antd";
+import { useRegisterStore } from "../../core/store/useRegisterStore";
 
 export default function RegisterPage() {
   const register = useRegisterStore((state) => state.register);

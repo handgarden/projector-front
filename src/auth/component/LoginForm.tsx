@@ -1,7 +1,7 @@
 import { Button, Form, Input, Typography } from "antd";
 import { LoginRequest } from "../../types/auth/LoginRequest.type";
-import { DefaultValidationMessage } from "../../message/DefaultValidation.message";
-import { AuthValidationMessage } from "../../message/AuthValidation.message";
+import { DefaultValidationMessage } from "../../common/message/DefaultValidation.message";
+import { AuthValidationMessage } from "../../common/message/AuthValidation.message";
 import OrangeLinkButton from "../../common/component/OrangeLinkButton";
 import { StateStatus } from "../../types/common/StateStatus.type";
 

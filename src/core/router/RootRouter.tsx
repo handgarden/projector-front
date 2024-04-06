@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import DefaultLayout from "../layout/DefaultLayout";
-import LoginPage from "../page/LoginPage";
 import { useAuthStore } from "../store/useAuthStore";
 import { useEffect } from "react";
-import { StateStatus } from "../types/common/StateStatus.type";
-import RegisterPage from "../page/RegisterPage";
+import useAuthGuard from "../../auth/hook/useAuthGuard";
+import DefaultLayout from "../../layout/DefaultLayout";
 import MainPage from "../page/MainPage";
-import CreatePage from "../page/CreatePage";
-import useAuthGuard from "../auth/hook/useAuthGuard";
+import { StateStatus } from "../../types/common/StateStatus.type";
+import LoginPage from "../../auth/page/LoginPage";
+import RegisterPage from "../../auth/page/RegisterPage";
+import CreatePage from "../../project/page/CreatePage";
 export default function RootRouter() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const status = useAuthStore((state) => state.status);
