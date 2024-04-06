@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import { StateStatus } from "../../types/common/StateStatus.type";
-import { LoginRequest } from "../../types/auth/LoginRequest.type";
-import { post } from "../../common/axios";
-import { LoginResponse } from "../../types/auth/LoginResponse.type";
-import { ResponseStatus } from "../../types/api/RestTemplate.type";
+import { StateStatus } from "../types/common/StateStatus.type";
+import { LoginRequest } from "../types/auth/LoginRequest.type";
+import { post } from "../common/axios";
+import { LoginResponse } from "../types/auth/LoginResponse.type";
+import { ResponseStatus } from "../types/api/RestTemplate.type";
 
 type AuthStore = {
   isLogin: boolean;

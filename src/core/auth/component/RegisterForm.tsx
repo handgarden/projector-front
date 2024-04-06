@@ -1,17 +1,15 @@
-import { Button, Form, Input, Typography } from "antd";
-import { LoginRequest } from "../../types/auth/LoginRequest.type";
-import { DefaultValidationMessage } from "../../common/message/DefaultValidation.message";
-import { AuthValidationMessage } from "../../common/message/AuthValidation.message";
-import OrangeLinkButton from "../../common/component/OrangeLinkButton";
-import { StateStatus } from "../../types/common/StateStatus.type";
+import { Button, Form, Input } from "antd";
+import { LoginRequest } from "../../../types/auth/LoginRequest.type";
+import { DefaultValidationMessage } from "../../../common/message/DefaultValidation.message";
+import { AuthValidationMessage } from "../../../common/message/AuthValidation.message";
+import OrangeLinkButton from "../../../common/component/OrangeLinkButton";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
   loading: boolean;
-  status: StateStatus;
 };
 
-export default function LoginForm({ onSubmit, loading, status }: Props) {
+export default function RegisterForm({ onSubmit, loading }: Props) {
   return (
     <Form
       layout="vertical"
@@ -52,40 +50,19 @@ export default function LoginForm({ onSubmit, loading, status }: Props) {
       >
         <Input.Password />
       </Form.Item>
-
-      <Form.Item
-        style={{
-          margin: status === StateStatus.FAILURE ? "0" : "",
-        }}
-      >
+      <Form.Item>
         <Button
           type="primary"
           htmlType="submit"
-          loading={loading}
-          style={{
-            width: "100%",
-          }}
+          disabled={loading}
+          style={{ width: "100%" }}
         >
-          Sign in
+          Submit
         </Button>
       </Form.Item>
-      {status === StateStatus.FAILURE && (
-        <Form.Item style={{ margin: "0" }}>
-          <Typography.Text type="danger">
-            {AuthValidationMessage.LOGIN_FAILURE}
-          </Typography.Text>
-        </Form.Item>
-      )}
       <Form.Item>
-        <OrangeLinkButton
-          to="/register"
-          disabled={loading}
-          style={{
-            width: "100%",
-          }}
-          type="primary"
-        >
-          Create Account
+        <OrangeLinkButton to={-1} type="primary" style={{ width: "100%" }}>
+          Go back
         </OrangeLinkButton>
       </Form.Item>
     </Form>

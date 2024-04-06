@@ -1,11 +1,12 @@
-import FlexBox from "../../common/component/FlexBox";
+import FlexBox from "../../../common/component/FlexBox";
 import RegisterForm from "../component/RegisterForm";
 import Title from "antd/es/typography/Title";
-import { RegisterRequest } from "../../types/auth/RegisterRequest.type";
+import { RegisterRequest } from "../../../types/auth/RegisterRequest.type";
 import { useLocation, useNavigate } from "react-router-dom";
-import { StateStatus } from "../../types/common/StateStatus.type";
+import { StateStatus } from "../../../types/common/StateStatus.type";
 import { Typography } from "antd";
-import { useRegisterStore } from "../../core/store/useRegisterStore";
+import { useRegisterStore } from "../../../store/useRegisterStore";
+import { AUTH_PATH } from "../../../router/AuthRouter";
 
 export default function RegisterPage() {
   const register = useRegisterStore((state) => state.register);
@@ -14,14 +15,15 @@ export default function RegisterPage() {
   const onSubmit = (data: RegisterRequest) => {
     register(data, () => {
       navigate(
-        `/login${location.state?.from ? `?from=${location.state.from}` : ""}`
+        `${AUTH_PATH.login}${
+          location.state?.from ? `?from=${location.state.from}` : ""
+        }`
       );
     });
   };
 
   const status = useRegisterStore((state) => state.status);
   const error = useRegisterStore((state) => state.error);
-  console.log(error);
 
   return (
     <FlexBox layout="vertical" style={{ marginTop: "5rem" }}>

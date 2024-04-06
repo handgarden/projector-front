@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { useAuthStore } from "../../core/store/useAuthStore";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 export default function LogoutButton() {
   const logout = useAuthStore((state) => state.logout);

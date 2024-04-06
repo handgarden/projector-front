@@ -2,7 +2,8 @@ import LinkButton from "./LinkButton";
 import CenterCol from "./CenterCol";
 import CenterRow from "./CenterRow";
 import Title from "antd/es/typography/Title";
-import LogoutButton from "../../auth/component/LogoutButton";
+import LogoutButton from "../../core/auth/component/LogoutButton";
+import { AUTH_PATH } from "../../router/AuthRouter";
 
 type Props = {
   isLogin: boolean;
@@ -36,7 +37,7 @@ export default function Navbar({ isLogin }: Props) {
         {isLogin ? (
           <LogoutButton />
         ) : (
-          <LinkButton to="/login">Sign in</LinkButton>
+          <LinkButton to={AUTH_PATH.login}>Sign in</LinkButton>
         )}
       </CenterCol>
     </CenterRow>

@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import { ValidationError } from "../../types/api/ValidationError.type";
-import { StateStatus } from "../../types/common/StateStatus.type";
-import { RegisterRequest } from "../../types/auth/RegisterRequest.type";
-import { post } from "../../common/axios";
-import { ResponseStatus } from "../../types/api/RestTemplate.type";
+import { StateStatus } from "../types/common/StateStatus.type";
+import { ValidationError } from "../types/api/ValidationError.type";
+import { RegisterRequest } from "../types/auth/RegisterRequest.type";
+import { post } from "../common/axios";
+import { ResponseStatus } from "../types/api/RestTemplate.type";
 
 type RegisterStore = {
   status: StateStatus;

@@ -2,8 +2,8 @@ import { Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import useJwtToken from "../../auth/hook/useJwtToken";
 import { UploadChangeParam, UploadFile } from "antd/es/upload";
-import { RestResponse } from "../../types/api/RestTemplate.type";
-import { UploadFileType } from "../../types/file/UploadFileType";
+import { RestResponse } from "../../../types/api/RestTemplate.type";
+import { UploadFileType } from "../../../types/file/UploadFileType";
 
 type Props = {
   action: string;

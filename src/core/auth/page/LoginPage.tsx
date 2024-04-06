@@ -1,10 +1,10 @@
 import Title from "antd/es/typography/Title";
-import FlexBox from "../../common/component/FlexBox";
+import FlexBox from "../../../common/component/FlexBox";
 import LoginForm from "../component/LoginForm";
-import { LoginRequest } from "../../types/auth/LoginRequest.type";
+import { LoginRequest } from "../../../types/auth/LoginRequest.type";
 import { useLocation, useNavigate } from "react-router-dom";
-import { StateStatus } from "../../types/common/StateStatus.type";
-import { useAuthStore } from "../../core/store/useAuthStore";
+import { StateStatus } from "../../../types/common/StateStatus.type";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 export default function LoginPage() {
   const login = useAuthStore((state) => state.login);

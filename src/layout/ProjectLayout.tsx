@@ -4,14 +4,16 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../common/component/Navbar";
 import FlexBox from "../common/component/FlexBox";
 import { useAuthStore } from "../store/useAuthStore";
+import Sider from "antd/es/layout/Sider";
 
-export default function DefaultLayout() {
+export default function ProjectLayout() {
   const isLogin = useAuthStore((state) => state.isLogin);
   return (
     <Layout>
       <Header style={{ height: "5vh", backgroundColor: "#475c99" }}>
         <Navbar isLogin={isLogin} />
       </Header>
+      <Sider></Sider>
       <Content>
         <FlexBox
           style={{
