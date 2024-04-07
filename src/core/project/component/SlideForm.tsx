@@ -4,6 +4,7 @@ import ImageCol from "../../../common/component/ImageCol";
 import { useProjectStore } from "../../../store/useProjectStore";
 import { UploadFileType } from "../../../types/file/UploadFileType";
 import Title from "antd/es/typography/Title";
+import TextEditor from "../../../common/component/TextEditor";
 
 type Props = {
   index: number;
@@ -112,13 +113,12 @@ export default function SlideForm({ index }: Props) {
           <Typography.Text>Description</Typography.Text>
         </Col>
         <Col span={24}>
-          <Input.TextArea
+          <TextEditor
             value={slide.description}
-            onChange={(e) => {
-              const val = e.target.value;
+            onChange={(v) => {
               updateSlide({
                 ...slide,
-                description: val,
+                description: v,
               });
             }}
           />

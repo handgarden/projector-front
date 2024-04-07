@@ -36,7 +36,7 @@ export default function CreatePage() {
   }, [project.slides.length]);
 
   return (
-    <Layout style={{ minHeight: "95vh" }}>
+    <Layout style={{ minHeight: "100vh" }}>
       <Sider
         trigger={null}
         collapsible

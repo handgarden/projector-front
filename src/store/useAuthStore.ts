@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       });
     } else {
       removeToken();
-      set({ isLogin: false });
+      set({ isLogin: false, status: StateStatus.INITIAL });
     }
   },
   login: async (req: LoginRequest, redirect: () => void) => {

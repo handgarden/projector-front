@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, RawAxiosRequestHeaders } from "axios";
 import { ResponseStatus, RestResponse } from "../types/api/RestTemplate.type";
 
 export const axiosInstance = axios.create({
@@ -10,12 +10,14 @@ export const axiosInstance = axios.create({
 export const post = async <Req, Res>(
   url: string,
   body: Req,
-  token?: string
+  token?: string,
+  type?: RawAxiosRequestHeaders["Content-Type"]
 ): Promise<RestResponse<Res | null>> => {
   try {
     const response = await axiosInstance.post<RestResponse<Res>>(url, body, {
       headers: {
         Authorization: token ? `Bearer ${token}` : "",
+        "Content-Type": type ?? "application/json",
       },
     });
     return response.data;
