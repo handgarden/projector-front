@@ -11,19 +11,16 @@ type ProjectStoreType = {
   deleteSlide: () => void;
 };
 
+const initialProject: () => ProjectType = () => ({
+  id: -1,
+  title: "",
+  description: "",
+  slides: [],
+});
+
 export const useProjectStore = create<ProjectStoreType>((set) => ({
   currentSlideIndex: 1,
-  project: {
-    title: "aaaaaaa",
-    slides: [
-      {
-        index: 1,
-        title: "hasdfasdfasdfasdfasfassfdasfdasdfasdfasdfafsfsfdfasi",
-        images: [],
-        description: "",
-      },
-    ],
-  },
+  project: initialProject(),
   setCurrentIndex: (index: number) => {
     set((prev) => {
       const lowerBoundIndex = Math.max(1, index);

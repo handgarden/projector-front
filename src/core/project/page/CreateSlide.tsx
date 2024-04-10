@@ -10,7 +10,7 @@ import { RightOutlined } from "@ant-design/icons";
 import { ProjectType } from "../../../types/project/Project";
 import CenterCol from "../../../common/component/CenterCol";
 
-export default function CreatePage() {
+export default function CreateSlide() {
   const { project, currentIndex, setCurrentIndex } = useProjectStore(
     (state) => ({
       addNewSlide: state.addNewSlide,
@@ -124,3 +124,4 @@ const createSlideMenu = (
     return item;
   }),
 ];
+
