@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
-import CreatePage from "../core/project/page/CreatePage";
-import { AuthGuard } from "../core/auth/component/AuthGuard";
+import { AuthGuard } from "../common/component/AuthGuard";
+import CreateProject from "../core/project/page/CreateProject";
 
 const PATH_PREFIX = "/project";
 
@@ -14,8 +14,9 @@ export const ProjectRouter = () => [
     path={PROJECT_PATH.create}
     element={
       <AuthGuard>
-        <CreatePage />
+        <CreateProject />
       </AuthGuard>
     }
   />,
 ];
+
