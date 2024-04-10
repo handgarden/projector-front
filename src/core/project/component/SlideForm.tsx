@@ -1,5 +1,5 @@
 import { Button, Col, Input, Row, Space, Typography } from "antd";
-import UploadImage from "./UploadImage";
+import UploadImage from "../../../common/component/UploadImage";
 import ImageCol from "../../../common/component/ImageCol";
 import { useProjectStore } from "../../../store/useProjectStore";
 import { UploadFileType } from "../../../types/file/UploadFileType";
