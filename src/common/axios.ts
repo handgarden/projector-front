@@ -14,12 +14,16 @@ export const post = async <Req, Res>(
   type?: RawAxiosRequestHeaders["Content-Type"]
 ): Promise<RestResponse<Res | null>> => {
   try {
-    const response = await axiosInstance.post<RestResponse<Res>>(url, body, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-        "Content-Type": type ?? "application/json",
-      },
-    });
+    const response = await axiosInstance.post<RestResponse<Res>>(
+      url,
+      body ?? {},
+      {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+          "Content-Type": type ?? "application/json",
+        },
+      }
+    );
     return response.data;
   } catch (e) {
     const res = (e as AxiosError<RestResponse<null>>).response?.data;
@@ -57,3 +61,4 @@ export const get = async <Res>(
     return res;
   }
 };
+
