@@ -22,7 +22,7 @@ export default function CreatePresentation() {
   const { parse } = useGqlValidationErrorParser();
   const [create] = useMutation(createProject, {
     onCompleted: (data) => {
-      navigate(`/project/${data.createProject.id}/edit`);
+      navigate(`/project/${data.createProject.id}`);
     },
     onError: (error) => {
       const validationMessage = parse(error);
