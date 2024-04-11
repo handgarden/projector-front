@@ -23,13 +23,22 @@ export default function LinkButton({
   hoveredColor,
 }: Props) {
   return (
-    <Link to={to}>
+    <Link
+      to={to}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <ColorButton
         type={type}
         color={color}
         hoveredColor={hoveredColor}
         loading={loading}
-        style={{ ...style }}
+        style={{
+          ...style,
+        }}
         disabled={disabled}
       >
         {children}
@@ -37,3 +46,4 @@ export default function LinkButton({
     </Link>
   );
 }
+
