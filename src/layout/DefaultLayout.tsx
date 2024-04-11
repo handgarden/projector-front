@@ -21,7 +21,7 @@ export default function DefaultLayout() {
             height: "100%",
             minHeight: "95vh",
             maxWidth: "1100px",
-            padding: hasInnerLayout ? "0" : "1rem 50px",
+            padding: hasInnerLayout ? "0" : "1rem 1.5rem",
             margin: "0 auto",
             alignItems: "start",
           }}
@@ -32,3 +32,4 @@ export default function DefaultLayout() {
     </Layout>
   );
 }
+
