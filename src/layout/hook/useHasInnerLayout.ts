@@ -12,3 +12,4 @@ export default function useHasInnerLayout() {
 
   return path.find((p) => p.includes(pathPrefix[1]));
 }
+

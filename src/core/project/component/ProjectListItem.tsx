@@ -2,12 +2,15 @@ import { Card, Col, Typography } from "antd";
 import { GetProjectsQuery } from "../../../gql/graphql";
 import LinkButton from "../../../common/component/LinkButton";
 import { PROJECT_PATH } from "../../../router/ProjectRouter";
+import useParamPath from "../../../common/hook/useParamPath";
 
 type Props = {
   project: GetProjectsQuery["projects"][0];
 };
 
 export default function ProjectListItem({ project }: Props) {
+  const { replaceParamPath } = useParamPath();
+
   return (
     <Col span={24} md={12} style={{ marginBottom: "1rem" }}>
       <Card
@@ -15,7 +18,11 @@ export default function ProjectListItem({ project }: Props) {
         cover={project.thumbnail}
         style={{ overflow: "hidden" }}
         extra={
-          <LinkButton to={`${PROJECT_PATH.root}/${project.id}`}>
+          <LinkButton
+            to={replaceParamPath(PROJECT_PATH.details, {
+              projectId: project.id,
+            })}
+          >
             열기
           </LinkButton>
         }

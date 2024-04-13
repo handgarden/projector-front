@@ -1,26 +1,12 @@
-import { Col, Flex, Row } from "antd";
+import { Flex } from "antd";
 import Title from "antd/es/typography/Title";
 import LinkButton from "../../common/component/LinkButton";
 import { PROJECT_PATH } from "../../router/ProjectRouter";
 import ProjectList from "../project/component/ProjectList";
-import { graphql } from "../../gql";
-import { useQuery } from "@apollo/client";
-
-const GET_PROJECTS = graphql(
-  `
-    query getProjects {
-      projects {
-        id
-        title
-        description
-        thumbnail
-      }
-    }
-  `
-);
+import useProjectListQuery from "../project/hook/useProjectListQuery";
 
 export default function MainPage() {
-  const { data, loading } = useQuery(GET_PROJECTS);
+  const { projects } = useProjectListQuery();
   return (
     <>
       <Flex vertical justify="middle" align="middle" style={{ width: "100%" }}>
@@ -44,7 +30,7 @@ export default function MainPage() {
             Add
           </LinkButton>
         </Flex>
-        <ProjectList projects={data?.projects ?? []} />
+        <ProjectList projects={projects} />
       </Flex>
     </>
   );

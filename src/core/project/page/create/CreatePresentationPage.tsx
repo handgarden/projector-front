@@ -7,6 +7,8 @@ import { CreateProjectInput } from "../../../../gql/graphql";
 import { useNavigate } from "react-router-dom";
 import useGqlValidationErrorParser from "../../../../common/hook/useGqlValidationErrorParser";
 import { ResponseErrorMessage } from "../../../../common/message/ResponseError.message";
+import { PROJECT_PATH } from "../../../../router/ProjectRouter";
+import useParamPath from "../../../../common/hook/useParamPath";
 
 const createProject = graphql(`
   mutation createProject($input: CreateProjectInput!) {
@@ -16,13 +18,18 @@ const createProject = graphql(`
   }
 `);
 
-export default function CreatePresentation() {
+export default function CreatePresentationPage() {
   const navigate = useNavigate();
 
   const { parse } = useGqlValidationErrorParser();
+  const { replaceParamPath } = useParamPath();
   const [create] = useMutation(createProject, {
     onCompleted: (data) => {
-      navigate(`/project/${data.createProject.id}`);
+      navigate(
+        replaceParamPath(PROJECT_PATH.details, {
+          projectId: data.createProject.id,
+        })
+      );
     },
     onError: (error) => {
       const validationMessage = parse(error);

@@ -9,7 +9,8 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void;
-  type?: "primary" | "default";
+  type?: "link" | "dashed" | "primary" | "default" | "text";
+  size?: "small" | "middle" | "large";
 };
 export default function ColorButton({
   color,
@@ -20,6 +21,7 @@ export default function ColorButton({
   onClick,
   type = "default",
   loading,
+  size,
 }: Props) {
   const [hovered, setHovered] = useState(false);
 
@@ -37,8 +39,10 @@ export default function ColorButton({
       onMouseLeave={() => setHovered(false)}
       type={type}
       loading={loading}
+      size={size}
     >
       {children}
     </Button>
   );
 }
+

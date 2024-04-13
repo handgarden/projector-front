@@ -4,12 +4,13 @@ import ColorButton from "./ColorButton";
 type Props = {
   to: string;
   children: React.ReactNode;
-  type?: "primary" | "default";
+  type?: "link" | "dashed" | "primary" | "default" | "text";
   loading?: boolean;
   style?: React.CSSProperties;
   disabled?: boolean;
   color?: string;
   hoveredColor?: string;
+  size?: "small" | "middle" | "large";
 };
 
 export default function LinkButton({
@@ -21,6 +22,7 @@ export default function LinkButton({
   disabled,
   color,
   hoveredColor,
+  size,
 }: Props) {
   return (
     <Link
@@ -40,6 +42,7 @@ export default function LinkButton({
           ...style,
         }}
         disabled={disabled}
+        size={size}
       >
         {children}
       </ColorButton>

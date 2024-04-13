@@ -14,7 +14,7 @@ export default function SlideForm({ index }: Props) {
   const { slide, updateSlide, addNewSlide, deleteSlide } = useProjectStore(
     (state) => ({
       updateSlide: state.updateSlide,
-      slide: state.project.slides[index],
+      slide: state.project?.slides[index] as any,
       addNewSlide: state.addNewSlide,
       deleteSlide: state.deleteSlide,
     })
@@ -73,7 +73,7 @@ export default function SlideForm({ index }: Props) {
       </Row>
       {!!slide.images.length && (
         <Row wrap={true} style={{ minHeight: "8rem" }}>
-          {slide.images.map((f) => (
+          {slide.images.map((f: any) => (
             <ImageCol url={f.url} key={f.key} col={8} />
           ))}
         </Row>
@@ -97,7 +97,7 @@ export default function SlideForm({ index }: Props) {
                 images: files,
               });
             }}
-            defaultFileList={slide.images.map((image) => {
+            defaultFileList={slide.images.map((image: any) => {
               return {
                 uid: image.key,
                 status: "done",

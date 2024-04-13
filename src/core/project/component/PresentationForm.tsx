@@ -1,14 +1,26 @@
 import { Button, Form, Input } from "antd";
 import { DefaultValidationMessage } from "../../../common/message/DefaultValidation.message";
-import { CreateProjectInput } from "../../../gql/graphql";
+import { CreateProjectInput, GetProjectQuery } from "../../../gql/graphql";
+import { useEffect } from "react";
+import { useForm } from "antd/es/form/Form";
 
 type Props = {
+  initialValues?: GetProjectQuery["project"];
   onSubmit: (values: CreateProjectInput) => void;
 };
 
-export default function PresentationForm({ onSubmit }: Props) {
+export default function PresentationForm({ onSubmit, initialValues }: Props) {
+  const [form] = useForm();
+  useEffect(() => {
+    form.setFieldsValue({
+      title: initialValues?.title,
+      description: initialValues?.description,
+    });
+  }, [form, initialValues]);
+
   return (
     <Form<CreateProjectInput>
+      form={form}
       layout="vertical"
       onFinish={onSubmit}
       style={{ width: "100%", padding: "0 1.5rem" }}
@@ -38,7 +50,7 @@ export default function PresentationForm({ onSubmit }: Props) {
       </Form.Item>
       <Form.Item>
         <Button htmlType="submit" type="primary" style={{ width: "100%" }}>
-          Create
+          {initialValues ? "Update" : "Create"}
         </Button>
       </Form.Item>
     </Form>

@@ -7,14 +7,13 @@ import Sider from "antd/es/layout/Sider";
 import { useMemo, useState } from "react";
 import { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
 import { RightOutlined } from "@ant-design/icons";
-import { ProjectType } from "../../../types/project/Project";
 import CenterCol from "../../../common/component/CenterCol";
 
 export default function CreateSlide() {
   const { project, currentIndex, setCurrentIndex } = useProjectStore(
     (state) => ({
       addNewSlide: state.addNewSlide,
-      currentIndex: state.currentSlideIndex,
+      currentIndex: state.currentSlideSeq,
       project: state.project,
       setCurrentIndex: state.setCurrentIndex,
       deleteSlide: state.deleteSlide,
@@ -26,14 +25,14 @@ export default function CreateSlide() {
   const menus: ItemType<MenuItemType>[] = createSlideMenu(
     project,
     setCollapsed,
-    setCurrentIndex
+    setCurrentIndex as any
   );
 
-  const slideForms = useMemo(() => {
-    return Array(project.slides.length)
-      .fill(0)
-      .map((_, i) => <SlideForm index={i} key={i} />);
-  }, [project.slides.length]);
+  // const slideForms = useMemo(() => {
+  //   return Array(project.slides.length)
+  //     .fill(0)
+  //     .map((_, i) => <SlideForm index={i} key={i} />);
+  // }, [project.slides.length]);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -55,7 +54,7 @@ export default function CreateSlide() {
             <Col span={2}></Col>
             <CenterCol span={12}>
               <Title level={2} style={{ margin: 0 }}>
-                Project: {project.title}
+                {/* Project: {project.title} */}
               </Title>
             </CenterCol>
             <Col span={2}>
@@ -65,7 +64,7 @@ export default function CreateSlide() {
             </Col>
           </Row>
           <Row style={{ width: "100%" }}>
-            <Col span={24}>{slideForms[currentIndex - 1]}</Col>
+            {/* <Col span={24}>{slideForms[currentIndex - 1]}</Col> */}
           </Row>
         </Space>
       </Content>
@@ -74,7 +73,7 @@ export default function CreateSlide() {
 }
 
 const createSlideMenu = (
-  project: ProjectType,
+  project: any,
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>,
   setCurrentIndex: (index: number) => void
 ) => [
@@ -86,7 +85,7 @@ const createSlideMenu = (
       setCollapsed((prev) => !prev);
     },
   },
-  ...project.slides.map((slide) => {
+  ...project.slides.map((slide: any) => {
     const item: ItemType<MenuItemType> = {
       label: slide.title,
       key: slide.index,

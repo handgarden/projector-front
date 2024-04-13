@@ -5,7 +5,7 @@ import SquareBox from "../../../../common/component/SquareBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateProjectMain() {
+export default function CreateProjectWrapperPage() {
   const navigate = useNavigate();
   return (
     <FlexBox style={{ padding: "1rem" }} layout="vertical">
