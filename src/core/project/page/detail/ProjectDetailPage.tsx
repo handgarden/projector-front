@@ -48,21 +48,20 @@ export default function ProjectDetailPage() {
           EDIT
         </LinkButton>
       </Flex>
-      <Flex justify="center" align="center" vertical>
-        <Flex
-          vertical
-          style={{
-            padding: "1rem",
-            border: "1px solid royalblue",
-          }}
-        >
-          <Title level={5} style={{ margin: 0, marginBottom: ".5rem" }}>
-            Description
-          </Title>
-          <Paragraph style={{ whiteSpace: "pre-wrap" }}>
-            {project.description}
-          </Paragraph>
-        </Flex>
+      <Flex
+        vertical
+        style={{
+          border: "1px solid royalblue",
+          minHeight: "10rem",
+          padding: "1rem",
+        }}
+      >
+        <Title level={5} style={{ margin: 0, marginBottom: ".5rem" }}>
+          Description
+        </Title>
+        <Paragraph style={{ whiteSpace: "pre-wrap" }}>
+          {project.description}
+        </Paragraph>
       </Flex>
     </Flex>
   );
