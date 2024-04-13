@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useAuthStore } from "../../store/useAuthStore";
-import { AUTH_PATH } from "../../router/AuthRouter";
+import { useAuthStore } from "../../../store/useAuthStore";
+import { AUTH_PATH } from "../../../router/AuthRouter";
 
 type Props = {
   children: React.ReactNode;
