@@ -11,7 +11,9 @@ export default function DefaultLayout() {
   const hasInnerLayout = useHasInnerLayout();
   return (
     <Layout>
-      <Header style={{ height: "5vh", backgroundColor: "#475c99" }}>
+      <Header
+        style={{ height: "7.5vh", backgroundColor: "#475c99", padding: "25px" }}
+      >
         <Navbar isLogin={isLogin} />
       </Header>
       <Content>
@@ -19,7 +21,7 @@ export default function DefaultLayout() {
           style={{
             width: "100vw",
             height: "100%",
-            minHeight: "95vh",
+            minHeight: "92.5vh",
             maxWidth: "1100px",
             padding: hasInnerLayout ? "0" : "1rem 1.5rem",
             margin: "0 auto",
