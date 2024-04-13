@@ -18,6 +18,13 @@ const GET_PROJECT = graphql(`
         seq
         title
         description
+        images {
+          seq
+          file {
+            key
+            url
+          }
+        }
       }
     }
   }

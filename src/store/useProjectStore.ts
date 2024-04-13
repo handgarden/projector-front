@@ -12,7 +12,7 @@ type ProjectStoreType = {
   project: ProjectType | null;
   setProject: (project: ProjectType) => void;
   updateProject: (project: UpdateProjectType) => void;
-  addNewSlide: () => void;
+  addNewSlide: (slide: SlideType) => void;
   setCurrentIndex: (index: number) => void;
   updateSlide: (slide: SlideType) => void;
   deleteSlide: () => void;
@@ -26,9 +26,22 @@ export const useProjectStore = create<
     currentSlideSeq: 1,
     project: null,
     setProject: (project: ProjectType) => {
+      const sortedSlides = [...project.slides]
+        .sort((a, b) => a.seq - b.seq)
+        .map((slide) => {
+          const sortedImages = [...slide.images].sort((a, b) => a.seq - b.seq);
+          return {
+            ...slide,
+            images: sortedImages,
+          };
+        });
+
       set((prev) => ({
         ...prev,
-        project,
+        project: {
+          ...project,
+          slides: sortedSlides,
+        },
       }));
     },
     updateProject: (project: UpdateProjectType) => {
@@ -52,19 +65,11 @@ export const useProjectStore = create<
         })
       );
     },
-    addNewSlide: () => {
+    addNewSlide: (slide: SlideType) => {
       set(
         produce((state: ProjectStoreType) => {
           if (!state.project) return;
-          state.project.slides = [
-            ...state.project.slides,
-            {
-              id: "-1",
-              seq: state.project.slides.length + 1,
-              title: "",
-              description: "",
-            },
-          ];
+          state.project.slides = [...state.project.slides, slide];
           state.currentSlideSeq = state.project.slides.length + 1;
         })
       );

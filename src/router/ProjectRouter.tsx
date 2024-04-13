@@ -5,6 +5,7 @@ import { AuthGuard } from "../core/auth/component/AuthGuard";
 import { Route } from "react-router-dom";
 import ProjectEditPage from "../core/project/page/edit/ProjectEditPage";
 import ProjectPage from "../core/project/page/ProjectPage";
+import CreateSlidePage from "../core/project/page/create/CreateSlidePage";
 
 const PATH_PREFIX = "/projects";
 
@@ -14,6 +15,8 @@ export const PROJECT_PATH = {
   createPresentation: `${PATH_PREFIX}/create/presentation`,
   details: `${PATH_PREFIX}/:projectId`,
   edit: `${PATH_PREFIX}/:projectId/edit`,
+  createSlide: `${PATH_PREFIX}/:projectId/create-slide`,
+  slide: `${PATH_PREFIX}/:projectId/slide/:slideSeq`,
 } as const;
 
 export const ProjectRouter = () => {
@@ -55,6 +58,14 @@ export const ProjectRouter = () => {
       element={
         <AuthGuard>
           <ProjectEditPage />
+        </AuthGuard>
+      }
+    />,
+    <Route
+      path={PROJECT_PATH.createSlide}
+      element={
+        <AuthGuard>
+          <CreateSlidePage />
         </AuthGuard>
       }
     />,

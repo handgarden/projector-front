@@ -50,3 +50,4 @@ export default function TextEditor({ onChange, value }: Props) {
     />
   );
 }
+

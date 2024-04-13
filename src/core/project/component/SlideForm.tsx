@@ -1,76 +1,69 @@
-import { Button, Col, Input, Row, Space, Typography } from "antd";
-import UploadImage from "../../../common/component/UploadImage";
-import ImageCol from "../../../common/component/ImageCol";
-import { useProjectStore } from "../../../store/useProjectStore";
-import { UploadFileType } from "../../../types/file/UploadFileType";
-import Title from "antd/es/typography/Title";
+import { Button, Flex, Input, Row } from "antd";
 import TextEditor from "../../../common/component/TextEditor";
+import Title from "antd/es/typography/Title";
+import ImageCol from "../../../common/component/ImageCol";
+import { useState } from "react";
+import UploadImage from "../../../common/component/UploadImage";
+import LinkButton from "../../../common/component/LinkButton";
+import useParamPath from "../../../common/hook/useParamPath";
+import { PROJECT_PATH } from "../../../router/ProjectRouter";
+import { UploadFileType } from "../../../types/file/UploadFileType";
+import { SlideFormType } from "../../../types/core/project/SlideForm.type";
+import Paragraph from "antd/es/typography/Paragraph";
+import { DefaultValidationMessage } from "../../../common/message/DefaultValidation.message";
 
 type Props = {
-  index: number;
+  projectId: string;
+  onSubmit: (data: SlideFormType) => void;
 };
 
-export default function SlideForm({ index }: Props) {
-  const { slide, updateSlide, addNewSlide, deleteSlide } = useProjectStore(
-    (state) => ({
-      updateSlide: state.updateSlide,
-      slide: state.project?.slides[index] as any,
-      addNewSlide: state.addNewSlide,
-      deleteSlide: state.deleteSlide,
-    })
-  );
+export default function SlideForm({ projectId, onSubmit }: Props) {
+  const [slide, setSlide] = useState<SlideFormType>({
+    title: "",
+    description: "",
+    images: [],
+  });
+
+  const { replaceParamPath } = useParamPath();
+
+  const [validationMessage, setValidationMessage] = useState({
+    title: "",
+    description: "",
+    images: "",
+  });
+
+  const submit = () => {
+    const isTitleValid = slide.title.length > 0 && slide.title.length <= 254;
+    if (!isTitleValid) {
+      setValidationMessage((prev) => ({
+        ...prev,
+        // eslint-disable-next-line no-template-curly-in-string
+        title: DefaultValidationMessage.LENGTH.replace("${min}", "1").replace(
+          // eslint-disable-next-line no-template-curly-in-string
+          "${max}",
+          "254"
+        ),
+      }));
+    }
+
+    const isDescriptionValid = slide.description.length > 0;
+    if (!isDescriptionValid) {
+      setValidationMessage((prev) => ({
+        ...prev,
+        description: DefaultValidationMessage.REQUIRED,
+      }));
+    }
+
+    if (!isTitleValid || !isDescriptionValid) {
+      return;
+    }
+
+    onSubmit(slide);
+  };
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }} size="large">
-      <Row justify="center" align="middle">
-        <Col span={24}>
-          <Title level={3} style={{ textAlign: "center", margin: 0 }}>
-            Slide #{index + 1}
-          </Title>
-        </Col>
-      </Row>
-      <Row
-        gutter={12}
-        justify="end"
-        wrap
-        style={{ width: "100%", padding: ".5rem 0" }}
-      >
-        <Col>
-          <Button
-            onClick={() => {
-              addNewSlide();
-            }}
-          >
-            add
-          </Button>
-        </Col>
-        <Col style={{ padding: 0 }}>
-          <Button
-            onClick={() => {
-              deleteSlide();
-            }}
-          >
-            delete
-          </Button>
-        </Col>
-      </Row>
-      <Row style={{ width: "100%" }}>
-        <Col span={24}>
-          <Typography.Text>Title</Typography.Text>
-        </Col>
-        <Col span={24}>
-          <Input
-            value={slide.title}
-            onChange={(e) => {
-              const val = e.target.value;
-              updateSlide({
-                ...slide,
-                title: val,
-              });
-            }}
-          />
-        </Col>
-      </Row>
+    <Flex vertical>
+      <Title level={5}>Images</Title>
       {!!slide.images.length && (
         <Row wrap={true} style={{ minHeight: "8rem" }}>
           {slide.images.map((f: any) => (
@@ -78,53 +71,98 @@ export default function SlideForm({ index }: Props) {
           ))}
         </Row>
       )}
-      <Row>
-        <Col span={24}>
-          <Typography.Text>Slides</Typography.Text>
-        </Col>
-        <Col span={24}>
-          <UploadImage
-            action="/api/files/upload"
-            onChange={(d) => {
-              const files = d.fileList
-                .filter((f) => !!f.response?.data && f.status === "done")
-                .reduce(
-                  (rec, f) => [...rec, ...f.response!.data],
-                  [] as UploadFileType[]
-                );
-              updateSlide({
-                ...slide,
-                images: files,
-              });
-            }}
-            defaultFileList={slide.images.map((image: any) => {
-              return {
-                uid: image.key,
-                status: "done",
-                name: image.originalName,
-                response: image,
-              };
-            })}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <Typography.Text>Description</Typography.Text>
-        </Col>
-        <Col span={24}>
-          <TextEditor
-            value={slide.description}
-            onChange={(v) => {
-              updateSlide({
-                ...slide,
-                description: v,
-              });
-            }}
-          />
-        </Col>
-      </Row>
-    </Space>
+      <UploadImage
+        action="/api/files/upload"
+        onChange={(d) => {
+          const files = d.fileList
+            .filter((f) => !!f.response?.data && f.status === "done")
+            .reduce(
+              (rec, f) => [...rec, ...f.response!.data],
+              [] as UploadFileType[]
+            );
+          setSlide((prev) => ({
+            ...prev,
+            images: files,
+          }));
+          if (files.length) {
+            setValidationMessage((prev) => ({
+              ...prev,
+              images: "",
+            }));
+          }
+        }}
+        defaultFileList={slide.images.map((image: any) => {
+          return {
+            uid: image.key,
+            status: "done",
+            name: image.originalName,
+            response: image,
+          };
+        })}
+      />
+      {validationMessage.images && (
+        <Paragraph style={{ color: "red" }}>
+          {validationMessage.images}
+        </Paragraph>
+      )}
+      <Title level={5}>Title</Title>
+      <Input
+        value={slide.title}
+        onChange={(e) => {
+          const value = e.target.value;
+          setSlide((prev) => ({
+            ...prev,
+            title: value,
+          }));
+          if (value.length) {
+            setValidationMessage((prev) => ({
+              ...prev,
+              title: "",
+            }));
+          }
+        }}
+      />
+      {validationMessage.title && (
+        <Paragraph style={{ color: "red" }}>
+          {validationMessage.title}
+        </Paragraph>
+      )}
+      <Title level={5}>Description</Title>
+      <TextEditor
+        value={slide.description}
+        onChange={(v) => {
+          setSlide((prev) => ({
+            ...prev,
+            description: v,
+          }));
+          if (v.length) {
+            setValidationMessage((prev) => ({
+              ...prev,
+              description: "",
+            }));
+          }
+        }}
+      />
+      {validationMessage.description && (
+        <Paragraph style={{ color: "red" }}>
+          {validationMessage.description}
+        </Paragraph>
+      )}
+      <Button type="primary" style={{ margin: "1rem 0" }} onClick={submit}>
+        Submit
+      </Button>
+      <LinkButton
+        to={replaceParamPath(PROJECT_PATH.details, {
+          projectId,
+        })}
+        type="primary"
+        style={{
+          width: "100%",
+        }}
+      >
+        Cancel
+      </LinkButton>
+    </Flex>
   );
 }
 

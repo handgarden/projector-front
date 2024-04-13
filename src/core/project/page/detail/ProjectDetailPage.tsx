@@ -6,6 +6,7 @@ import useParamPath from "../../../../common/hook/useParamPath";
 import { PROJECT_PATH } from "../../../../router/ProjectRouter";
 import useProjectDetailData from "../../hook/useProjectQuery";
 import Paragraph from "antd/es/typography/Paragraph";
+import SlideList from "../../component/SlideList";
 
 export default function ProjectDetailPage() {
   const projectId = useParams().projectId;
@@ -25,7 +26,7 @@ export default function ProjectDetailPage() {
   return (
     <Flex vertical style={{ width: "100%", padding: "1rem" }}>
       <Flex>
-        <LinkButton to={PROJECT_PATH.root} type="dashed">
+        <LinkButton to={PROJECT_PATH.root} type="primary">
           {"<"} Go Back to List
         </LinkButton>
       </Flex>
@@ -52,6 +53,7 @@ export default function ProjectDetailPage() {
         vertical
         style={{
           border: "1px solid royalblue",
+          borderRadius: ".5rem",
           minHeight: "10rem",
           padding: "1rem",
         }}
@@ -62,6 +64,23 @@ export default function ProjectDetailPage() {
         <Paragraph style={{ whiteSpace: "pre-wrap" }}>
           {project.description}
         </Paragraph>
+      </Flex>
+      <Flex vertical style={{ margin: "1rem 0" }}>
+        <Flex align="center" justify="space-between">
+          <Title level={5} style={{ textAlign: "center", margin: 0 }}>
+            Slides
+          </Title>
+          <LinkButton
+            size="small"
+            type="primary"
+            to={replaceParamPath(PROJECT_PATH.createSlide, {
+              projectId: project.id,
+            })}
+          >
+            ADD
+          </LinkButton>
+        </Flex>
+        <SlideList slides={project.slides} />
       </Flex>
     </Flex>
   );
