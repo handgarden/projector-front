@@ -1,4 +1,4 @@
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import FlexBox from "../../../../common/component/FlexBox";
 import Title from "antd/es/typography/Title";
 import SquareBox from "../../../../common/component/SquareBox";
@@ -21,6 +21,13 @@ export default function CreateProjectWrapperPage() {
           <Title level={5}>Presentation</Title>
         </SelectTypeBox>
       </Flex>
+      <Button
+        onClick={() => navigate(-1)}
+        type="primary"
+        style={{ minWidth: "10rem", maxWidth: "20rem", width: "17.5rem" }}
+      >
+        Cancel
+      </Button>
     </FlexBox>
   );
 }
@@ -39,7 +46,8 @@ function SelectTypeBox({
         minWidth: "10rem",
         maxWidth: "20rem",
         width: "17.5rem",
-        backgroundColor: isHovered ? "#d1dff1" : "#e4ecf6",
+        backgroundColor: isHovered ? "#c1dcff33" : "transparent",
+        border: "1px solid royalblue",
         borderRadius: "0.5rem",
         margin: "1rem",
         cursor: "pointer",
