@@ -1,4 +1,4 @@
-import { Col, Image, Row, Tag, Typography } from "antd";
+import { Button, Col, Image, Row, Tag, Typography } from "antd";
 import { GetProjectQuery } from "../../../gql/graphql";
 import useParamPath from "../../../common/hook/useParamPath";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,25 +34,19 @@ export default function SlideListItem({ slide }: Props) {
     <>
       <Row
         style={{
-          height: "6rem",
           margin: ".5rem 0",
           border: "1px solid royalblue",
           borderRadius: ".5rem",
           overflow: "hidden",
+          height: "6rem",
         }}
       >
-        <Col span="9">{thumbnail}</Col>
+        <Col span="9" style={{ height: "100%" }}>
+          {thumbnail}
+        </Col>
         <Col
-          span="15"
-          style={{ padding: ".5rem" }}
-          onClick={() =>
-            navigate(
-              replaceParamPath(PROJECT_PATH.slide, {
-                projectId: projectId,
-                slideSeq: slide.seq.toString(),
-              })
-            )
-          }
+          span="12"
+          style={{ height: "100%", padding: ".5rem", boxSizing: "border-box" }}
         >
           <Tag color="blue">seq: #{slide.seq}</Tag>
           <Typography.Paragraph
@@ -64,6 +58,27 @@ export default function SlideListItem({ slide }: Props) {
             </Typography.Text>{" "}
             {slide.title}
           </Typography.Paragraph>
+        </Col>
+        <Col span="3" style={{ height: "100%" }}>
+          <Button
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "transparent",
+              borderLeft: "1px solid royalblue",
+              borderRadius: "0",
+            }}
+            onClick={() =>
+              navigate(
+                replaceParamPath(PROJECT_PATH.slide, {
+                  projectId: projectId,
+                  slideSeq: slide.seq.toString(),
+                })
+              )
+            }
+          >
+            {">"}
+          </Button>
         </Col>
       </Row>
     </>

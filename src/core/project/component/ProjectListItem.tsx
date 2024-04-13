@@ -1,4 +1,4 @@
-import { Card, Col, Typography } from "antd";
+import { Card, Col, Image, Typography } from "antd";
 import { GetProjectsQuery } from "../../../gql/graphql";
 import LinkButton from "../../../common/component/LinkButton";
 import { PROJECT_PATH } from "../../../router/ProjectRouter";
@@ -15,17 +15,31 @@ export default function ProjectListItem({ project }: Props) {
     <Col span={24} md={12} style={{ marginBottom: "1rem" }}>
       <Card
         title={project.title}
-        cover={project.thumbnail}
-        style={{ overflow: "hidden" }}
+        cover={
+          project.thumbnail && (
+            <Image
+              alt="thumbnail"
+              src={project.thumbnail}
+              style={{ height: "12rem", borderRadius: ".5rem" }}
+            />
+          )
+        }
         extra={
           <LinkButton
             to={replaceParamPath(PROJECT_PATH.details, {
               projectId: project.id,
             })}
+            type="primary"
+            size="small"
           >
-            열기
+            OPEN
           </LinkButton>
         }
+        style={{
+          height: "100%",
+          overflow: "hidden",
+          boxShadow: "0 0 1rem rgba(0, 0, 0, 0.1)",
+        }}
       >
         <Typography.Paragraph
           style={{ margin: 0, wordWrap: "break-word" }}
