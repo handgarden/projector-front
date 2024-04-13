@@ -23,13 +23,9 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <Flex vertical style={{ width: "100%" }}>
+    <Flex vertical style={{ width: "100%", padding: "1rem" }}>
       <Flex>
-        <LinkButton
-          to={PROJECT_PATH.root}
-          type="dashed"
-          style={{ marginTop: ".5rem" }}
-        >
+        <LinkButton to={PROJECT_PATH.root} type="dashed">
           {"<"} Go Back to List
         </LinkButton>
       </Flex>
@@ -40,7 +36,7 @@ export default function ProjectDetailPage() {
         vertical
         justify="center"
         align="end"
-        style={{ padding: "0 1rem", width: "100%", margin: ".5rem" }}
+        style={{ width: "100%", margin: ".5rem 0" }}
       >
         <LinkButton
           size="small"
@@ -56,7 +52,6 @@ export default function ProjectDetailPage() {
         <Flex
           vertical
           style={{
-            width: "95%",
             padding: "1rem",
             border: "1px solid royalblue",
           }}

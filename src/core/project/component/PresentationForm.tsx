@@ -23,7 +23,7 @@ export default function PresentationForm({ onSubmit, initialValues }: Props) {
       form={form}
       layout="vertical"
       onFinish={onSubmit}
-      style={{ width: "100%", padding: "0 1.5rem" }}
+      style={{ width: "100%" }}
     >
       <Form.Item
         label="Title"

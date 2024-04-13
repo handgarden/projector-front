@@ -9,6 +9,8 @@ import useGqlValidationErrorParser from "../../../../common/hook/useGqlValidatio
 import { ResponseErrorMessage } from "../../../../common/message/ResponseError.message";
 import { PROJECT_PATH } from "../../../../router/ProjectRouter";
 import useParamPath from "../../../../common/hook/useParamPath";
+import { Flex } from "antd";
+import LinkButton from "../../../../common/component/LinkButton";
 
 const createProject = graphql(`
   mutation createProject($input: CreateProjectInput!) {
@@ -43,15 +45,24 @@ export default function CreatePresentationPage() {
   });
 
   return (
-    <FlexBox layout="vertical">
-      <Title level={2} style={{ width: "100%", padding: "0 1.5rem" }}>
-        Presentation 생성
-      </Title>
+    <FlexBox layout="vertical" style={{ padding: "1rem" }}>
+      <Flex>
+        <Title level={2}>Presentation 생성</Title>
+      </Flex>
       <PresentationForm
         onSubmit={(data: CreateProjectInput) => {
           create({ variables: { input: data } });
         }}
       />
+      <div style={{ width: "100%" }}>
+        <LinkButton
+          to={PROJECT_PATH.create}
+          type="primary"
+          style={{ width: "100%" }}
+        >
+          Cancel
+        </LinkButton>
+      </div>
     </FlexBox>
   );
 }

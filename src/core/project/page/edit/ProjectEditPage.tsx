@@ -39,7 +39,7 @@ export default function ProjectEditPage() {
             projectId,
           })}
           type="primary"
-          style={{ width: "100%", margin: "0 1.5rem" }}
+          style={{ width: "100%" }}
         >
           Cancel
         </LinkButton>
