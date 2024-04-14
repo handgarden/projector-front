@@ -4,7 +4,7 @@ import { useProjectStore } from "../../../store/useProjectStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const GET_PROJECT = graphql(`
+export const GET_PROJECT = graphql(`
   query getProject($projectId: ID!) {
     project(id: $projectId) {
       id

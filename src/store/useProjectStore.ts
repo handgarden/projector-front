@@ -8,15 +8,13 @@ type SlideType = GetProjectQuery["project"]["slides"][number];
 type UpdateProjectType = UpdateProjectMutation["updateProject"];
 
 type ProjectStoreType = {
-  currentSlideSeq: number;
   project: ProjectType | null;
   setProject: (project: ProjectType) => void;
   updateProject: (project: UpdateProjectType) => void;
   addNewSlide: (slide: SlideType) => void;
   setSlide: (slide: SlideType) => void;
-  setCurrentIndex: (index: number) => void;
   updateSlide: (slide: SlideType) => void;
-  deleteSlide: () => void;
+  deleteSlide: (slide: SlideType) => void;
 };
 
 export const useProjectStore = create<
@@ -24,7 +22,6 @@ export const useProjectStore = create<
   [["zustand/devtools", never]]
 >(
   devtools((set) => ({
-    currentSlideSeq: 1,
     project: null,
     setProject: (project: ProjectType) => {
       const sortedSlides = [...project.slides]
@@ -73,24 +70,11 @@ export const useProjectStore = create<
         })
       );
     },
-    setCurrentIndex: (index: number) => {
-      set(
-        produce((state: ProjectStoreType) => {
-          if (!state.project) return;
-
-          const lowerBoundIndex = Math.max(1, index);
-          const maxIndex = state.project.slides.length;
-          const upperBoundIndex = Math.min(maxIndex, lowerBoundIndex);
-          state.currentSlideSeq = upperBoundIndex;
-        })
-      );
-    },
     addNewSlide: (slide: SlideType) => {
       set(
         produce((state: ProjectStoreType) => {
           if (!state.project) return;
           state.project.slides = [...state.project.slides, slide];
-          state.currentSlideSeq = state.project.slides.length + 1;
         })
       );
     },
@@ -107,7 +91,7 @@ export const useProjectStore = create<
         })
       );
     },
-    deleteSlide: () => {
+    deleteSlide: (slide: SlideType) => {
       set(
         produce((state: ProjectStoreType) => {
           if (!state.project) return;
@@ -115,12 +99,11 @@ export const useProjectStore = create<
             return;
           }
           state.project.slides = state.project.slides
-            .filter((s) => s.seq !== state.currentSlideSeq)
+            .filter((s) => s.seq !== slide.seq)
             .map((s, i) => {
               s.seq = i + 1;
               return s;
             });
-          state.currentSlideSeq = state.currentSlideSeq - 1;
         })
       );
     },

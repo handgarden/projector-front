@@ -1,11 +1,11 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useSlideQuery from "../../hook/useSlideQuery";
-import SlideImageCarousel from "../../component/SlideImageCarousel";
 import { Button, Flex } from "antd";
-import Paragraph from "antd/es/typography/Paragraph";
-import Title from "antd/es/typography/Title";
 import useParamPath from "../../../../common/hook/useParamPath";
 import { PROJECT_PATH } from "../../../../router/ProjectRouter";
+import SlideDetail from "../../component/SlideDetail";
+import useSlideDelete from "../../hook/useSlideDelete";
+import { useProjectStore } from "../../../../store/useProjectStore";
 
 export default function SlideDetailPage() {
   const params = useParams();
@@ -19,6 +19,30 @@ export default function SlideDetailPage() {
 
   const navigate = useNavigate();
   const { replaceParamPath } = useParamPath();
+
+  const { mutate } = useSlideDelete();
+
+  const deleteSlide = useProjectStore((state) => state.deleteSlide);
+
+  const onDelete = () => {
+    if (!slide || !project) return;
+
+    if (!window.confirm("Are you sure you want to delete this slide?")) {
+      return;
+    }
+
+    mutate({
+      variables: {
+        slideId: slide.id,
+      },
+      onCompleted: () => {
+        deleteSlide(slide);
+        navigate(
+          replaceParamPath(PROJECT_PATH.details, { projectId: project.id })
+        );
+      },
+    });
+  };
 
   if (!projectId || isNaN(Number(projectId))) {
     return <Navigate to="404" />;
@@ -41,40 +65,26 @@ export default function SlideDetailPage() {
         >
           Back to list
         </Button>
-        <Button
-          type="primary"
-          onClick={() =>
-            navigate(
-              replaceParamPath(PROJECT_PATH.updateSlide, {
-                projectId,
-                seq: slide.seq.toString(),
-              })
-            )
-          }
-        >
-          EDIT
-        </Button>
+        <Flex align="center" justify="center" gap={10}>
+          <Button
+            type="primary"
+            onClick={() =>
+              navigate(
+                replaceParamPath(PROJECT_PATH.updateSlide, {
+                  projectId,
+                  seq: slide.seq.toString(),
+                })
+              )
+            }
+          >
+            EDIT
+          </Button>
+          <Button type="primary" danger onClick={onDelete}>
+            DELETE
+          </Button>
+        </Flex>
       </Flex>
-      <SlideImageCarousel
-        imageUrls={slide.images.map((image) => image.file.url)}
-      />
-      <Flex justify="center" align="center">
-        <Title level={3}>Title: {slide.title}</Title>
-      </Flex>
-      <Flex
-        vertical
-        style={{
-          padding: "1rem",
-          border: "1px solid royalblue",
-          minHeight: "10rem",
-        }}
-      >
-        <Paragraph style={{ margin: 0 }}>Description:</Paragraph>
-        <div
-          dangerouslySetInnerHTML={{ __html: slide.description }}
-          style={{ wordWrap: "break-word" }}
-        ></div>
-      </Flex>
+      <SlideDetail slide={slide} />
     </div>
   );
 }

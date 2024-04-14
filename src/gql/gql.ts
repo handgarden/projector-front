@@ -17,6 +17,7 @@ const documents = {
     "\n  query getProject($projectId: ID!) {\n    project(id: $projectId) {\n      id\n      creator {\n        id\n      }\n      title\n      description\n      slides {\n        id\n        seq\n        title\n        description\n        images {\n          seq\n          file {\n            key\n            url\n          }\n        }\n      }\n    }\n  }\n": types.GetProjectDocument,
     "\n  mutation updateProject($projectId: ID!, $input: CreateProjectInput!) {\n    updateProject(id: $projectId, project: $input) {\n      id\n      title\n      description\n    }\n  }\n": types.UpdateProjectDocument,
     "\n  mutation createSlide($input: CreateSlideInput!) {\n    createSlide(slide: $input) {\n      id\n    }\n  }\n": types.CreateSlideDocument,
+    "\n  mutation deleteSlide($slideId: ID!) {\n    deleteSlide(slideId: $slideId)\n  }\n": types.DeleteSlideDocument,
     "\n  mutation updateSlide($input: UpdateSlideInput!) {\n    updateSlide(slide: $input) {\n      id\n      title\n      description\n    }\n  }\n": types.UpdateSlideDocument,
     "\n  mutation createProject($input: CreateProjectInput!) {\n    createProject(project: $input) {\n      id\n    }\n  }\n": types.CreateProjectDocument,
 };
@@ -51,6 +52,10 @@ export function graphql(source: "\n  mutation updateProject($projectId: ID!, $in
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation createSlide($input: CreateSlideInput!) {\n    createSlide(slide: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation createSlide($input: CreateSlideInput!) {\n    createSlide(slide: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation deleteSlide($slideId: ID!) {\n    deleteSlide(slideId: $slideId)\n  }\n"): (typeof documents)["\n  mutation deleteSlide($slideId: ID!) {\n    deleteSlide(slideId: $slideId)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
