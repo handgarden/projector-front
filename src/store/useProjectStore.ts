@@ -10,6 +10,7 @@ type UpdateProjectType = UpdateProjectMutation["updateProject"];
 type ProjectStoreType = {
   project: ProjectType | null;
   setProject: (project: ProjectType) => void;
+  deleteProject: () => void;
   updateProject: (project: UpdateProjectType) => void;
   addNewSlide: (slide: SlideType) => void;
   setSlide: (slide: SlideType) => void;
@@ -48,6 +49,13 @@ export const useProjectStore = create<
           if (!state.project) return;
           state.project.title = project.title;
           state.project.description = project.description;
+        })
+      );
+    },
+    deleteProject: () => {
+      set(
+        produce((state: ProjectStoreType) => {
+          state.project = null;
         })
       );
     },
