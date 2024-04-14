@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useProjectDetailData from "../../hook/useProjectQuery";
+import useProjectQuery from "../../hook/useProjectQuery";
 import { Flex } from "antd";
 import PresentationForm from "../../component/PresentationForm";
 import Title from "antd/es/typography/Title";
@@ -10,7 +10,7 @@ import useProjectUpdate from "../../hook/useProjectUpdate";
 
 export default function ProjectEditPage() {
   const projectId = useParams().projectId;
-  const { project } = useProjectDetailData({ projectId });
+  const { project } = useProjectQuery({ projectId });
 
   const { replaceParamPath } = useParamPath();
 

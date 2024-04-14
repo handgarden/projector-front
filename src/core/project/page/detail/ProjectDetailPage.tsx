@@ -4,7 +4,7 @@ import { Flex, Progress } from "antd";
 import LinkButton from "../../../../common/component/LinkButton";
 import useParamPath from "../../../../common/hook/useParamPath";
 import { PROJECT_PATH } from "../../../../router/ProjectRouter";
-import useProjectDetailData from "../../hook/useProjectQuery";
+import useProjectQuery from "../../hook/useProjectQuery";
 import Paragraph from "antd/es/typography/Paragraph";
 import SlideList from "../../component/SlideList";
 
@@ -13,7 +13,7 @@ export default function ProjectDetailPage() {
 
   const { replaceParamPath } = useParamPath();
 
-  const { loading, project } = useProjectDetailData({ projectId });
+  const { loading, project } = useProjectQuery({ projectId });
 
   if (loading) {
     return <Progress />;

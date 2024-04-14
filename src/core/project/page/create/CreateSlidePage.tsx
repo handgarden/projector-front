@@ -1,7 +1,7 @@
 import { Flex, Progress } from "antd";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import SlideForm from "../../component/SlideForm";
-import useProjectDetailData from "../../hook/useProjectQuery";
+import useProjectQuery from "../../hook/useProjectQuery";
 import Title from "antd/es/typography/Title";
 import useSlideCreate from "../../hook/useSlideCreate";
 import { SlideFormType } from "../../../../types/core/project/SlideForm.type";
@@ -13,7 +13,7 @@ import useParamPath from "../../../../common/hook/useParamPath";
 export default function CreateSlidePage() {
   const projectId = useParams().projectId;
 
-  const { project, loading } = useProjectDetailData({ projectId });
+  const { project, loading } = useProjectQuery({ projectId });
 
   const { mutate } = useSlideCreate();
 

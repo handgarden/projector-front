@@ -13,6 +13,7 @@ type ProjectStoreType = {
   setProject: (project: ProjectType) => void;
   updateProject: (project: UpdateProjectType) => void;
   addNewSlide: (slide: SlideType) => void;
+  setSlide: (slide: SlideType) => void;
   setCurrentIndex: (index: number) => void;
   updateSlide: (slide: SlideType) => void;
   deleteSlide: () => void;
@@ -50,6 +51,25 @@ export const useProjectStore = create<
           if (!state.project) return;
           state.project.title = project.title;
           state.project.description = project.description;
+        })
+      );
+    },
+    setSlide: (slide: SlideType) => {
+      set(
+        produce((state: ProjectStoreType) => {
+          if (!state.project) return;
+          const sortedImages = [...slide.images].sort((a, b) => a.seq - b.seq);
+          const updatedSlide = state.project.slides.map((s) => {
+            if (s.seq !== slide.seq) {
+              return s;
+            }
+            return {
+              ...slide,
+              images: sortedImages,
+            };
+          });
+          const sortedSlides = [...updatedSlide].sort((a, b) => a.seq - b.seq);
+          state.project.slides = sortedSlides;
         })
       );
     },

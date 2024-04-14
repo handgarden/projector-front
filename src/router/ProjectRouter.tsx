@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 import ProjectEditPage from "../core/project/page/edit/ProjectEditPage";
 import ProjectPage from "../core/project/page/ProjectPage";
 import CreateSlidePage from "../core/project/page/create/CreateSlidePage";
+import SlideDetailPage from "../core/project/page/detail/SlideDetailPage";
 
 const PATH_PREFIX = "/projects";
 
@@ -66,6 +67,14 @@ export const ProjectRouter = () => {
       element={
         <AuthGuard>
           <CreateSlidePage />
+        </AuthGuard>
+      }
+    />,
+    <Route
+      path={PROJECT_PATH.slide}
+      element={
+        <AuthGuard>
+          <SlideDetailPage />
         </AuthGuard>
       }
     />,
