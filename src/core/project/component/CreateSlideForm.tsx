@@ -10,7 +10,7 @@ import { PROJECT_PATH } from "../../../router/ProjectRouter";
 import { UploadFileType } from "../../../types/file/UploadFileType";
 import { SlideFormType } from "../../../types/core/project/SlideForm.type";
 import Paragraph from "antd/es/typography/Paragraph";
-import { DefaultValidationMessage } from "../../../common/message/DefaultValidation.message";
+import useSlideValidation from "../hook/useSlideValidation";
 
 type Props = {
   projectId: string;
@@ -26,35 +26,11 @@ export default function SlideForm({ projectId, onSubmit }: Props) {
 
   const { replaceParamPath } = useParamPath();
 
-  const [validationMessage, setValidationMessage] = useState({
-    title: "",
-    description: "",
-    images: "",
-  });
+  const { validate, validationMessage, clearMessage } = useSlideValidation();
 
   const submit = () => {
-    const isTitleValid = slide.title.length > 0 && slide.title.length <= 254;
-    if (!isTitleValid) {
-      setValidationMessage((prev) => ({
-        ...prev,
-        // eslint-disable-next-line no-template-curly-in-string
-        title: DefaultValidationMessage.LENGTH.replace("${min}", "1").replace(
-          // eslint-disable-next-line no-template-curly-in-string
-          "${max}",
-          "254"
-        ),
-      }));
-    }
-
-    const isDescriptionValid = slide.description.length > 0;
-    if (!isDescriptionValid) {
-      setValidationMessage((prev) => ({
-        ...prev,
-        description: DefaultValidationMessage.REQUIRED,
-      }));
-    }
-
-    if (!isTitleValid || !isDescriptionValid) {
+    const isValid = validate(slide);
+    if (!isValid) {
       return;
     }
 
@@ -85,10 +61,7 @@ export default function SlideForm({ projectId, onSubmit }: Props) {
             images: files,
           }));
           if (files.length) {
-            setValidationMessage((prev) => ({
-              ...prev,
-              images: "",
-            }));
+            clearMessage("images");
           }
         }}
         defaultFileList={slide.images.map((image: any) => {
@@ -115,10 +88,7 @@ export default function SlideForm({ projectId, onSubmit }: Props) {
             title: value,
           }));
           if (value.length) {
-            setValidationMessage((prev) => ({
-              ...prev,
-              title: "",
-            }));
+            clearMessage("title");
           }
         }}
       />
@@ -136,10 +106,7 @@ export default function SlideForm({ projectId, onSubmit }: Props) {
             description: v,
           }));
           if (v.length) {
-            setValidationMessage((prev) => ({
-              ...prev,
-              description: "",
-            }));
+            clearMessage("description");
           }
         }}
       />

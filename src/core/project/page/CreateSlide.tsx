@@ -1,6 +1,6 @@
 import { Button, Col, Layout, Menu, Row, Space, Tag } from "antd";
 import Title from "antd/es/typography/Title";
-import SlideForm from "../component/SlideForm";
+import CreateSlideForm from "../component/CreateSlideForm";
 import { useProjectStore } from "../../../store/useProjectStore";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";

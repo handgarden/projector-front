@@ -7,6 +7,7 @@ import ProjectEditPage from "../core/project/page/edit/ProjectEditPage";
 import ProjectPage from "../core/project/page/ProjectPage";
 import CreateSlidePage from "../core/project/page/create/CreateSlidePage";
 import SlideDetailPage from "../core/project/page/detail/SlideDetailPage";
+import SlideEditPage from "../core/project/page/edit/SlideEditPage";
 
 const PATH_PREFIX = "/projects";
 
@@ -17,7 +18,8 @@ export const PROJECT_PATH = {
   details: `${PATH_PREFIX}/:projectId`,
   edit: `${PATH_PREFIX}/:projectId/edit`,
   createSlide: `${PATH_PREFIX}/:projectId/create-slide`,
-  slide: `${PATH_PREFIX}/:projectId/slide/:slideSeq`,
+  slide: `${PATH_PREFIX}/:projectId/slide/:seq`,
+  updateSlide: `${PATH_PREFIX}/:projectId/slide/:seq/update`,
 } as const;
 
 export const ProjectRouter = () => {
@@ -75,6 +77,14 @@ export const ProjectRouter = () => {
       element={
         <AuthGuard>
           <SlideDetailPage />
+        </AuthGuard>
+      }
+    />,
+    <Route
+      path={PROJECT_PATH.updateSlide}
+      element={
+        <AuthGuard>
+          <SlideEditPage />
         </AuthGuard>
       }
     />,

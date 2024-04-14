@@ -1,29 +1,35 @@
 import { Flex, Progress } from "antd";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import CreateSlideForm from "../../component/CreateSlideForm";
-import useProjectQuery from "../../hook/useProjectQuery";
 import Title from "antd/es/typography/Title";
-import useSlideCreate from "../../hook/useSlideCreate";
 import { SlideFormType } from "../../../../types/core/project/SlideForm.type";
-import { CreateSlideInput } from "../../../../gql/graphql";
+import { UpdateSlideInput } from "../../../../gql/graphql";
 import { useProjectStore } from "../../../../store/useProjectStore";
 import { PROJECT_PATH } from "../../../../router/ProjectRouter";
 import useParamPath from "../../../../common/hook/useParamPath";
+import useSlideQuery from "../../hook/useSlideQuery";
+import UpdateSlideForm from "../../component/UpdateSlideForm";
+import useSlideUpdate from "../../hook/useSlideUpdate";
+import { GET_PROJECTS } from "../../hook/useProjectListQuery";
 
 export default function CreateSlidePage() {
   const projectId = useParams().projectId;
+  const seq = useParams().seq;
 
-  const { project, loading } = useProjectQuery({ projectId });
+  const { project, slide, loading } = useSlideQuery({
+    projectId: projectId,
+    seq: Number(seq),
+  });
 
-  const { mutate } = useSlideCreate();
+  const { mutate } = useSlideUpdate();
 
-  const addSlide = useProjectStore((state) => state.addNewSlide);
+  const setSlide = useProjectStore((state) => state.setSlide);
   const navigate = useNavigate();
   const { replaceParamPath } = useParamPath();
 
   const onSubmit = (data: SlideFormType) => {
-    if (!project) return;
-    const input: CreateSlideInput = {
+    if (!project || !slide) return;
+    const input: UpdateSlideInput = {
+      slideId: slide.id,
       title: data.title,
       description: data.description,
       projectId: Number(project.id),
@@ -33,16 +39,16 @@ export default function CreateSlidePage() {
           seq: i + 1,
         };
       }),
-      seq: project.slides.length + 1,
+      seq: slide.seq,
     };
     mutate({
       variables: {
         input,
       },
       onCompleted: (d) => {
-        addSlide({
+        setSlide({
           ...input,
-          id: d.createSlide.id,
+          id: d.updateSlide.id,
           images: data.images.map((image, i) => ({
             seq: i + 1,
             file: {
@@ -52,12 +58,16 @@ export default function CreateSlidePage() {
           })),
         });
         navigate(
-          replaceParamPath(PROJECT_PATH.details, { projectId: project.id })
+          replaceParamPath(PROJECT_PATH.slide, {
+            projectId: project.id,
+            seq: slide.seq.toString(),
+          })
         );
       },
       onError(e) {
-        alert("Slide 생성에 실패했습니다.");
+        alert("Slide 수정에 실패했습니다.");
       },
+      refetchQueries: [GET_PROJECTS],
     });
   };
 
@@ -65,16 +75,29 @@ export default function CreateSlidePage() {
     return <Navigate to="/404" />;
   }
 
-  if (loading || !project) {
+  if (loading || !project || !slide) {
     return <Progress />;
   }
 
   return (
     <Flex vertical style={{ width: "100%", padding: "1rem" }}>
       <Title level={2} style={{ marginBottom: "0" }}>
-        {project.title} / #{project.slides.length + 1}
+        {project.title} / #{slide.seq}
       </Title>
-      <CreateSlideForm projectId={project.id} onSubmit={onSubmit} />
+      <UpdateSlideForm
+        projectId={project.id}
+        onSubmit={onSubmit}
+        sequence={slide.seq}
+        initialSlide={{
+          title: slide.title,
+          description: slide.description,
+          images: slide.images.map((image) => ({
+            originalName: image.file.key,
+            key: image.file.key,
+            url: image.file.url,
+          })),
+        }}
+      />
     </Flex>
   );
 }

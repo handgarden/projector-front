@@ -72,7 +72,7 @@ export default function SlideListItem({ slide }: Props) {
               navigate(
                 replaceParamPath(PROJECT_PATH.slide, {
                   projectId: projectId,
-                  slideSeq: slide.seq.toString(),
+                  seq: slide.seq.toString(),
                 })
               )
             }

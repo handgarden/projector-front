@@ -9,5 +9,9 @@ export default function useSlideQuery({
 }) {
   const { project, loading } = useProjectQuery({ projectId });
 
-  return { slide: project?.slides.find((slide) => slide.seq === seq), loading };
+  return {
+    project: project,
+    slide: project?.slides.find((slide) => slide.seq === seq),
+    loading,
+  };
 }

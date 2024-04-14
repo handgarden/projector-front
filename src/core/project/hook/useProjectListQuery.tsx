@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { graphql } from "../../../gql";
 
-const GET_PROJECTS = graphql(
+export const GET_PROJECTS = graphql(
   `
     query getProjects {
       projects {
