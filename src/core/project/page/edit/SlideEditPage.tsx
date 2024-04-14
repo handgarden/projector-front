@@ -9,7 +9,6 @@ import useParamPath from "../../../../common/hook/useParamPath";
 import useSlideQuery from "../../hook/useSlideQuery";
 import UpdateSlideForm from "../../component/UpdateSlideForm";
 import useSlideUpdate from "../../hook/useSlideUpdate";
-import { GET_PROJECTS } from "../../hook/useProjectListQuery";
 
 export default function CreateSlidePage() {
   const projectId = useParams().projectId;
@@ -67,7 +66,6 @@ export default function CreateSlidePage() {
       onError(e) {
         alert("Slide 수정에 실패했습니다.");
       },
-      refetchQueries: [GET_PROJECTS],
     });
   };
 
