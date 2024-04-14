@@ -4,6 +4,7 @@ import Title from "antd/es/typography/Title";
 import SquareBox from "../../../../common/component/SquareBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PROJECT_PATH } from "../../../../router/ProjectRouter";
 
 export default function CreateProjectWrapperPage() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function CreateProjectWrapperPage() {
         </SelectTypeBox>
       </Flex>
       <Button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(PROJECT_PATH.root)}
         type="primary"
         style={{ minWidth: "10rem", maxWidth: "20rem", width: "17.5rem" }}
       >
