@@ -7,7 +7,7 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import { AuthButton } from "../../app/auth/component/AuthButton";
+import { AuthButton } from "./AuthButton";
 
 export default function CustomNavbar() {
   return (

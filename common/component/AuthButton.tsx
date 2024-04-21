@@ -1,10 +1,10 @@
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import { useAuthStore } from "../../../store/useAuthStore";
+import { useAuthStore } from "../../store/useAuthStore";
 import { usePathname, useRouter } from "next/navigation";
-import usePathUtils from "../../../hook/usePathUtils";
-import { AUTH_PATH } from "../../../common/path/AuthPath";
-import { AUTH_MESSAGE_KR } from "../../../common/message/Auth.message";
+import usePathUtils from "../../hook/usePathUtils";
+import { AUTH_PATH } from "../path/AuthPath";
+import { AUTH_MESSAGE_KR } from "../message/Auth.message";
 
 export function AuthButton() {
   const [isLogin, logout] = useAuthStore((state) => [
