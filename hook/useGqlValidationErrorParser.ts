@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client";
-import { GqlValidationError } from "../../types/graphql/GqlValidationError.type";
-import { ResponseStatus } from "../../types/api/RestTemplate.type";
+import { GqlValidationError } from "../types/graphql/GqlValidationError.type";
+import { ResponseStatus } from "../types/api/RestTemplate.type";
 
 export default function useGqlValidationErrorParser() {
   const parse = (error: ApolloError): string | null => {
@@ -18,4 +18,3 @@ export default function useGqlValidationErrorParser() {
     parse,
   };
 }
-

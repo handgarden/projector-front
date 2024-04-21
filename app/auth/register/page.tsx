@@ -40,7 +40,7 @@ export default function RegisterPage() {
   const globalMessage = isConstraintError
     ? error[0].constraints[0].message
     : isServerError
-    ? API_MESSAGE_KR.response.server_error
+    ? API_MESSAGE_KR.response.serverError
     : "";
 
   return (

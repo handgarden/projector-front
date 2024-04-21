@@ -2,7 +2,27 @@
 import * as types from './graphql';
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
-const documents = [];
+/**
+ * Map of all GraphQL operations in the project.
+ *
+ * This map has several performance disadvantages:
+ * 1. It is not tree-shakeable, so it will include all operations in the project.
+ * 2. It is not minifiable, so the string of a GraphQL query will be multiple times inside the bundle.
+ * 3. It does not support dead code elimination, so it will add unused operations.
+ *
+ * Therefore it is highly recommended to use the babel or swc plugin for production.
+ */
+const documents = {
+    "\n  mutation createProject($input: CreateProjectInput!) {\n    createProject(project: $input) {\n      id\n    }\n  }\n": types.CreateProjectDocument,
+    "\n  mutation deleteProject($projectId: ID!) {\n    deleteProject(id: $projectId)\n  }\n": types.DeleteProjectDocument,
+    "\n    query getProjects {\n      projects {\n        id\n        title\n        description\n        thumbnail\n      }\n    }\n  ": types.GetProjectsDocument,
+    "\n  query getProject($projectId: ID!) {\n    project(id: $projectId) {\n      id\n      creator {\n        id\n      }\n      title\n      description\n      slides {\n        id\n        seq\n        title\n        description\n        images {\n          seq\n          file {\n            key\n            url\n          }\n        }\n      }\n    }\n  }\n": types.GetProjectDocument,
+    "\n  mutation updateProject($projectId: ID!, $input: CreateProjectInput!) {\n    updateProject(id: $projectId, project: $input) {\n      id\n      title\n      description\n    }\n  }\n": types.UpdateProjectDocument,
+    "\n  mutation createSlide($input: CreateSlideInput!) {\n    createSlide(slide: $input) {\n      id\n    }\n  }\n": types.CreateSlideDocument,
+    "\n  mutation deleteSlide($slideId: ID!) {\n    deleteSlide(slideId: $slideId)\n  }\n": types.DeleteSlideDocument,
+    "\n  mutation updateSlide($input: UpdateSlideInput!) {\n    updateSlide(slide: $input) {\n      id\n      title\n      description\n    }\n  }\n": types.UpdateSlideDocument,
+};
+
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  *
@@ -16,6 +36,39 @@ const documents = [];
  * Please regenerate the types.
  */
 export function graphql(source: string): unknown;
+
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation createProject($input: CreateProjectInput!) {\n    createProject(project: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation createProject($input: CreateProjectInput!) {\n    createProject(project: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation deleteProject($projectId: ID!) {\n    deleteProject(id: $projectId)\n  }\n"): (typeof documents)["\n  mutation deleteProject($projectId: ID!) {\n    deleteProject(id: $projectId)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query getProjects {\n      projects {\n        id\n        title\n        description\n        thumbnail\n      }\n    }\n  "): (typeof documents)["\n    query getProjects {\n      projects {\n        id\n        title\n        description\n        thumbnail\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query getProject($projectId: ID!) {\n    project(id: $projectId) {\n      id\n      creator {\n        id\n      }\n      title\n      description\n      slides {\n        id\n        seq\n        title\n        description\n        images {\n          seq\n          file {\n            key\n            url\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query getProject($projectId: ID!) {\n    project(id: $projectId) {\n      id\n      creator {\n        id\n      }\n      title\n      description\n      slides {\n        id\n        seq\n        title\n        description\n        images {\n          seq\n          file {\n            key\n            url\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation updateProject($projectId: ID!, $input: CreateProjectInput!) {\n    updateProject(id: $projectId, project: $input) {\n      id\n      title\n      description\n    }\n  }\n"): (typeof documents)["\n  mutation updateProject($projectId: ID!, $input: CreateProjectInput!) {\n    updateProject(id: $projectId, project: $input) {\n      id\n      title\n      description\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation createSlide($input: CreateSlideInput!) {\n    createSlide(slide: $input) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation createSlide($input: CreateSlideInput!) {\n    createSlide(slide: $input) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation deleteSlide($slideId: ID!) {\n    deleteSlide(slideId: $slideId)\n  }\n"): (typeof documents)["\n  mutation deleteSlide($slideId: ID!) {\n    deleteSlide(slideId: $slideId)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation updateSlide($input: UpdateSlideInput!) {\n    updateSlide(slide: $input) {\n      id\n      title\n      description\n    }\n  }\n"): (typeof documents)["\n  mutation updateSlide($input: UpdateSlideInput!) {\n    updateSlide(slide: $input) {\n      id\n      title\n      description\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
