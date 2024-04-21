@@ -2,7 +2,7 @@ import axios, { AxiosError, RawAxiosRequestHeaders } from "axios";
 import { ResponseStatus, RestResponse } from "../types/api/RestTemplate.type";
 
 export const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
   timeout: 5000,
 });
