@@ -16,8 +16,7 @@ export default function usePathUtils() {
     Object.keys(params).forEach((key) => {
       searchParams.append(key, params[key]);
     });
-    const search = searchParams.toString();
-    if (!search.length || search) return `${path}?${searchParams.toString()}`;
+    return `${path}?${searchParams.toString()}`;
   };
 
   const utils = useMemo(

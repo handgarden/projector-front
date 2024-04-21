@@ -19,4 +19,4 @@ export const AUTH_MESSAGE_KR = {
     register: "회원가입",
     logout: "로그아웃",
   },
-};
+} as const;

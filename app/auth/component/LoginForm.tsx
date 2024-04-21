@@ -19,7 +19,7 @@ export default function LoginForm({ onSubmit, status }: Props) {
 
   const [isFormValid, setIsFormValid] = useState<boolean>(true);
 
-  const { register, handleSubmit } = useForm<LoginRequest>({});
+  const { register, handleSubmit } = useForm<LoginRequest>();
 
   const onSubmitForm = (data: LoginRequest) => {
     if (data.account.length < 4 || data.account.length > 20) {
