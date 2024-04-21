@@ -15,14 +15,13 @@ type AuthStore = {
 };
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  isLogin: true,
+  isLogin: false,
   status: StateStatus.INITIAL,
   error: null,
   tokenLogin: async () => {
     const accessToken = getToken();
 
     if (!accessToken) {
-      set({ isLogin: false });
       return;
     }
 
