@@ -1,5 +1,5 @@
 import { Editor } from "@tinymce/tinymce-react";
-import useUploadFile from "../hook/useUploadFile";
+import useUploadFile from "../../hook/useUploadFile";
 
 type Props = {
   value: string;
