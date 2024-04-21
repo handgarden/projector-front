@@ -3,10 +3,11 @@
 import { Button, Input, Link } from "@nextui-org/react";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
 import { StateStatus } from "../../../types/common/StateStatus.type";
-import { AuthValidationMessage } from "../../../common/message/AuthValidation.message";
+import { AuthValidationMessage } from "../../../common/message/validation/AuthValidation.message";
 import { useForm } from "react-hook-form";
-import { DefaultValidationMessage } from "../../../common/message/DefaultValidation.message";
+import { DefaultValidationMessage } from "../../../common/message/validation/DefaultValidation.message";
 import { useState } from "react";
+import { AUTH_MESSAGE_KR } from "../../../common/message/Auth.message";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
@@ -47,14 +48,14 @@ export default function LoginForm({ onSubmit, status }: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Input
-        label="account"
+        label={AUTH_MESSAGE_KR.label.login.account}
         type="text"
         {...register("account", {
           required: DefaultValidationMessage.REQUIRED,
         })}
       />
       <Input
-        label="password"
+        label={AUTH_MESSAGE_KR.label.login.password}
         type="password"
         {...register("password", {
           required: DefaultValidationMessage.REQUIRED,
@@ -62,7 +63,7 @@ export default function LoginForm({ onSubmit, status }: Props) {
         className="my-4"
       />
       <Button type="submit" isLoading={loading} fullWidth>
-        Sign in
+        {AUTH_MESSAGE_KR.button.login}
       </Button>
       {(status === StateStatus.FAILURE || !isFormValid) && (
         <p className="text-small text-red-400">
@@ -76,7 +77,7 @@ export default function LoginForm({ onSubmit, status }: Props) {
         fullWidth
         className="my-4"
       >
-        Create Account
+        {AUTH_MESSAGE_KR.button.register}
       </Button>
     </form>
   );
