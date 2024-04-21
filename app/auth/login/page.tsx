@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
-import LoginForm from "./component/LoginForm";
+import LoginForm from "../component/LoginForm";
 
 export default function LoginPage() {
   const login = useAuthStore((state) => state.login);

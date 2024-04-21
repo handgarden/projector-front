@@ -1,0 +1,83 @@
+"use client";
+
+import { Button, Input, Link } from "@nextui-org/react";
+import { LoginRequest } from "../../../types/auth/LoginRequest.type";
+import { StateStatus } from "../../../types/common/StateStatus.type";
+import { AuthValidationMessage } from "../../../common/message/AuthValidation.message";
+import { useForm } from "react-hook-form";
+import { DefaultValidationMessage } from "../../../common/message/DefaultValidation.message";
+import { useState } from "react";
+
+type Props = {
+  onSubmit: (data: LoginRequest) => void;
+  status: StateStatus;
+};
+
+export default function LoginForm({ onSubmit, status }: Props) {
+  const loading = status === StateStatus.PENDING;
+
+  const [isFormValid, setIsFormValid] = useState<boolean>(true);
+
+  const { register, handleSubmit } = useForm<LoginRequest>({});
+
+  const onSubmitForm = (data: LoginRequest) => {
+    if (data.account.length < 4 || data.account.length > 20) {
+      setIsFormValid(false);
+      return;
+    }
+
+    if (data.password.length < 8 || data.password.length > 20) {
+      setIsFormValid(false);
+      return;
+    }
+
+    if (!data.account.match(/^[a-zA-Z0-9]+$/)) {
+      setIsFormValid(false);
+      return;
+    }
+
+    if (!data.password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)) {
+      setIsFormValid(false);
+      return;
+    }
+
+    onSubmit(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmitForm)}>
+      <Input
+        label="account"
+        type="text"
+        {...register("account", {
+          required: DefaultValidationMessage.REQUIRED,
+        })}
+      />
+      <Input
+        label="password"
+        type="password"
+        {...register("password", {
+          required: DefaultValidationMessage.REQUIRED,
+        })}
+        className="my-4"
+      />
+      <Button type="submit" isLoading={loading} fullWidth>
+        Sign in
+      </Button>
+      {(status === StateStatus.FAILURE || !isFormValid) && (
+        <p className="text-small text-red-400">
+          {AuthValidationMessage.LOGIN_FAILURE}
+        </p>
+      )}
+      <Button
+        href="/auth/register"
+        as={Link}
+        disabled={loading}
+        fullWidth
+        className="my-4"
+      >
+        Create Account
+      </Button>
+    </form>
+  );
+}
