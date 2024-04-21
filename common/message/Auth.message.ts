@@ -17,5 +17,6 @@ export const AUTH_MESSAGE_KR = {
   button: {
     login: "로그인",
     register: "회원가입",
+    logout: "로그아웃",
   },
 };
