@@ -66,7 +66,7 @@ export default function LoginForm({ onSubmit, status }: Props) {
         {AUTH_MESSAGE_KR.button.login}
       </Button>
       {(status === StateStatus.FAILURE || !isFormValid) && (
-        <p className="text-small text-red-400">
+        <p className="text-small text-red-400 mt-4">
           {AuthValidationMessage.LOGIN_FAILURE}
         </p>
       )}
