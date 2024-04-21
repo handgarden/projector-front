@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useAuthStore } from "../../../store/useAuthStore";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import usePathUtils from "../../../hook/usePathUtils";
 import { AUTH_PATH } from "../../../common/path/AuthPath";
 import { AUTH_MESSAGE_KR } from "../../../common/message/Auth.message";
@@ -13,9 +13,10 @@ export function AuthButton() {
   ]);
 
   const router = useRouter();
-  const { createRedirectPath } = usePathUtils();
-  const loginRedirectPath = createRedirectPath(AUTH_PATH.login, {
-    redirect: location.pathname,
+  const { createQueryPath } = usePathUtils();
+  const pathName = usePathname();
+  const loginRedirectPath = createQueryPath(AUTH_PATH.login, {
+    redirect: pathName,
   });
 
   if (isLogin) {

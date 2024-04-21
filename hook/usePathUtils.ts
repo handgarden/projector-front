@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 export default function usePathUtils() {
   const replaceParamPath = (path: string, params: Record<string, string>) => {
     return Object.keys(params).reduce((acc, key) => {
@@ -5,16 +7,26 @@ export default function usePathUtils() {
     }, path);
   };
 
-  const createRedirectPath = (path: string, params: Record<string, string>) => {
+  const createQueryPath = (path: string, params: Record<string, string>) => {
+    const redirect = params.redirect;
+    if (!redirect.length || redirect === "/" || path === redirect) {
+      delete params.redirect;
+    }
     const searchParams = new URLSearchParams();
     Object.keys(params).forEach((key) => {
       searchParams.append(key, params[key]);
     });
-    return `${path}?${searchParams.toString()}`;
+    const search = searchParams.toString();
+    if (!search.length || search) return `${path}?${searchParams.toString()}`;
   };
 
-  return {
-    replaceParamPath,
-    createRedirectPath,
-  };
+  const utils = useMemo(
+    () => ({
+      replaceParamPath,
+      createQueryPath,
+    }),
+    []
+  );
+
+  return utils;
 }
