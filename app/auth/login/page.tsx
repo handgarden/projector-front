@@ -20,7 +20,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <h2 className="text-large">Sign in</h2>
       <LoginForm onSubmit={onSubmit} status={status} />
     </>
   );
