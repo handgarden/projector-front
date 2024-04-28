@@ -5,6 +5,7 @@ import { useOAuthRegisterStore } from "../../../../store/useOAuthRegisterStore";
 import { StateStatus } from "../../../../types/common/StateStatus.type";
 import { ConstEnumValidator } from "../../../../utils/ConstEnumValidator";
 import { OAuthProvider } from "../../../../gql/graphql";
+import { PROFILE_PATH } from "../../../../common/path/ProfilePath";
 
 export default function OAuthRegister() {
   const query = useSearchParams();
@@ -17,13 +18,13 @@ export default function OAuthRegister() {
 
     if (!code || !provider) {
       alert("잘못된 요청입니다.");
-      router.push("/auth/login");
+      router.push(PROFILE_PATH.root);
       return;
     }
 
     if (!ConstEnumValidator.validate(OAuthProvider, provider)) {
       alert("유효하지 않은 OAuth 공급자입니다.");
-      router.push("/auth/login");
+      router.push(PROFILE_PATH.root);
       return;
     }
 
@@ -33,12 +34,12 @@ export default function OAuthRegister() {
   const status = useOAuthRegisterStore((state) => state.status);
   useEffect(() => {
     if (status === StateStatus.SUCCESS) {
-      router.push("/profile");
+      router.push(PROFILE_PATH.root);
       return;
     }
     if (status === StateStatus.FAILURE) {
       alert("GITHUB 계정 연결에 실패했습니다.");
-      router.push("/profile");
+      router.push(PROFILE_PATH.root);
       return;
     }
   }, [router, status]);

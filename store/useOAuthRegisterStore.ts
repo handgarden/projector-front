@@ -3,7 +3,7 @@ import { StateStatus } from "../types/common/StateStatus.type";
 import { post } from "../common/axios";
 import { ResponseStatus } from "../types/api/RestTemplate.type";
 import { JwtTokenUtils } from "../utils/JwtTokenUtils";
-import { OAuthProvider } from "../types/auth/OAuthProvider.type";
+import { OAuthProvider } from "../gql/graphql";
 
 type OAuthRegisterStore = {
   status: StateStatus;

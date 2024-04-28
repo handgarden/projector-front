@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useAuthStore } from "../../../../store/useAuthStore";
 import { ConstEnumValidator } from "../../../../utils/ConstEnumValidator";
 import { OAuthProvider } from "../../../../gql/graphql";
+import { ROOT_PATH } from "../../../../common/path/RootPath";
+import { AUTH_PATH } from "../../../../common/path/AuthPath";
 
 export default function OAuthLogin() {
   const query = useSearchParams();
@@ -16,20 +18,20 @@ export default function OAuthLogin() {
     const provider = query.get("provider");
     if (!code || !provider) {
       alert("잘못된 요청입니다.");
-      router.push("/auth/login");
+      router.push(AUTH_PATH.login);
       return;
     }
 
     if (!ConstEnumValidator.validate(OAuthProvider, provider)) {
       alert("유효하지 않은 OAuth 공급자입니다.");
-      router.push("/auth/login");
+      router.push(AUTH_PATH.login);
       return;
     }
     githubLogin(
       code,
       provider as OAuthProvider,
-      () => router.push(params.get("redirect") ?? "/"),
-      () => router.push("/auth/login")
+      () => router.push(params.get("redirect") ?? ROOT_PATH.root),
+      () => router.push(AUTH_PATH.login)
     );
   }, [githubLogin, params, query, router]);
 
