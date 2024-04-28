@@ -4,6 +4,7 @@ import { LoginRequest } from "../types/auth/LoginRequest.type";
 import { post } from "../common/axios";
 import { LoginResponse } from "../types/auth/LoginResponse.type";
 import { ResponseStatus } from "../types/api/RestTemplate.type";
+import { JwtTokenUtils } from "../utils/JwtTokenUtils";
 
 type AuthStore = {
   isLogin: boolean;
@@ -12,14 +13,19 @@ type AuthStore = {
   tokenLogin: () => void;
   login: (req: LoginRequest, redirect: () => void) => Promise<void>;
   logout: () => void;
+  githubLogin: (
+    code: string,
+    completeFunc: Function,
+    errorFunc: Function
+  ) => void;
 };
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  isLogin: true,
+  isLogin: false,
   status: StateStatus.INITIAL,
   error: null,
   tokenLogin: async () => {
-    const accessToken = getToken();
+    const accessToken = JwtTokenUtils.getToken();
 
     if (!accessToken) {
       set({
@@ -42,7 +48,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
         isLogin: true,
       });
     } else {
-      removeToken();
+      JwtTokenUtils.removeToken();
       set({ isLogin: false, status: StateStatus.INITIAL });
     }
   },
@@ -53,7 +59,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       req
     );
     if (res.status === ResponseStatus.OK) {
-      setToken((res.data as LoginResponse).accessToken);
+      JwtTokenUtils.setToken((res.data as LoginResponse).accessToken);
       set({
         status: StateStatus.SUCCESS,
         isLogin: true,
@@ -65,19 +71,35 @@ export const useAuthStore = create<AuthStore>((set) => ({
     }
   },
   logout: () => {
-    removeToken();
+    JwtTokenUtils.removeToken();
     set({ isLogin: false, status: StateStatus.INITIAL });
   },
+  githubLogin: async (
+    code: string,
+    completeFunc: Function,
+    errorFunc: Function
+  ) => {
+    set({ status: StateStatus.PENDING });
+    const res = await post<null, LoginResponse | null>(
+      `/auth/github/login?code=${code}`,
+      null
+    );
+    if (res.status === ResponseStatus.OK) {
+      JwtTokenUtils.setToken((res.data as LoginResponse).accessToken);
+      set({
+        status: StateStatus.SUCCESS,
+        isLogin: true,
+      });
+      completeFunc();
+    } else {
+      const error = res.message;
+      alert(error);
+      set({
+        error: error,
+        status: StateStatus.INITIAL,
+        isLogin: false,
+      });
+      errorFunc();
+    }
+  },
 }));
-
-function getToken() {
-  return localStorage.getItem("accessToken");
-}
-
-function setToken(token: string) {
-  localStorage.setItem("accessToken", token);
-}
-
-function removeToken() {
-  localStorage.removeItem("accessToken");
-}

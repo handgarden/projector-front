@@ -3,13 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRegisterStore } from "../../../store/useRegisterStore";
 import RegisterForm from "../component/RegisterForm";
-import { RegisterRequest } from "../../../types/auth/RegisterRequest.type";
 import { AUTH_PATH } from "../../../common/path/AuthPath";
 import usePathUtils from "../../../hook/usePathUtils";
 import { StateStatus } from "../../../types/common/StateStatus.type";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
-import { Button } from "@nextui-org/react";
-import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
 
 export default function RegisterPage() {
