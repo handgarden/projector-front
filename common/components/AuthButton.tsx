@@ -6,6 +6,7 @@ import usePathUtils from "../hook/usePathUtils";
 import { AUTH_PATH } from "../path/AuthPath";
 import { AUTH_MESSAGE_KR } from "../message/Auth.message";
 import { StateStatus } from "../../types/common/StateStatus.type";
+import { ROOT_PATH } from "../path/RootPath";
 
 export function AuthButton() {
   const [status, logout] = useAuthStore((state) => [
@@ -25,7 +26,7 @@ export function AuthButton() {
       <Button
         onClick={() => {
           logout();
-          router.replace("/");
+          router.replace(ROOT_PATH.root);
           router.refresh();
         }}
         variant="ghost"

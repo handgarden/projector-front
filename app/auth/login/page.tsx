@@ -5,6 +5,7 @@ import { useAuthStore } from "../../../store/useAuthStore";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
 import LoginForm from "../components/LoginForm";
 import { StateStatus } from "../../../types/common/StateStatus.type";
+import { ROOT_PATH } from "../../../common/path/RootPath";
 
 export default function LoginPage() {
   const [login, error, status] = useAuthStore((state) => [
@@ -17,7 +18,7 @@ export default function LoginPage() {
 
   const onSubmit = (data: LoginRequest) => {
     login(data, () => {
-      router.push(params.get("redirect") ?? "/");
+      router.push(params.get("redirect") ?? ROOT_PATH.root);
     });
   };
 

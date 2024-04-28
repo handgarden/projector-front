@@ -8,6 +8,7 @@ import usePathUtils from "../../../common/hook/usePathUtils";
 import { StateStatus } from "../../../types/common/StateStatus.type";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
+import { ROOT_PATH } from "../../../common/path/RootPath";
 
 export default function RegisterPage() {
   const [register, status, error] = useRegisterStore((state) => [
@@ -26,7 +27,7 @@ export default function RegisterPage() {
     register(data, () => {
       router.push(
         createQueryPath(AUTH_PATH.login, {
-          redirect: redirect ?? "/",
+          redirect: redirect ?? ROOT_PATH.root,
         })
       );
     });

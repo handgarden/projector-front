@@ -5,6 +5,7 @@ import usePathUtils from "../hook/usePathUtils";
 import { ErrorMessage } from "../message/Error.message";
 import { StateStatus } from "../../types/common/StateStatus.type";
 import { Progress } from "@nextui-org/react";
+import { AUTH_PATH } from "../path/AuthPath";
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const [status] = useAuthStore((state) => [state.status]);
@@ -13,7 +14,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const { createQueryPath } = usePathUtils();
   const pathname = usePathname();
 
-  const loginRedirectPath = createQueryPath("/auth/login", {
+  const loginRedirectPath = createQueryPath(AUTH_PATH.login, {
     redirect: pathname,
   });
 
