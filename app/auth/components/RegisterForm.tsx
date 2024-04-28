@@ -11,7 +11,7 @@ import { RegisterRequest } from "../../../types/auth/RegisterRequest.type";
 import { useState } from "react";
 import { RegisterFormType } from "../../../types/auth/RegisterForm.type";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
-import { FormErrorText } from "../../../common/component/FormErrorText";
+import { FormErrorText } from "../../../common/components/FormErrorText";
 
 type Props = {
   onSubmit: (data: RegisterRequest) => void;

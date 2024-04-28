@@ -5,23 +5,23 @@ import { post } from "../common/axios";
 import { LoginResponse } from "../types/auth/LoginResponse.type";
 import { ResponseStatus } from "../types/api/RestTemplate.type";
 import { JwtTokenUtils } from "../utils/JwtTokenUtils";
+import { OAuthProvider } from "../gql/graphql";
 
 type AuthStore = {
-  isLogin: boolean;
   status: StateStatus;
   error: null | string;
   tokenLogin: () => void;
   login: (req: LoginRequest, redirect: () => void) => Promise<void>;
   logout: () => void;
-  githubLogin: (
+  oauthLogin: (
     code: string,
+    provider: OAuthProvider,
     completeFunc: Function,
     errorFunc: Function
   ) => void;
 };
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  isLogin: false,
   status: StateStatus.INITIAL,
   error: null,
   tokenLogin: async () => {
@@ -29,7 +29,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
     if (!accessToken) {
       set({
-        isLogin: false,
+        status: StateStatus.FAILURE,
+        error: null,
       });
       return;
     }
@@ -45,11 +46,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
     if (res.status === ResponseStatus.OK) {
       set({
         status: StateStatus.SUCCESS,
-        isLogin: true,
       });
     } else {
       JwtTokenUtils.removeToken();
-      set({ isLogin: false, status: StateStatus.INITIAL });
+      set({ status: StateStatus.INITIAL });
     }
   },
   login: async (req: LoginRequest, redirect: () => void) => {
@@ -62,42 +62,40 @@ export const useAuthStore = create<AuthStore>((set) => ({
       JwtTokenUtils.setToken((res.data as LoginResponse).accessToken);
       set({
         status: StateStatus.SUCCESS,
-        isLogin: true,
       });
       redirect();
     } else {
-      const error = res.message;
-      set({ error, status: StateStatus.FAILURE, isLogin: false });
+      const error = res.message ?? "로그인에 실패했습니다.";
+      set({ error, status: StateStatus.FAILURE });
     }
   },
   logout: () => {
     JwtTokenUtils.removeToken();
-    set({ isLogin: false, status: StateStatus.INITIAL });
+    set({ status: StateStatus.INITIAL });
   },
-  githubLogin: async (
+  oauthLogin: async (
     code: string,
+    provider: OAuthProvider,
     completeFunc: Function,
     errorFunc: Function
   ) => {
     set({ status: StateStatus.PENDING });
     const res = await post<null, LoginResponse | null>(
-      `/auth/github/login?code=${code}`,
+      `/auth/oauth/login?code=${code}&provider=${provider}`,
       null
     );
     if (res.status === ResponseStatus.OK) {
       JwtTokenUtils.setToken((res.data as LoginResponse).accessToken);
       set({
         status: StateStatus.SUCCESS,
-        isLogin: true,
       });
       completeFunc();
     } else {
       const error = res.message;
       alert(error);
       set({
-        error: error,
-        status: StateStatus.INITIAL,
-        isLogin: false,
+        error: null,
+        status: StateStatus.FAILURE,
       });
       errorFunc();
     }

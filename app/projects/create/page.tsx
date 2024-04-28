@@ -1,15 +1,15 @@
 "use client";
 
 import { useMutation } from "@apollo/client";
-import useGqlValidationErrorParser from "../../../hook/useGqlValidationErrorParser";
-import usePathUtils from "../../../hook/usePathUtils";
+import useGqlValidationErrorParser from "../../../common/hook/useGqlValidationErrorParser";
+import usePathUtils from "../../../common/hook/usePathUtils";
 import { PROJECT_PATH } from "../../../common/path/ProjectPath";
 import { useRouter } from "next/navigation";
 import { graphql } from "../../../gql";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import ProjectForm from "../component/ProjectForm";
+import ProjectForm from "../components/ProjectForm";
 
 const createProject = graphql(`
   mutation createProject($input: CreateProjectInput!) {

@@ -1,5 +1,5 @@
-import { AuthGuard } from "../../../common/component/AuthGuard";
-import { DefaultHeader } from "../../../common/component/DefaultHeader";
+import { AuthGuard } from "../../../common/components/AuthGuard";
+import { DefaultHeader } from "../../../common/components/DefaultHeader";
 
 export default function CreateProjectLayout({
   children,

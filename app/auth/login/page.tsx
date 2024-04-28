@@ -3,10 +3,15 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
-import LoginForm from "../component/LoginForm";
+import LoginForm from "../components/LoginForm";
+import { StateStatus } from "../../../types/common/StateStatus.type";
 
 export default function LoginPage() {
-  const login = useAuthStore((state) => state.login);
+  const [login, error, status] = useAuthStore((state) => [
+    state.login,
+    state.error,
+    state.status,
+  ]);
   const router = useRouter();
   const params = useSearchParams();
 
@@ -16,11 +21,13 @@ export default function LoginPage() {
     });
   };
 
-  const status = useAuthStore((state) => state.status);
-
   return (
     <>
-      <LoginForm onSubmit={onSubmit} status={status} />
+      <LoginForm
+        onSubmit={onSubmit}
+        loading={status === StateStatus.PENDING}
+        error={error}
+      />
     </>
   );
 }

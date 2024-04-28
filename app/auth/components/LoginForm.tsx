@@ -12,12 +12,11 @@ import { GitHubLoginButton } from "./GithubLoginButton";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
-  status: StateStatus;
+  error: string | null;
+  loading: boolean;
 };
 
-export default function LoginForm({ onSubmit, status }: Props) {
-  const loading = status === StateStatus.PENDING;
-
+export default function LoginForm({ onSubmit, loading, error }: Props) {
   const [isFormValid, setIsFormValid] = useState<boolean>(true);
 
   const { register, handleSubmit } = useForm<LoginRequest>();
@@ -66,9 +65,9 @@ export default function LoginForm({ onSubmit, status }: Props) {
       <Button type="submit" isLoading={loading} fullWidth>
         {AUTH_MESSAGE_KR.button.login}
       </Button>
-      {(status === StateStatus.FAILURE || !isFormValid) && (
+      {(error || !isFormValid) && (
         <p className="text-small text-red-400 mt-4">
-          {AuthValidationMessage.LOGIN_FAILURE}
+          {error ?? AuthValidationMessage.LOGIN_FAILURE}
         </p>
       )}
       <GitHubLoginButton disabled={loading} />
