@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { DefaultValidationMessage } from "../../../common/message/validation/DefaultValidation.message";
 import { useState } from "react";
 import { AUTH_MESSAGE_KR } from "../../../common/message/Auth.message";
+import { GitHubLoginButton } from "./GithubLoginButton";
 
 type Props = {
   onSubmit: (data: LoginRequest) => void;
@@ -70,6 +71,7 @@ export default function LoginForm({ onSubmit, status }: Props) {
           {AuthValidationMessage.LOGIN_FAILURE}
         </p>
       )}
+      <GitHubLoginButton disabled={loading} />
       <Button
         href="/auth/register"
         as={Link}
