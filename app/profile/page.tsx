@@ -1,17 +1,23 @@
 "use client";
-import { Button } from "@nextui-org/react";
-import Link from "next/link";
+import { OAuthManagement } from "./components/oauth/OAuthManagement";
+import { useProfileQuery } from "./hook/useProfileQuery";
 
 export default function ProfilePage() {
+  const { profile, loading, error } = useProfileQuery();
+
+  if (error) {
+    return (
+      <div>
+        <p>프로필 정보를 불러오는데 실패했습니다.</p>
+      </div>
+    );
+  }
+
+  if (loading || !profile) return <div>Loading...</div>;
+
   return (
     <div>
-      <Button
-        fullWidth
-        as={Link}
-        href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=read:user,user:email&redirect_uri=http://localhost:3000/auth/github/register`}
-      >
-        Github 계정 연결
-      </Button>
+      <OAuthManagement oauthProfiles={profile.oauthProfiles} />
     </div>
   );
 }

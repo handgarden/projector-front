@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { graphql } from "../../../gql";
 import { useProjectStore } from "../../../store/useProjectStore";
-import usePathUtils from "../../../hook/usePathUtils";
+import usePathUtils from "../../../common/hook/usePathUtils";
 import { useRouter } from "next/navigation";
 import { PROJECT_PATH } from "../../../common/path/ProjectPath";
 

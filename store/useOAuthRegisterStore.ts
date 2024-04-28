@@ -3,18 +3,19 @@ import { StateStatus } from "../types/common/StateStatus.type";
 import { post } from "../common/axios";
 import { ResponseStatus } from "../types/api/RestTemplate.type";
 import { JwtTokenUtils } from "../utils/JwtTokenUtils";
+import { OAuthProvider } from "../types/auth/OAuthProvider.type";
 
-type GithubRegisterStore = {
+type OAuthRegisterStore = {
   status: StateStatus;
   error: null | string;
-  register: (code: string) => Promise<void>;
+  register: (code: string, provider: OAuthProvider) => Promise<void>;
 };
 
-export const useGithubRegisterStore = create<GithubRegisterStore>((set) => {
+export const useOAuthRegisterStore = create<OAuthRegisterStore>((set) => {
   return {
     status: StateStatus.INITIAL,
     error: null,
-    register: async (code: string) => {
+    register: async (code: string, provider: OAuthProvider) => {
       set({ status: StateStatus.PENDING });
       const accessToken = JwtTokenUtils.getToken();
 
@@ -26,7 +27,7 @@ export const useGithubRegisterStore = create<GithubRegisterStore>((set) => {
       }
 
       const res = await post<null, void>(
-        `/auth/github/register?code=${code}`,
+        `/auth/oauth/register?code=${code}&provider=${provider}`,
         null,
         accessToken
       );

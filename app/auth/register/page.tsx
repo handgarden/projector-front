@@ -2,9 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRegisterStore } from "../../../store/useRegisterStore";
-import RegisterForm from "../component/RegisterForm";
+import RegisterForm from "../components/RegisterForm";
 import { AUTH_PATH } from "../../../common/path/AuthPath";
-import usePathUtils from "../../../hook/usePathUtils";
+import usePathUtils from "../../../common/hook/usePathUtils";
 import { StateStatus } from "../../../types/common/StateStatus.type";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
 import { LoginRequest } from "../../../types/auth/LoginRequest.type";
