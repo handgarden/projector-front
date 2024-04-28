@@ -8,6 +8,7 @@ import {
 } from "@nextui-org/react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { AuthButton } from "./AuthButton";
+import { ProfileButton } from "./ProfileButton";
 
 export default function CustomNavbar() {
   return (
@@ -23,6 +24,9 @@ export default function CustomNavbar() {
       <NavbarContent justify="end">
         <NavbarItem>
           <ThemeSwitcher />
+        </NavbarItem>
+        <NavbarItem>
+          <ProfileButton />
         </NavbarItem>
         <NavbarItem>
           <AuthButton />
