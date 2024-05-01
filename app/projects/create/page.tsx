@@ -44,18 +44,13 @@ export default function CreatePresentationPage() {
   });
 
   return (
-    // <PresentationForm
-    //   onSubmit={(data: CreateProjectInput) => {
-    //     create({ variables: { input: data } });
-    //   }}
-    // />
     <div>
       <ProjectForm
         onSubmit={(data) => {
           create({ variables: { input: data } });
         }}
       />
-      <Button as={Link} href={PROJECT_PATH.create}>
+      <Button fullWidth as={Link} href={PROJECT_PATH.create} className="mt-4">
         Cancel
       </Button>
     </div>
