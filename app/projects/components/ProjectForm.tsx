@@ -3,20 +3,14 @@ import { DefaultValidationMessage } from "../../../common/message/validation/Def
 import { useForm } from "react-hook-form";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
+import { FormErrorText } from "../../../common/components/FormErrorText";
 
 type Props = {
   initialValues?: GetProjectQuery["project"];
   onSubmit: (values: CreateProjectInput) => void;
 };
 
-export default function PresentationForm({ onSubmit, initialValues }: Props) {
-  // useEffect(() => {
-  //   form.setFieldsValue({
-  //     title: initialValues?.title,
-  //     description: initialValues?.description,
-  //   });
-  // }, [form, initialValues]);
-
+export default function ProjectForm({ onSubmit, initialValues }: Props) {
   const {
     register,
     formState: { errors },
@@ -29,7 +23,7 @@ export default function PresentationForm({ onSubmit, initialValues }: Props) {
   ).replace("${max}", "255");
 
   const onSubmitForm = (data: CreateProjectInput) => {
-    if (!confirm(DEFAULT_MESSAGE_KR.alert.confirm)) {
+    if (!confirm(DEFAULT_MESSAGE_KR.alert.confirm.create)) {
       return;
     }
 
@@ -39,6 +33,7 @@ export default function PresentationForm({ onSubmit, initialValues }: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Input
+        label="Title"
         defaultValue={initialValues?.title}
         {...register("title", {
           required: {
@@ -47,7 +42,9 @@ export default function PresentationForm({ onSubmit, initialValues }: Props) {
           },
         })}
       />
+      {errors.title && <FormErrorText>{errors.title.message}</FormErrorText>}
       <Textarea
+        label="Description"
         defaultValue={initialValues?.description}
         {...register("description", {
           required: {
@@ -63,8 +60,14 @@ export default function PresentationForm({ onSubmit, initialValues }: Props) {
             message: lengthMessage,
           },
         })}
+        className="my-4"
       />
-      <Button type="submit">{initialValues ? "Update" : "Create"}</Button>
+      {errors.description && (
+        <FormErrorText>{errors.description.message}</FormErrorText>
+      )}
+      <Button fullWidth type="submit">
+        {initialValues ? "Update" : "Create"}
+      </Button>
     </form>
   );
 }

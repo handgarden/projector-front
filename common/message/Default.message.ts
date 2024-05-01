@@ -3,6 +3,10 @@ export const DEFAULT_MESSAGE_KR = {
     back: "뒤로가기",
   },
   alert: {
-    confirm: "정말로 진행하시겠습니까?",
+    confirm: {
+      delete: "정말 삭제하시겠습니까?",
+      create: "정말 생성하시겠습니까?",
+      update: "정말 수정하시겠습니까?",
+    },
   },
 } as const;
