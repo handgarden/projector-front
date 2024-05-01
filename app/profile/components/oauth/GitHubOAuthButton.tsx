@@ -3,11 +3,15 @@ import { GitHubAccountUnlinkButton } from "./GitHubAccountUnlinkButton";
 
 type GitHubOAuthButtonProps = {
   isLinked: boolean;
+  refetchOAuth: () => void;
 };
 
-export function GitHubOAuthButton({ isLinked }: GitHubOAuthButtonProps) {
+export function GitHubOAuthButton({
+  isLinked,
+  refetchOAuth,
+}: GitHubOAuthButtonProps) {
   if (isLinked) {
-    return <GitHubAccountUnlinkButton />;
+    return <GitHubAccountUnlinkButton refetchOAuth={refetchOAuth} />;
   }
   return <GitHubAccountLinkButton />;
 }

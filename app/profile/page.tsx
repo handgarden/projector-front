@@ -3,7 +3,7 @@ import { OAuthManagement } from "./components/oauth/OAuthManagement";
 import { useProfileQuery } from "./hook/useProfileQuery";
 
 export default function ProfilePage() {
-  const { profile, loading, error } = useProfileQuery();
+  const { profile, loading, error, refetch } = useProfileQuery();
 
   if (error) {
     return (
@@ -17,7 +17,10 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <OAuthManagement oauthProfiles={profile.oauthProfiles} />
+      <OAuthManagement
+        oauthProfiles={profile.oauthProfiles}
+        refetchOAuth={refetch}
+      />
     </div>
   );
 }
