@@ -1,10 +1,11 @@
 "use client";
-import { Progress } from "@nextui-org/react";
+import { CircularProgress, Progress } from "@nextui-org/react";
 import useProjectListQuery from "../hook/useProjectListQuery";
 import { ProjectListItem } from "./ProjectListItem";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pageable } from "../../../types/common/Pageable.type";
 import { GetProjectsQuery } from "../../../gql/graphql";
+import { useRouter } from "next/navigation";
 
 type Props = {
   layout?: "vertical" | "horizontal";
@@ -35,6 +36,8 @@ export function ProjectList({ layout = "vertical" }: Props) {
     [loading]
   );
 
+  const router = useRouter();
+
   useEffect(() => {
     if (!hasNext) return;
     fetch({
@@ -43,8 +46,12 @@ export function ProjectList({ layout = "vertical" }: Props) {
         setData((prev) => [...prev, ...data.projects.items]);
         setHasNext(data.projects.hasNext);
       },
+      onError(err) {
+        setHasNext(false);
+        router.push("/error");
+      },
     });
-  }, [fetch, hasNext, pageable]);
+  }, [fetch, hasNext, pageable, router]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersect, {
@@ -64,8 +71,12 @@ export function ProjectList({ layout = "vertical" }: Props) {
       {data.map((p) => (
         <ProjectListItem key={p.id} project={p} />
       ))}
-      <div ref={divRef} id="project-infinite" className="h-10">
-        {loading && <Progress aria-label="project-loading" />}
+      <div
+        ref={divRef}
+        id="project-infinite"
+        className="h-16 flex justify-center"
+      >
+        {loading && <CircularProgress aria-label="project-loading" />}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { AuthGuard } from "../../common/components/AuthGuard";
 
 export const metadata: Metadata = {
   title: "Projector - Profile Page",
@@ -10,9 +11,11 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="p-4">
-      <h2 className="text-2xl text-center my-5 font-bold">프로필</h2>
-      {children}
-    </main>
+    <AuthGuard>
+      <main className="p-4">
+        <h2 className="text-2xl text-center my-5 font-bold">프로필</h2>
+        {children}
+      </main>
+    </AuthGuard>
   );
 }

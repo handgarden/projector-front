@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { AuthGuard } from "../../common/components/AuthGuard";
 
 export const metadata: Metadata = {
   title: "Projector - Project Page",
@@ -11,9 +12,11 @@ export default function ProjectLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <h2 className="text-xl">프로젝트</h2>
-      {children}
-    </div>
+    <AuthGuard>
+      <div>
+        <h2 className="text-xl">프로젝트</h2>
+        {children}
+      </div>
+    </AuthGuard>
   );
 }
