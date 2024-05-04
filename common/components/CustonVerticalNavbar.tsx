@@ -90,9 +90,9 @@ export function CustomNavbar() {
         <div>
           <ul
             className={mclsx(
-              "border-t-1",
-              isDark && "border-t-gray-800",
-              !isDark && "border-t-gray-200"
+              "border-y-1",
+              isDark && "border-y-gray-800",
+              !isDark && "border-y-gray-200"
             )}
           >
             <CustomNavbarThemeSwitcher open={isMenuOpen} />
