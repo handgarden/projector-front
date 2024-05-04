@@ -1,7 +1,17 @@
-export function MainBox({ children }: { children: React.ReactNode }) {
+import { mclsx } from "../../utils/mclsx";
+
+export function MainBox({
+  children,
+  mainOnly = true,
+}: {
+  children: React.ReactNode;
+  mainOnly?: boolean;
+}) {
   return (
     <main className="p-4 flex justify-center w-full">
-      <div className="w-full max-w-[1024px]">{children}</div>
+      <div className={mclsx("w-full max-w-[1024px]", mainOnly && "pt-8")}>
+        {children}
+      </div>
     </main>
   );
 }
