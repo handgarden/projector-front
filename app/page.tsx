@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { ProjectList } from "./projects/components/ProjectList";
 import { IndexMessage } from "../common/message/Index.message";
 
 export default function Home() {
