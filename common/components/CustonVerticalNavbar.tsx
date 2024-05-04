@@ -8,7 +8,7 @@ import { RiSlideshow2Line } from "react-icons/ri";
 import { mclsx } from "../../utils/mclsx";
 import { CgProfile } from "react-icons/cg";
 import { PROFILE_PATH } from "../path/ProfilePath";
-import { useIsDark } from "../../app/projects/hook/useIsDark";
+import { useIsDark } from "../hook/useIsDark";
 import { useEffect, useRef, useState } from "react";
 import { CustomNavbarThemeSwitcher } from "./CustomNavbarThemeSwitcher";
 
