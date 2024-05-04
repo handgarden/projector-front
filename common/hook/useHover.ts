@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 export function useHover<T extends Element>() {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef<T>(null);
-  console.log(isHovered);
   useEffect(() => {
     const button = ref.current;
     if (button) {
