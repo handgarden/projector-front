@@ -8,6 +8,7 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./common/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./common/layout/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {},

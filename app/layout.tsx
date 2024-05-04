@@ -22,7 +22,7 @@ export default function RootLayout({
         <Provider>
           <div className="flex min-h-screen">
             <CustomNavbar />
-            <div className="w-full">{children}</div>
+            {children}
           </div>
         </Provider>
       </body>
