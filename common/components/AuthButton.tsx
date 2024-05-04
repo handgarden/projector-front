@@ -8,7 +8,13 @@ import { AUTH_MESSAGE_KR } from "../message/Auth.message";
 import { StateStatus } from "../../types/common/StateStatus.type";
 import { ROOT_PATH } from "../path/RootPath";
 
-export function AuthButton() {
+type Props = {
+  fullWidth?: boolean;
+  variant?: "bordered" | "ghost";
+  className?: string;
+};
+
+export function AuthButton({ fullWidth, variant, className }: Props) {
   const [status, logout] = useAuthStore((state) => [
     state.status,
     state.logout,
@@ -24,12 +30,14 @@ export function AuthButton() {
   if (status === StateStatus.SUCCESS) {
     return (
       <Button
+        fullWidth={fullWidth}
         onClick={() => {
           logout();
           router.replace(ROOT_PATH.root);
           router.refresh();
         }}
-        variant="ghost"
+        variant={variant}
+        className={className}
       >
         {AUTH_MESSAGE_KR.button.logout}
       </Button>
@@ -37,7 +45,13 @@ export function AuthButton() {
   }
 
   return (
-    <Button as={Link} href={loginRedirectPath} variant="ghost">
+    <Button
+      as={Link}
+      href={loginRedirectPath}
+      variant={variant}
+      fullWidth={fullWidth}
+      className={className}
+    >
       {AUTH_MESSAGE_KR.button.login}
     </Button>
   );
