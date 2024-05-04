@@ -2,7 +2,7 @@ import { ProjectList } from "./components/ProjectList";
 
 export default function ProjectsPage() {
   return (
-    <div>
+    <div className="min-h-full">
       <ProjectList />
     </div>
   );
