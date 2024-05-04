@@ -6,6 +6,7 @@ import { StateStatus } from "../../../../types/common/StateStatus.type";
 import { ConstEnumValidator } from "../../../../utils/ConstEnumValidator";
 import { OAuthProvider } from "../../../../gql/graphql";
 import { PROFILE_PATH } from "../../../../common/path/ProfilePath";
+import { CircularProgress } from "@nextui-org/react";
 
 export default function OAuthRegister() {
   const query = useSearchParams();
@@ -44,5 +45,10 @@ export default function OAuthRegister() {
     }
   }, [router, status]);
 
-  return <div></div>;
+  return (
+    <div className="flex w-full justify-center items-center flex-col">
+      <CircularProgress size="lg" />
+      <p>연결 정보를 확인 중입니다...</p>
+    </div>
+  );
 }

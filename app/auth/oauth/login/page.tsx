@@ -6,6 +6,7 @@ import { ConstEnumValidator } from "../../../../utils/ConstEnumValidator";
 import { OAuthProvider } from "../../../../gql/graphql";
 import { ROOT_PATH } from "../../../../common/path/RootPath";
 import { AUTH_PATH } from "../../../../common/path/AuthPath";
+import { CircularProgress } from "@nextui-org/react";
 
 export default function OAuthLogin() {
   const query = useSearchParams();
@@ -35,5 +36,10 @@ export default function OAuthLogin() {
     );
   }, [githubLogin, params, query, router]);
 
-  return <div></div>;
+  return (
+    <div className="flex w-full justify-center items-center flex-col">
+      <CircularProgress size="lg" />
+      <p className="mt-4">로그인 정보를 확인 중입니다...</p>
+    </div>
+  );
 }
