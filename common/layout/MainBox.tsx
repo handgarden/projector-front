@@ -8,8 +8,10 @@ export function MainBox({
   mainOnly?: boolean;
 }) {
   return (
-    <main className="p-4 flex justify-center w-full">
-      <div className={mclsx("w-full max-w-[1024px]", mainOnly && "pt-8")}>
+    <main className="p-4 flex justify-center w-full h-full">
+      <div
+        className={mclsx("w-full max-w-[1024px] h-full", mainOnly && "pt-8")}
+      >
         {children}
       </div>
     </main>
