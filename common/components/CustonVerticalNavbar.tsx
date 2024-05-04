@@ -5,52 +5,107 @@ import { CustomNavbarLinkItem } from "./CustomNavbarLinkItem";
 import { ProjectorIcon } from "./ProjectorIcon";
 import { GoHome } from "react-icons/go";
 import { RiSlideshow2Line } from "react-icons/ri";
-import { ThemeSwitcher } from "./ThemeSwitcher";
-import { CustomNavbarItem } from "./CustomNavbarItem";
 import { mclsx } from "../../utils/mclsx";
 import { CgProfile } from "react-icons/cg";
 import { PROFILE_PATH } from "../path/ProfilePath";
 import { useIsDark } from "../../app/projects/hook/useIsDark";
+import { useEffect, useRef, useState } from "react";
+import { CustomNavbarThemeSwitcher } from "./CustomNavbarThemeSwitcher";
 
 export function CustomNavbar() {
   const isDark = useIsDark();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+
+  console.log(isMenuOpen);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      setIsMenuOpen(true);
+    };
+    const handleBlur = () => {
+      setIsMenuOpen(false);
+    };
+
+    const nav = navRef.current;
+    if (nav) {
+      navRef.current.addEventListener("mouseenter", handleFocus);
+      navRef.current.addEventListener("mouseleave", handleBlur);
+    }
+
+    return () => {
+      if (nav) {
+        nav.removeEventListener("mouseenter", handleFocus);
+        nav.removeEventListener("mouseleave", handleBlur);
+      }
+    };
+  }, [navRef]);
 
   return (
-    <nav
-      className={mclsx(
-        "min-w-20 border-r-1 ",
-        isDark && "border-r-gray-800",
-        !isDark && "border-r-gray-200"
-      )}
-    >
+    <nav className={mclsx("min-h-full", "relative", "min-w-14")} ref={navRef}>
+      {/* <div className="absolute top-0 left-0 h-full w-full"> */}
       <div
         className={mclsx(
-          "py-5 border-b-1",
-          isDark && "border-b-gray-800",
-          !isDark && "border-b-gray-200"
+          "sticky top-0 flex flex-col justify-between h-lvh",
+          isDark ? "border-r-gray-800 bg-black" : "border-r-gray-200 bg-white",
+          "border-r-1 ",
+          isMenuOpen ? "w-40" : "w-14",
+          "z-20",
+          "overflow-hidden",
+          "transition-all duration-200 ease-in-out"
         )}
       >
-        <ProjectorIcon />
+        <div>
+          <div
+            className={mclsx(
+              "py-3 border-b-1",
+              isDark && "border-b-gray-800",
+              !isDark && "border-b-gray-200"
+            )}
+          >
+            <ProjectorIcon />
+          </div>
+          <ul
+            className={mclsx(
+              "border-b-1",
+              isDark && "border-b-gray-800",
+              !isDark && "border-b-gray-200"
+            )}
+          >
+            <CustomNavbarLinkItem
+              exact
+              icon={<GoHome />}
+              path={ROOT_PATH.root}
+              label="Home"
+              open={isMenuOpen}
+            />
+            <CustomNavbarLinkItem
+              icon={<RiSlideshow2Line />}
+              path={PROJECT_PATH.root}
+              label="Projects"
+              open={isMenuOpen}
+            />
+          </ul>
+        </div>
+        <div>
+          <ul
+            className={mclsx(
+              "border-t-1",
+              isDark && "border-t-gray-800",
+              !isDark && "border-t-gray-200"
+            )}
+          >
+            <CustomNavbarThemeSwitcher open={isMenuOpen} />
+            <CustomNavbarLinkItem
+              icon={<CgProfile />}
+              path={PROFILE_PATH.root}
+              label="Profile"
+              open={isMenuOpen}
+            />
+          </ul>
+        </div>
       </div>
-      <ul
-        className={mclsx(
-          "border-b-1",
-          isDark && "border-b-gray-800",
-          !isDark && "border-b-gray-200"
-        )}
-      >
-        <CustomNavbarLinkItem exact icon={<GoHome />} path={ROOT_PATH.root} />
-        <CustomNavbarLinkItem icon={<CgProfile />} path={PROFILE_PATH.root} />
-        <CustomNavbarLinkItem
-          icon={<RiSlideshow2Line />}
-          path={PROJECT_PATH.root}
-        />
-      </ul>
-      <ul>
-        <CustomNavbarItem>
-          <ThemeSwitcher />
-        </CustomNavbarItem>
-      </ul>
+      {/* </div> */}
     </nav>
   );
 }

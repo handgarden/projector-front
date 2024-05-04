@@ -20,9 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <div className="flex min-h-screen">
-            <CustomNavbar />
-            {children}
+          <div className="flex min-h-screen relative">
+            <div className="w-14">
+              <CustomNavbar />
+            </div>
+            <div className="min-w-[calc(100%-3.5rem)]">{children}</div>
           </div>
         </Provider>
       </body>
