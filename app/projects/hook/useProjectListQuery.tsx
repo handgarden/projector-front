@@ -1,23 +1,26 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { graphql } from "../../../gql";
 
 export const GET_PROJECTS = graphql(
   `
-    query getProjects {
-      projects {
-        id
-        title
-        description
-        thumbnail
+    query getProjects($page: Int, $size: Int) {
+      projects(page: $page, size: $size) {
+        items {
+          id
+          title
+          description
+          thumbnail
+        }
+        hasNext
       }
     }
   `
 );
 
 export default function useProjectListQuery() {
-  const { data, loading } = useQuery(GET_PROJECTS);
+  const [fetch, { loading }] = useLazyQuery(GET_PROJECTS);
   return {
-    projects: data?.projects ?? [],
+    fetch,
     loading,
   };
 }
