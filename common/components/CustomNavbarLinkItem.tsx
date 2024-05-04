@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { CustomNavbarItem } from "./CustomNavbarItem";
-import { useIsDark } from "../../app/projects/hook/useIsDark";
+import { useIsDark } from "../hook/useIsDark";
 import { useHover } from "../hook/useHover";
 
 type Props = {
