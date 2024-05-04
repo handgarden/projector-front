@@ -1,3 +1,4 @@
+import { MainBox } from "../../../common/layout/MainBox";
 import { AUTH_MESSAGE_KR } from "../../../common/message/Auth.message";
 
 export default function LoginLayout({
@@ -6,11 +7,11 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="p-4">
+    <MainBox>
       <h2 className="text-2xl text-center my-5 font-bold">
         {AUTH_MESSAGE_KR.title.login}
       </h2>
       {children}
-    </main>
+    </MainBox>
   );
 }

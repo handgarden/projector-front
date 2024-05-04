@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { AuthGuard } from "../../common/components/AuthGuard";
+import { MainBox } from "../../common/layout/MainBox";
 
 export const metadata: Metadata = {
   title: "Projector - Profile Page",
@@ -12,10 +13,10 @@ export default function ProfileLayout({
 }) {
   return (
     <AuthGuard>
-      <main className="p-4">
+      <MainBox>
         <h2 className="text-2xl text-center my-5 font-bold">프로필</h2>
         {children}
-      </main>
+      </MainBox>
     </AuthGuard>
   );
 }
