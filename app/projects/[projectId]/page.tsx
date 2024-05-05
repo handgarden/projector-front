@@ -12,7 +12,6 @@ import { PROJECT_MESSAGE } from "../../../common/message/Project.message";
 import { BsPlus } from "react-icons/bs";
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
-  console.log(projectId);
   const { project, loading } = useProjectQuery({
     projectId: projectId as string,
   });
