@@ -45,7 +45,6 @@ export default function useProjectQuery({ projectId }: { projectId?: string }) {
   });
 
   useEffect(() => {
-    console.log(project, projectId);
     if (!projectId) return;
 
     const isProjectExists = project && project.id === projectId;
