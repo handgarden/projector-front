@@ -50,7 +50,7 @@ export function CustomNavbarThemeSwitcher({ open }: Props) {
         ) : (
           <IoSunny className="text-xl" />
         )}
-        {open && <span className="ml-2 text-sm">Theme</span>}
+        {open && <span className="ml-2 text-sm font-normal">Theme</span>}
       </button>
     </CustomNavbarItem>
   );

@@ -7,8 +7,6 @@ import { PROJECT_PATH } from "../../../common/path/ProjectPath";
 import { useRouter } from "next/navigation";
 import { graphql } from "../../../gql";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
-import { Button } from "@nextui-org/react";
-import Link from "next/link";
 import ProjectForm from "../components/ProjectForm";
 
 const createProject = graphql(`
@@ -50,9 +48,6 @@ export default function CreatePresentationPage() {
           create({ variables: { input: data } });
         }}
       />
-      <Button fullWidth as={Link} href={PROJECT_PATH.create} className="mt-4">
-        Cancel
-      </Button>
     </div>
   );
 }

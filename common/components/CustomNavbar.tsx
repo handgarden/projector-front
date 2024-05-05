@@ -17,8 +17,6 @@ export function CustomNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
-  console.log(isMenuOpen);
-
   useEffect(() => {
     const handleFocus = () => {
       setIsMenuOpen(true);
@@ -59,8 +57,7 @@ export function CustomNavbar() {
           <div
             className={mclsx(
               "py-3 border-b-1",
-              isDark && "border-b-gray-800",
-              !isDark && "border-b-gray-200"
+              isDark ? "border-b-gray-800" : "border-b-gray-200"
             )}
           >
             <ProjectorIcon />
@@ -68,8 +65,7 @@ export function CustomNavbar() {
           <ul
             className={mclsx(
               "border-b-1",
-              isDark && "border-b-gray-800",
-              !isDark && "border-b-gray-200"
+              isDark ? "border-b-gray-800" : "border-b-gray-200"
             )}
           >
             <CustomNavbarLinkItem
@@ -91,8 +87,7 @@ export function CustomNavbar() {
           <ul
             className={mclsx(
               "border-y-1",
-              isDark && "border-y-gray-800",
-              !isDark && "border-y-gray-200"
+              isDark ? "border-y-gray-800" : "border-y-gray-200"
             )}
           >
             <CustomNavbarThemeSwitcher open={isMenuOpen} />
@@ -105,7 +100,6 @@ export function CustomNavbar() {
           </ul>
         </div>
       </div>
-      {/* </div> */}
     </nav>
   );
 }

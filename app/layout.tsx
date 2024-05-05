@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
-import { CustomNavbar } from "../common/components/CustonVerticalNavbar";
+import { CustomNavbar } from "../common/components/CustomNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +24,7 @@ export default function RootLayout({
             <div className="w-14">
               <CustomNavbar />
             </div>
-            <div className="min-w-[calc(100%-3.5rem)]">{children}</div>
+            <div className="min-w-[calc(100%-3.5rem)] flex">{children}</div>
           </div>
         </Provider>
       </body>

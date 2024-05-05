@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { AuthGuard } from "../../common/components/AuthGuard";
 import { MainBox } from "../../common/layout/MainBox";
+import { ContentBox } from "../../common/layout/ContentBox";
+import { MainBoxMenuItem } from "../../common/components/MainBoxMenuItem";
 
 export const metadata: Metadata = {
   title: "Projector - Project Page",
@@ -14,10 +16,11 @@ export default function ProjectLayout({
 }) {
   return (
     <AuthGuard>
-      <MainBox>
-        <h2 className="text-xl">프로젝트</h2>
-        {children}
+      <MainBox hasContent title="프로젝트">
+        <MainBoxMenuItem exact path="/projects" label="목록" />
+        <MainBoxMenuItem path="/projects/create" label="생성" />
       </MainBox>
+      <ContentBox>{children}</ContentBox>
     </AuthGuard>
   );
 }

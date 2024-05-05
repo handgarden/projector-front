@@ -46,7 +46,7 @@ export function CustomNavbarLinkItem({
         onClick={() => router.push(path)}
       >
         {typeof icon === "string" ? <span>{icon}</span> : icon}
-        {open && <span className="ml-2 text-sm">{label}</span>}
+        {open && <span className="ml-2 text-sm font-normal">{label}</span>}
       </button>
     </CustomNavbarItem>
   );

@@ -11,7 +11,7 @@ export function CustomNavbarItem({
     <li
       className={mclsx(
         "flex justify-start items-center text-xl m-auto my-4 w-full",
-        open ? "w-36" : "w-14"
+        open ? "w-40" : "w-14"
       )}
     >
       {children}
