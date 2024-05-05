@@ -65,7 +65,7 @@ export default function ProjectDetailPage() {
               projectId: project.id,
             })}
           />
-          <DeleteItemButton onClick={onDelete} />
+          <DeleteItemButton onDelete={onDelete} />
         </div>
       </div>
       <div className="mt-5 flex justify-center items-center flex-col gap-5">
