@@ -1,14 +1,14 @@
 "use client";
-import { PROJECT_PATH } from "../path/ProjectPath";
-import { ROOT_PATH } from "../path/RootPath";
+import { PROJECT_PATH } from "../../path/ProjectPath";
+import { ROOT_PATH } from "../../path/RootPath";
 import { CustomNavbarLinkItem } from "./CustomNavbarLinkItem";
-import { ProjectorIcon } from "./ProjectorIcon";
+import { ProjectorIcon } from "../ProjectorIcon";
 import { GoHome } from "react-icons/go";
 import { RiSlideshow2Line } from "react-icons/ri";
-import { mclsx } from "../../utils/mclsx";
+import { mclsx } from "../../../utils/mclsx";
 import { CgProfile } from "react-icons/cg";
-import { PROFILE_PATH } from "../path/ProfilePath";
-import { useIsDark } from "../hook/useIsDark";
+import { PROFILE_PATH } from "../../path/ProfilePath";
+import { useIsDark } from "../../hook/useIsDark";
 import { useEffect, useRef, useState } from "react";
 import { CustomNavbarThemeSwitcher } from "./CustomNavbarThemeSwitcher";
 

@@ -1,4 +1,4 @@
-import { mclsx } from "../../utils/mclsx";
+import { mclsx } from "../../../utils/mclsx";
 
 export function CustomNavbarItem({
   children,

@@ -7,9 +7,13 @@ import useProjectQuery from "../hook/useProjectQuery";
 import usePathUtils from "../../../common/hook/usePathUtils";
 import { useProjectStore } from "../../../store/useProjectStore";
 import useProjectDelete from "../hook/useProjectDelete";
-import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 import { PROJECT_MESSAGE } from "../../../common/message/Project.message";
 import { BsPlus } from "react-icons/bs";
+import { SlideList } from "../components/SlideList";
+import { EditLinkButton } from "../../../common/components/button/EditLinkButton";
+import { DeleteItemButton } from "../../../common/components/button/DeleteItemButton";
+import { BackLinkButton } from "../../../common/components/button/BackLinkButton";
+
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
   const { project, loading } = useProjectQuery({
@@ -52,24 +56,16 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="w-full p-1 max-w-[1024px]">
+    <div className="w-full p-1 max-w-[1024px] mx-auto">
       <div className="w-full flex justify-between items-center">
-        <Button size="sm" as={Link} href={PROJECT_PATH.root}>
-          {DEFAULT_MESSAGE_KR.navigate.back}
-        </Button>
+        <BackLinkButton path={PROJECT_PATH.root} />
         <div className="flex justify-end items-center gap-2">
-          <Button
-            as={Link}
-            href={replaceParamPath(PROJECT_PATH.edit, {
+          <EditLinkButton
+            path={replaceParamPath(PROJECT_PATH.edit, {
               projectId: project.id,
             })}
-            size="sm"
-          >
-            {DEFAULT_MESSAGE_KR.button.update}
-          </Button>
-          <Button size="sm" onClick={onDelete}>
-            {DEFAULT_MESSAGE_KR.button.delete}
-          </Button>
+          />
+          <DeleteItemButton onClick={onDelete} />
         </div>
       </div>
       <div className="mt-5 flex justify-center items-center flex-col gap-5">
@@ -101,7 +97,7 @@ export default function ProjectDetailPage() {
         </div>
       </div>
       <div className="flex justify-start items-center mt-5">
-        {/* <SlideList slides={project.slides} /> */}
+        <SlideList slides={project.slides} />
       </div>
     </div>
   );
