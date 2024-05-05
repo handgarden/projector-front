@@ -7,6 +7,6 @@ export const PROJECT_PATH = {
   details: `${PATH_PREFIX}/:projectId`,
   edit: `${PATH_PREFIX}/:projectId/edit`,
   createSlide: `${PATH_PREFIX}/:projectId/create-slide`,
-  slide: `${PATH_PREFIX}/:projectId/slide/:seq`,
-  updateSlide: `${PATH_PREFIX}/:projectId/slide/:seq/update`,
+  slide: `${PATH_PREFIX}/slide/:slideId`,
+  updateSlide: `${PATH_PREFIX}/slide/:slideId`,
 } as const;

@@ -4,10 +4,10 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { CustomNavbarItem } from "./CustomNavbarItem";
-import { useIsDark } from "../hook/useIsDark";
+import { useIsDark } from "../../hook/useIsDark";
 import { useTheme } from "next-themes";
 import { IoSunny, IoMoon } from "react-icons/io5";
-import { useHover } from "../hook/useHover";
+import { useHover } from "../../hook/useHover";
 type Props = {
   open: boolean;
 };
