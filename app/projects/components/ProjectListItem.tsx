@@ -6,11 +6,13 @@ type Props = {
   project: GetProjectsQuery["projects"]["items"][number];
 };
 
+const ELLIPSIS_LENGTH = 300;
+
 export function ProjectListItem({ project }: Props) {
-  const [ellipsisLength, setEllipsisLength] = useState(150);
+  const [ellipsisLength, setEllipsisLength] = useState(ELLIPSIS_LENGTH);
 
   return (
-    <Card className="my-4 mx-auto py-4 w-full max-w-[20rem]">
+    <Card className="my-4 mx-auto py-4 w-full max-w-[40rem]">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
         <h3 className="text-large">{project.title}</h3>
         <small className="text-default-500 break-all">
@@ -22,7 +24,6 @@ export function ProjectListItem({ project }: Props) {
                 setEllipsisLength(project.description.length);
               }}
             >
-              {" "}
               more
             </span>
           ) : null}

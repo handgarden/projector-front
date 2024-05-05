@@ -66,7 +66,9 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
         <FormErrorText>{errors.description.message}</FormErrorText>
       )}
       <Button fullWidth type="submit">
-        {initialValues ? "Update" : "Create"}
+        {initialValues
+          ? DEFAULT_MESSAGE_KR.button.update
+          : DEFAULT_MESSAGE_KR.button.create}
       </Button>
     </form>
   );
