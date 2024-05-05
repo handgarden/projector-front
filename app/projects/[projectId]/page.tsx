@@ -2,7 +2,7 @@
 import { Button, Input, Progress, Textarea } from "@nextui-org/react";
 import Link from "next/link";
 import { PROJECT_PATH } from "../../../common/path/ProjectPath";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import useProjectQuery from "../hook/useProjectQuery";
 import usePathUtils from "../../../common/hook/usePathUtils";
 import { useProjectStore } from "../../../store/useProjectStore";
@@ -13,6 +13,8 @@ import { SlideList } from "../components/SlideList";
 import { EditLinkButton } from "../../../common/components/button/EditLinkButton";
 import { DeleteItemButton } from "../../../common/components/button/DeleteItemButton";
 import { BackLinkButton } from "../../../common/components/button/BackLinkButton";
+import { DefaultHeader } from "../../../common/components/DefaultHeader";
+import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -24,12 +26,11 @@ export default function ProjectDetailPage() {
 
   const deleteProject = useProjectStore((state) => state.deleteProject);
   const { mutate } = useProjectDelete();
-  const router = useRouter();
 
   const onDelete = () => {
     if (!project) return;
 
-    if (!window.confirm("Are you sure you want to delete this project?")) {
+    if (!window.confirm(DEFAULT_MESSAGE_KR.alert.confirm.delete)) {
       return;
     }
 
@@ -39,7 +40,7 @@ export default function ProjectDetailPage() {
       },
       onCompleted: () => {
         deleteProject();
-        router.push(PROJECT_PATH.root);
+        window.location.href = PROJECT_PATH.root;
       },
     });
   };
@@ -68,6 +69,7 @@ export default function ProjectDetailPage() {
           <DeleteItemButton onDelete={onDelete} />
         </div>
       </div>
+      <DefaultHeader>프로젝트</DefaultHeader>
       <div className="mt-5 flex justify-center items-center flex-col gap-5">
         <Input
           label={PROJECT_MESSAGE.project.title}
@@ -80,6 +82,7 @@ export default function ProjectDetailPage() {
           labelPlacement="outside-left"
           value={project.description}
           readOnly
+          fullWidth
           minRows={10}
         />
         <div className="flex justify-start items-center w-full gap-2">

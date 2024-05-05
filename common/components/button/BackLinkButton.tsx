@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import { DEFAULT_MESSAGE_KR } from "../../message/Default.message";
@@ -12,7 +11,6 @@ type Props = {
 };
 
 export function BackLinkButton({ size = "sm", path }: Props) {
-  const router = useRouter();
   return (
     <Button size={size} as={Link} href={path}>
       <IoIosArrowBack />

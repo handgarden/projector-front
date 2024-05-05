@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 import { FormErrorText } from "../../../common/components/FormErrorText";
+import { PROJECT_MESSAGE } from "../../../common/message/Project.message";
 
 type Props = {
   initialValues?: GetProjectQuery["project"];
@@ -33,7 +34,7 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Input
-        label="Title"
+        label={PROJECT_MESSAGE.project.title}
         defaultValue={initialValues?.title}
         {...register("title", {
           required: {
@@ -44,7 +45,7 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
       />
       {errors.title && <FormErrorText>{errors.title.message}</FormErrorText>}
       <Textarea
-        label="Description"
+        label={PROJECT_MESSAGE.project.description}
         defaultValue={initialValues?.description}
         minRows={10}
         {...register("description", {
