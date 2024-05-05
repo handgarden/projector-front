@@ -8,44 +8,37 @@ import { useRouter } from "next/navigation";
 import { graphql } from "../../../gql";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
 import ProjectForm from "../components/ProjectForm";
-
-const createProject = graphql(`
-  mutation createProject($input: CreateProjectInput!) {
-    createProject(project: $input) {
-      id
-    }
-  }
-`);
+import { useProjectCreate } from "../hook/useProjectCreate";
 
 export default function CreatePresentationPage() {
   const router = useRouter();
 
   const { parse } = useGqlValidationErrorParser();
   const { replaceParamPath } = usePathUtils();
-  const [create] = useMutation(createProject, {
-    onCompleted: (data) => {
-      router.push(
-        replaceParamPath(PROJECT_PATH.details, {
-          projectId: data.createProject.id,
-        })
-      );
-    },
-    onError: (error) => {
-      const validationMessage = parse(error);
-      if (validationMessage) {
-        alert(validationMessage);
-        return;
-      }
 
-      alert(API_MESSAGE_KR.response.serverError);
-    },
-  });
+  const { mutate } = useProjectCreate();
 
   return (
     <div>
       <ProjectForm
         onSubmit={(data) => {
-          create({ variables: { input: data } });
+          mutate({
+            variables: { input: data },
+            onCompleted: (data) => {
+              window.location.href = replaceParamPath(PROJECT_PATH.details, {
+                projectId: data.createProject.id,
+              });
+            },
+            onError: (error) => {
+              const validationMessage = parse(error);
+              if (validationMessage) {
+                alert(validationMessage);
+                return;
+              }
+
+              alert(API_MESSAGE_KR.response.serverError);
+            },
+          });
         }}
       />
     </div>
