@@ -4,15 +4,15 @@ export function useHover<T extends Element>() {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef<T>(null);
   useEffect(() => {
-    const button = ref.current;
-    if (button) {
-      button.addEventListener("mouseenter", () => setIsHovered(true));
-      button.addEventListener("mouseleave", () => setIsHovered(false));
+    const elem = ref.current;
+    if (elem) {
+      elem.addEventListener("mouseenter", () => setIsHovered(true));
+      elem.addEventListener("mouseleave", () => setIsHovered(false));
     }
     return () => {
-      if (button) {
-        button.removeEventListener("mouseenter", () => setIsHovered(true));
-        button.removeEventListener("mouseleave", () => setIsHovered(false));
+      if (elem) {
+        elem.removeEventListener("mouseenter", () => setIsHovered(true));
+        elem.removeEventListener("mouseleave", () => setIsHovered(false));
       }
     };
   });
