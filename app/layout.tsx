@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <div className="flex min-h-screen relative">
+          <div className="flex min-h-screen max-h-screen relative">
             <div className="w-14">
               <CustomNavbar />
             </div>
