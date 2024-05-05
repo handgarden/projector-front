@@ -5,6 +5,9 @@ import { Button, Input, Textarea } from "@nextui-org/react";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 import { FormErrorText } from "../../../common/components/FormErrorText";
 import { PROJECT_MESSAGE } from "../../../common/message/Project.message";
+import { useEffect, useState } from "react";
+import { mclsx } from "../../../utils/mclsx";
+import { useIsDark } from "../../../common/hook/useIsDark";
 
 type Props = {
   initialValues?: GetProjectQuery["project"];
@@ -14,8 +17,10 @@ type Props = {
 export default function ProjectForm({ onSubmit, initialValues }: Props) {
   const {
     register,
+    setValue,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm<CreateProjectInput>();
 
   const lengthMessage = DefaultValidationMessage.LENGTH.replace(
@@ -24,29 +29,54 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
   ).replace("${max}", "255");
 
   const onSubmitForm = (data: CreateProjectInput) => {
-    if (!confirm(DEFAULT_MESSAGE_KR.alert.confirm.create)) {
+    const message = initialValues
+      ? DEFAULT_MESSAGE_KR.alert.confirm.update
+      : DEFAULT_MESSAGE_KR.alert.confirm.create;
+    if (!confirm(message)) {
       return;
     }
 
     onSubmit(data);
   };
 
+  useEffect(() => {
+    if (!initialValues) return;
+
+    setValue("title", initialValues.title);
+    setValue("description", initialValues.description);
+  }, [initialValues, setValue]);
+
+  const [isFocused, setIsFocused] = useState(false);
+  const isDark = useIsDark();
+
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
+      <label
+        className={mclsx(
+          "text-default-500 text-sm pb-2 block",
+          isFocused ? (isDark ? "text-white" : "text-black") : ""
+        )}
+      >
+        {PROJECT_MESSAGE.project.title}
+      </label>
       <Input
-        label={PROJECT_MESSAGE.project.title}
-        defaultValue={initialValues?.title}
         {...register("title", {
           required: {
             value: true,
             message: DefaultValidationMessage.REQUIRED,
           },
         })}
+        onFocus={() => {
+          setIsFocused(true);
+        }}
+        onBlur={() => {
+          setIsFocused(false);
+        }}
       />
       {errors.title && <FormErrorText>{errors.title.message}</FormErrorText>}
       <Textarea
         label={PROJECT_MESSAGE.project.description}
-        defaultValue={initialValues?.description}
+        labelPlacement="outside"
         minRows={10}
         {...register("description", {
           required: {
