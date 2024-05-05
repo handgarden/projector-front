@@ -16,7 +16,7 @@ export function ProjectListItem({ project }: Props) {
   return (
     <Card className="my-4 mx-auto py-4 w-full max-w-[40rem]">
       <CardHeader className="pb-0 pt-2 px-4 flex items-center justify-between">
-        <h3 className="text-large">{project.title}</h3>
+        <h3 className="text-large break-all pr-2">{project.title}</h3>
         <OpenLinkButton path={`/projects/${project.id}`} />
       </CardHeader>
       <CardBody>
