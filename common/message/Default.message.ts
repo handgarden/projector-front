@@ -1,6 +1,6 @@
 export const DEFAULT_MESSAGE_KR = {
   navigate: {
-    back: "뒤로가기",
+    back: "뒤로",
     open: "열기",
   },
   button: {
@@ -8,6 +8,7 @@ export const DEFAULT_MESSAGE_KR = {
     cancel: "취소",
     create: "생성",
     update: "수정",
+    delete: "삭제",
   },
   alert: {
     confirm: {

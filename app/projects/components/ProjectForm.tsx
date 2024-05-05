@@ -46,6 +46,7 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
       <Textarea
         label="Description"
         defaultValue={initialValues?.description}
+        minRows={10}
         {...register("description", {
           required: {
             value: true,
