@@ -40,11 +40,10 @@ export function CustomNavbar() {
   }, [navRef]);
 
   return (
-    <nav className={mclsx("min-h-full", "relative", "min-w-14")} ref={navRef}>
-      {/* <div className="absolute top-0 left-0 h-full w-full"> */}
+    <nav className={mclsx("min-h-full", "min-w-14 ")} ref={navRef}>
       <div
         className={mclsx(
-          "sticky top-0 flex flex-col justify-between h-lvh",
+          "absolute top-0 left-0 flex flex-col justify-between h-lvh ",
           isDark ? "border-r-gray-800 bg-black" : "border-r-gray-200 bg-white",
           "border-r-1 ",
           isMenuOpen ? "w-40" : "w-14",

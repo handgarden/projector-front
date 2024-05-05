@@ -1,6 +1,7 @@
 export const DEFAULT_MESSAGE_KR = {
   navigate: {
     back: "뒤로가기",
+    open: "열기",
   },
   button: {
     confirm: "확인",

@@ -16,16 +16,14 @@ export function MainBox({
   return (
     <main
       className={mclsx(
-        "flex justify-center h-full",
+        "flex justify-center h-full overflow-y-auto",
         hasContent ? "w-72" : "w-full",
         hasContent && "border-r-1",
         hasContent && isDark ? "border-r-gray-800" : "border-r-gray-200",
         !hasContent && "p-8"
       )}
     >
-      <div
-        className={mclsx("max-w-[1024px] h-full w-full", !hasContent && "pt-8")}
-      >
+      <div className={mclsx("h-full w-full", !hasContent && "pt-8")}>
         {title && (
           <h2
             className={mclsx(

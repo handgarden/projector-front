@@ -9,7 +9,7 @@ export default function CreateProjectLayout({
   return (
     <AuthGuard>
       <DefaultHeader>프로젝트 생성</DefaultHeader>
-      <main className="p-4">{children}</main>
+      <div className="p-4 max-w-[1024px] mx-auto">{children}</div>
     </AuthGuard>
   );
 }
