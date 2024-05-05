@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { graphql } from "../../../gql";
 import { useProjectStore } from "../../../store/useProjectStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export const GET_PROJECT = graphql(`
@@ -44,17 +44,15 @@ export default function useProjectQuery({ projectId }: { projectId?: string }) {
     },
   });
 
-  const [isFetched, setIsFetched] = useState(false);
-
   useEffect(() => {
+    console.log(project, projectId);
     if (!projectId) return;
 
     const isProjectExists = project && project.id === projectId;
-    if (!isProjectExists && !isFetched) {
-      setIsFetched(true);
+    if (!isProjectExists) {
       fetch();
     }
-  }, [fetch, isFetched, project, projectId]);
+  }, [fetch, project, projectId]);
 
   return { loading, project };
 }

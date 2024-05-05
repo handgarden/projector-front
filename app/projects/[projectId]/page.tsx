@@ -73,13 +73,13 @@ export default function ProjectDetailPage() {
       <div className="mt-5 flex justify-center items-center flex-col gap-5">
         <Input
           label={PROJECT_MESSAGE.project.title}
-          labelPlacement="outside-left"
+          labelPlacement="outside"
           value={project.title}
           readOnly
         />
         <Textarea
           label={PROJECT_MESSAGE.project.description}
-          labelPlacement="outside-left"
+          labelPlacement="outside"
           value={project.description}
           readOnly
           fullWidth
