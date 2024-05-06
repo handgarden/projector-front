@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DefaultValidationMessage } from "../../../common/message/validation/DefaultValidation.message";
-import { CreateSlideInput } from "../../../gql/graphql";
+import { UploadFileType } from "../../../types/file/UploadFileType";
 
 export default function useSlideValidation() {
   const [validationMessage, setValidationMessage] = useState({
@@ -9,7 +9,11 @@ export default function useSlideValidation() {
     images: "",
   });
 
-  const validate = (slide: CreateSlideInput) => {
+  const validate = (slide: {
+    title: string;
+    description: string;
+    images: UploadFileType[];
+  }) => {
     const isTitleValid = slide.title.length > 0 && slide.title.length <= 254;
     if (!isTitleValid) {
       setValidationMessage((prev) => ({

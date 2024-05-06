@@ -48,7 +48,6 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
   }, [initialValues, setValue]);
 
   const [isFocused, setIsFocused] = useState(false);
-  const isDark = useIsDark();
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>

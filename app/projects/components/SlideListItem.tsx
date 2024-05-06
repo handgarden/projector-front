@@ -18,6 +18,7 @@ import useSlideDelete from "../hook/useSlideDelete";
 import { useProjectStore } from "../../../store/useProjectStore";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 import { SimpleCarousel } from "../../../common/components/carousel/SimpleCarousel";
+import { useProjectsStore } from "../../../store/useProjectsStore";
 
 type Props = {
   slide: GetProjectQuery["project"]["slides"][0];
@@ -30,6 +31,10 @@ export default function SlideListItem({ slide, projectId }: Props) {
   const { mutate } = useSlideDelete();
 
   const deleteSlide = useProjectStore((state) => state.deleteSlide);
+  const [projects, updateProject] = useProjectsStore((state) => [
+    state.projects,
+    state.updateProject,
+  ]);
 
   const onDelete = () => {
     if (!slide) return;
@@ -44,6 +49,15 @@ export default function SlideListItem({ slide, projectId }: Props) {
       },
       onCompleted: () => {
         deleteSlide(slide);
+        if (slide.seq === 1 && slide.images.length > 0) {
+          const findProject = projects.find((p) => p.id === projectId);
+          if (findProject) {
+            updateProject({
+              ...findProject,
+              thumbnail: null,
+            });
+          }
+        }
       },
     });
   };

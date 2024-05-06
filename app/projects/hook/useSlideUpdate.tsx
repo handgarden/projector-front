@@ -13,9 +13,7 @@ const UPDATE_SLIDE = graphql(`
 `);
 
 export default function useSlideUpdate() {
-  const [mutate] = useMutation(UPDATE_SLIDE, {
-    refetchQueries: [GET_PROJECTS],
-  });
+  const [mutate] = useMutation(UPDATE_SLIDE);
 
   return {
     mutate,

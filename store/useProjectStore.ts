@@ -110,7 +110,7 @@ export const useProjectStore = create<
       set(
         produce((state: ProjectStoreType) => {
           if (!state.project) return;
-          if (state.project.slides.length < 2) {
+          if (state.project.slides.length < 1) {
             return;
           }
           state.project.slides = state.project.slides
