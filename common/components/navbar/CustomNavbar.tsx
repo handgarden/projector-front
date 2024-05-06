@@ -2,7 +2,7 @@
 import { PROJECT_PATH } from "../../path/ProjectPath";
 import { ROOT_PATH } from "../../path/RootPath";
 import { CustomNavbarLinkItem } from "./CustomNavbarLinkItem";
-import { ProjectorIcon } from "../ProjectorIcon";
+import { ProjectorIcon } from "../icon/ProjectorIcon";
 import { GoHome } from "react-icons/go";
 import { RiSlideshow2Line } from "react-icons/ri";
 import { mclsx } from "../../../utils/mclsx";

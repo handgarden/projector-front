@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { AuthGuard } from "../../common/components/AuthGuard";
 import { MainBox } from "../../common/layout/MainBox";
 import { ContentBox } from "../../common/layout/ContentBox";
-import { MainBoxMenuItem } from "../../common/components/MainBoxMenuItem";
+import { MainBoxMenuItem } from "../../common/layout/MainBoxMenuItem";
 
 export const metadata: Metadata = {
   title: "Projector - Project Page",

@@ -1,12 +1,12 @@
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import { useAuthStore } from "../../store/useAuthStore";
+import { useAuthStore } from "../../../store/useAuthStore";
 import { usePathname, useRouter } from "next/navigation";
-import usePathUtils from "../hook/usePathUtils";
-import { AUTH_PATH } from "../path/AuthPath";
-import { AUTH_MESSAGE_KR } from "../message/Auth.message";
-import { StateStatus } from "../../types/common/StateStatus.type";
-import { ROOT_PATH } from "../path/RootPath";
+import usePathUtils from "../../hook/usePathUtils";
+import { AUTH_PATH } from "../../path/AuthPath";
+import { AUTH_MESSAGE_KR } from "../../message/Auth.message";
+import { StateStatus } from "../../../types/common/StateStatus.type";
+import { ROOT_PATH } from "../../path/RootPath";
 
 type Props = {
   fullWidth?: boolean;

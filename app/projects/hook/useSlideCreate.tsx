@@ -6,6 +6,16 @@ const CREATE_SLIDE = graphql(`
   mutation createSlide($input: CreateSlideInput!) {
     createSlide(slide: $input) {
       id
+      seq
+      title
+      description
+      images {
+        seq
+        file {
+          key
+          url
+        }
+      }
     }
   }
 `);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GitHubButton } from "../../../common/components/GitHubButton";
+import { GitHubButton } from "../../../common/components/button/GitHubButton";
 
 type Props = {
   disabled?: boolean;

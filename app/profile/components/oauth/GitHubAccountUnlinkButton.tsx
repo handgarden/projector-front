@@ -1,4 +1,4 @@
-import { GitHubButton } from "../../../../common/components/GitHubButton";
+import { GitHubButton } from "../../../../common/components/button/GitHubButton";
 import { useOAuthRegisterStore } from "../../../../store/useOAuthRegisterStore";
 import { OAuthProvider } from "../../../../gql/graphql";
 import { useRouter } from "next/navigation";

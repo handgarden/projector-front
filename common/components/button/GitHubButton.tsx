@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from "@nextui-org/react";
-import { GitHubIcon } from "./GitHubIcon";
+import { GitHubIcon } from "../icon/GitHubIcon";
 import { twMerge } from "tailwind-merge";
 import { clsx } from "clsx";
 

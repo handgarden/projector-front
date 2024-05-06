@@ -3,11 +3,12 @@ import { DefaultValidationMessage } from "../../../common/message/validation/Def
 import { useForm } from "react-hook-form";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
-import { FormErrorText } from "../../../common/components/FormErrorText";
+import { FormErrorText } from "../../../common/components/form/FormErrorText";
 import { PROJECT_MESSAGE } from "../../../common/message/Project.message";
 import { useEffect, useState } from "react";
 import { mclsx } from "../../../utils/mclsx";
 import { useIsDark } from "../../../common/hook/useIsDark";
+import { FormLabel } from "../../../common/components/form/FormLabel";
 
 type Props = {
   initialValues?: GetProjectQuery["project"];
@@ -51,14 +52,8 @@ export default function ProjectForm({ onSubmit, initialValues }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
-      <label
-        className={mclsx(
-          "text-default-500 text-sm pb-2 block",
-          isFocused ? (isDark ? "text-white" : "text-black") : ""
-        )}
-      >
-        {PROJECT_MESSAGE.project.title}
-      </label>
+      <FormLabel value={PROJECT_MESSAGE.project.title} isFocused={isFocused} />
+
       <Input
         {...register("title", {
           required: {

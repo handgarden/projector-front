@@ -9,6 +9,7 @@ export const DEFAULT_MESSAGE_KR = {
     create: "생성",
     update: "수정",
     delete: "삭제",
+    upload: "업로드",
   },
   alert: {
     confirm: {
