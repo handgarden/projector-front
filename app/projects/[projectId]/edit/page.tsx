@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useProjectQuery from "../../hook/useProjectQuery";
 import usePathUtils from "../../../../common/hook/usePathUtils";
 import useProjectUpdate from "../../hook/useProjectUpdate";
@@ -7,6 +7,8 @@ import { BackLinkButton } from "../../../../common/components/button/BackLinkBut
 import { PROJECT_PATH } from "../../../../common/path/ProjectPath";
 import ProjectForm from "../../components/ProjectForm";
 import { DefaultHeader } from "../../../../common/components/DefaultHeader";
+import { useProjectsStore } from "../../../../store/useProjectsStore";
+import { useProjectStore } from "../../../../store/useProjectStore";
 
 export default function ProjectEditPage() {
   const { projectId } = useParams();
@@ -16,14 +18,22 @@ export default function ProjectEditPage() {
   const { replaceParamPath } = usePathUtils();
 
   const { mutation } = useProjectUpdate();
+  const updateProjectFromList = useProjectsStore(
+    (state) => state.updateProject
+  );
+  const updateProject = useProjectStore((state) => state.updateProject);
+
+  const router = useRouter();
+
+  if (!project) return null;
 
   return (
     <div className="w-full max-w-[1024px] mx-auto p-1">
       <div className="mb-4">
-        {projectId && (
+        {project && (
           <BackLinkButton
             path={replaceParamPath(PROJECT_PATH.details, {
-              projectId: projectId as string,
+              projectId: project.id as string,
             })}
           />
         )}
@@ -31,16 +41,28 @@ export default function ProjectEditPage() {
       <DefaultHeader>프로젝트 수정</DefaultHeader>
       <ProjectForm
         onSubmit={(d) => {
-          if (!projectId) return;
+          if (!project) return;
           mutation({
             variables: {
-              projectId: projectId as string,
+              projectId: project.id,
               input: d,
             },
             onCompleted: () => {
-              window.location.href = replaceParamPath(PROJECT_PATH.details, {
-                projectId: projectId as string,
+              const updated = {
+                ...project,
+                ...d,
+              };
+              updateProject({
+                ...updated,
               });
+              updateProjectFromList({
+                ...updated,
+              });
+              router.push(
+                replaceParamPath(PROJECT_PATH.details, {
+                  projectId: projectId as string,
+                })
+              );
             },
           });
         }}
