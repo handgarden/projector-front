@@ -11,7 +11,6 @@ import { DefaultHeader } from "../../../../../common/components/DefaultHeader";
 import { SLIDE_MESSAGE } from "../../../../../common/message/Slide.message";
 import { SlideForm } from "../../../components/SlideForm";
 import { BackLinkButton } from "../../../../../common/components/button/BackLinkButton";
-import { useProjectsStore } from "../../../../../store/useProjectsStore";
 
 export default function CreateSlidePage() {
   const { projectId } = useParams();
@@ -19,10 +18,6 @@ export default function CreateSlidePage() {
   const { project, loading } = useProjectQuery({
     projectId: projectId as string,
   });
-  const [projects, updateProject] = useProjectsStore((state) => [
-    state.projects,
-    state.updateProject,
-  ]);
 
   const { mutate } = useSlideCreate();
 
@@ -40,18 +35,7 @@ export default function CreateSlidePage() {
         addSlide({
           ...d.createSlide,
         });
-        const findProject = projects.find((p) => p.id === project.id);
-        if (
-          d.createSlide.seq === 1 &&
-          d.createSlide.images.length > 0 &&
-          findProject &&
-          !findProject.thumbnail
-        ) {
-          updateProject({
-            ...findProject,
-            thumbnail: d.createSlide.images[0].file.url,
-          });
-        }
+
         router.push(
           replaceParamPath(PROJECT_PATH.details, { projectId: project.id })
         );

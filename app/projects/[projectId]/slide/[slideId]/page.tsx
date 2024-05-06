@@ -11,7 +11,6 @@ import { SLIDE_MESSAGE } from "../../../../../common/message/Slide.message";
 import { GetSlideQuery } from "../../../../../gql/graphql";
 import useSlideUpdate from "../../../hook/useSlideUpdate";
 import { useProjectStore } from "../../../../../store/useProjectStore";
-import { useProjectsStore } from "../../../../../store/useProjectsStore";
 
 export default function UpdateSlidePage() {
   const { projectId, slideId } = useParams();
@@ -20,10 +19,6 @@ export default function UpdateSlidePage() {
   const { replaceParamPath } = usePathUtils();
 
   const updateSlide = useProjectStore((state) => state.updateSlide);
-  const [projects, updateProject] = useProjectsStore((state) => [
-    state.projects,
-    state.updateProject,
-  ]);
 
   const router = useRouter();
   const { mutate } = useSlideUpdate();
@@ -44,13 +39,7 @@ export default function UpdateSlidePage() {
       },
       onCompleted: () => {
         updateSlide(slide);
-        const findProject = projects.find((p) => p.id === projectId);
-        if (findProject && slide.seq === 1 && slide.images.length > 0) {
-          updateProject({
-            ...findProject,
-            thumbnail: slide.images[0].file.url,
-          });
-        }
+
         router.push(
           replaceParamPath(PROJECT_PATH.details, {
             projectId: projectId.toString(),

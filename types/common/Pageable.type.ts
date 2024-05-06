@@ -1,5 +1,4 @@
-export type Pageable<T> = {
+export type Pageable = {
   page: number;
   size: number;
-  lastKey?: T;
 };

@@ -15,7 +15,6 @@ import { DeleteItemButton } from "../../../common/components/button/DeleteItemBu
 import { BackLinkButton } from "../../../common/components/button/BackLinkButton";
 import { DefaultHeader } from "../../../common/components/DefaultHeader";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
-import { useProjectsStore } from "../../../store/useProjectsStore";
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -26,9 +25,7 @@ export default function ProjectDetailPage() {
   const { replaceParamPath } = usePathUtils();
 
   const deleteProject = useProjectStore((state) => state.deleteProject);
-  const deleteProjectFromList = useProjectsStore(
-    (state) => state.deleteProject
-  );
+
   const { mutate } = useProjectDelete();
 
   const router = useRouter();
@@ -46,7 +43,6 @@ export default function ProjectDetailPage() {
       },
       onCompleted: () => {
         deleteProject();
-        deleteProjectFromList(project.id);
         router.push(PROJECT_PATH.root);
       },
     });
