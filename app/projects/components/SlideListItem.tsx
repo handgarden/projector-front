@@ -17,25 +17,15 @@ import { DeleteItemButton } from "../../../common/components/button/DeleteItemBu
 import useSlideDelete from "../hook/useSlideDelete";
 import { useProjectStore } from "../../../store/useProjectStore";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
-import { useRouter } from "next/navigation";
+import { SimpleCarousel } from "../../../common/components/carousel/SimpleCarousel";
 
 type Props = {
   slide: GetProjectQuery["project"]["slides"][0];
+  projectId: string;
 };
 
-export default function SlideListItem({ slide }: Props) {
+export default function SlideListItem({ slide, projectId }: Props) {
   const { replaceParamPath } = usePathUtils();
-
-  const thumbnail = slide.images[0]?.file.url ? (
-    <Image
-      src={slide.images[0].file.url}
-      alt={slide.images[0].file.key}
-      className="object-fill rounded w-full h-full"
-      width={400}
-      height={300}
-      unoptimized
-    />
-  ) : null;
 
   const { mutate } = useSlideDelete();
 
@@ -72,21 +62,24 @@ export default function SlideListItem({ slide }: Props) {
           </h5>
           <div className="flex justify-end items-start">
             <EditLinkButton
-              path={replaceParamPath(PROJECT_PATH.updateSlide, {
+              path={replaceParamPath(PROJECT_PATH.slide.update, {
                 slideId: slide.id,
+                projectId,
               })}
             />
             <DeleteItemButton onDelete={onDelete} className="ml-2" />
           </div>
         </div>
+        <SimpleCarousel urls={slide.images.map((i) => i.file.url)} />
+      </CardHeader>
+      <CardBody>
         <div
-          className="mt-4 text-sm whitespace-pre-wrap text-default-500"
+          className="text-sm whitespace-pre-wrap text-default-500 max-h-96 overflow-y-auto"
           dangerouslySetInnerHTML={{
             __html: slide.description,
           }}
         ></div>
-      </CardHeader>
-      {thumbnail && <CardBody>{thumbnail}</CardBody>}
+      </CardBody>
     </Card>
   );
 }

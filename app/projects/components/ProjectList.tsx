@@ -55,7 +55,7 @@ export function ProjectList() {
   }, [handleIntersect]);
 
   return (
-    <div className={"flex flex-wrap relative min-h-[100vh+1rem]"}>
+    <div className={"min-h-[100vh+1rem]"}>
       {projects.map((p) => (
         <ProjectListItem key={p.id} project={p} />
       ))}

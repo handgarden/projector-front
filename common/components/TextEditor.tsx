@@ -1,19 +1,30 @@
 import { Editor } from "@tinymce/tinymce-react";
 import useUploadFile from "../hook/useUploadFile";
+import { progress } from "framer-motion";
 
 type Props = {
   value: string;
   onChange: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 };
 
-export default function TextEditor({ onChange, value }: Props) {
+export default function TextEditor({
+  onChange,
+  value,
+  onBlur,
+  onFocus,
+}: Props) {
   const upload = useUploadFile();
   return (
     <Editor
       value={value}
-      tinymceScriptSrc={process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"}
+      tinymceScriptSrc={"/tinymce/tinymce.min.js"}
       onEditorChange={onChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
       init={{
+        license_key: "gpl" as any,
         height: 500,
         menubar: false,
         plugins: [
@@ -35,9 +46,12 @@ export default function TextEditor({ onChange, value }: Props) {
           "help",
           "wordcount",
         ],
-        images_upload_url: process.env.REACT_APP_API_URL + "/files/upload",
+        images_upload_url: process.env.NEXT_PUBLIC_API_URL + "/files/upload",
         images_upload_credentials: true,
-        images_upload_handler: upload,
+        images_upload_handler: async (f, progress) => {
+          const res = await upload(f, progress);
+          return res.url;
+        },
         toolbar:
           "undo redo | blocks | " +
           "code image media | " +

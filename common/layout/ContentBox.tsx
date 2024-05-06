@@ -1,6 +1,6 @@
 "use client";
 import { mclsx } from "../../utils/mclsx";
-import { PathBreadCrumbs } from "../components/PathBreadcrumbs";
+import { PathBreadCrumbs } from "./PathBreadcrumbs";
 import { useIsDark } from "../hook/useIsDark";
 
 export function ContentBox({ children }: { children: React.ReactNode }) {

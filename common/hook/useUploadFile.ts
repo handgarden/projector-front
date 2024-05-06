@@ -1,11 +1,11 @@
-import useJwtToken from "../../core/auth/hook/useJwtToken";
 import { EditorBlobInfoType } from "../../types/file/EditorBlobInfoType";
 import { ProgressFnType } from "../../types/file/ProgressFnType";
 import { UploadFileType } from "../../types/file/UploadFileType";
+import { JwtTokenUtils } from "../../utils/JwtTokenUtils";
 import { post } from "../axios";
 
 export default function useUploadFile() {
-  const token = useJwtToken();
+  const token = JwtTokenUtils.getToken();
   const upload = async (f: EditorBlobInfoType, progressFn: ProgressFnType) => {
     if (!token) {
       throw Error("로그인이 필요합니다.");
@@ -24,7 +24,7 @@ export default function useUploadFile() {
     }
 
     progressFn(100);
-    return response.data[0].url!;
+    return response.data[0]!;
   };
 
   return upload;

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SlideFormType } from "../../../types/core/project/SlideForm.type";
 import { DefaultValidationMessage } from "../../../common/message/validation/DefaultValidation.message";
+import { CreateSlideInput } from "../../../gql/graphql";
 
 export default function useSlideValidation() {
   const [validationMessage, setValidationMessage] = useState({
@@ -9,7 +9,7 @@ export default function useSlideValidation() {
     images: "",
   });
 
-  const validate = (slide: SlideFormType) => {
+  const validate = (slide: CreateSlideInput) => {
     const isTitleValid = slide.title.length > 0 && slide.title.length <= 254;
     if (!isTitleValid) {
       setValidationMessage((prev) => ({

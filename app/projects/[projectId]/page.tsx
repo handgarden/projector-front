@@ -76,7 +76,7 @@ export default function ProjectDetailPage() {
           <DeleteItemButton onDelete={onDelete} />
         </div>
       </div>
-      <DefaultHeader>프로젝트</DefaultHeader>
+      <DefaultHeader>{PROJECT_MESSAGE.title.default}</DefaultHeader>
       <div className="mt-5 flex justify-center items-center flex-col gap-5">
         <Input
           label={PROJECT_MESSAGE.project.title}
@@ -96,7 +96,7 @@ export default function ProjectDetailPage() {
           <h5 className="text-small">{PROJECT_MESSAGE.project.slides}</h5>
           <Button
             as={Link}
-            href={replaceParamPath(PROJECT_PATH.createSlide, {
+            href={replaceParamPath(PROJECT_PATH.slide.create, {
               projectId: project.id,
             })}
             isIconOnly
@@ -107,7 +107,7 @@ export default function ProjectDetailPage() {
         </div>
       </div>
       <div className="flex justify-start items-center mt-5">
-        <SlideList slides={project.slides} />
+        <SlideList slides={project.slides} projectId={project.id} />
       </div>
     </div>
   );

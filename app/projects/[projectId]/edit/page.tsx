@@ -9,6 +9,7 @@ import ProjectForm from "../../components/ProjectForm";
 import { DefaultHeader } from "../../../../common/components/DefaultHeader";
 import { useProjectsStore } from "../../../../store/useProjectsStore";
 import { useProjectStore } from "../../../../store/useProjectStore";
+import { PROJECT_MESSAGE } from "../../../../common/message/Project.message";
 
 export default function ProjectEditPage() {
   const { projectId } = useParams();
@@ -38,7 +39,7 @@ export default function ProjectEditPage() {
           />
         )}
       </div>
-      <DefaultHeader>프로젝트 수정</DefaultHeader>
+      <DefaultHeader>{PROJECT_MESSAGE.title.update}</DefaultHeader>
       <ProjectForm
         onSubmit={(d) => {
           if (!project) return;

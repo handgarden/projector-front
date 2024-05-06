@@ -2,7 +2,7 @@
 import { Button } from "@nextui-org/react";
 import { OAuthManagement } from "./components/oauth/OAuthManagement";
 import { useProfileQuery } from "./hook/useProfileQuery";
-import { AuthButton } from "../../common/components/AuthButton";
+import { AuthButton } from "../../common/components/button/AuthButton";
 
 export default function ProfilePage() {
   const { profile, loading, error, refetch } = useProfileQuery();
