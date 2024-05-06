@@ -1,14 +1,13 @@
 "use client";
 
-import { useMutation } from "@apollo/client";
 import useGqlValidationErrorParser from "../../../common/hook/useGqlValidationErrorParser";
 import usePathUtils from "../../../common/hook/usePathUtils";
 import { PROJECT_PATH } from "../../../common/path/ProjectPath";
 import { useRouter } from "next/navigation";
-import { graphql } from "../../../gql";
 import { API_MESSAGE_KR } from "../../../common/message/API.message";
 import ProjectForm from "../components/ProjectForm";
 import { useProjectCreate } from "../hook/useProjectCreate";
+import { useProjectsStore } from "../../../store/useProjectsStore";
 
 export default function CreatePresentationPage() {
   const router = useRouter();
@@ -18,6 +17,8 @@ export default function CreatePresentationPage() {
 
   const { mutate } = useProjectCreate();
 
+  const addProject = useProjectsStore((state) => state.addNewProject);
+
   return (
     <div>
       <ProjectForm
@@ -25,9 +26,14 @@ export default function CreatePresentationPage() {
           mutate({
             variables: { input: data },
             onCompleted: (data) => {
-              window.location.href = replaceParamPath(PROJECT_PATH.details, {
-                projectId: data.createProject.id,
+              addProject({
+                ...data.createProject,
               });
+              router.push(
+                replaceParamPath(PROJECT_PATH.details, {
+                  projectId: data.createProject.id,
+                })
+              );
             },
             onError: (error) => {
               const validationMessage = parse(error);
