@@ -7,7 +7,6 @@ import { BackLinkButton } from "../../../../common/components/button/BackLinkBut
 import { PROJECT_PATH } from "../../../../common/path/ProjectPath";
 import ProjectForm from "../../components/ProjectForm";
 import { DefaultHeader } from "../../../../common/components/DefaultHeader";
-import { useProjectsStore } from "../../../../store/useProjectsStore";
 import { useProjectStore } from "../../../../store/useProjectStore";
 import { PROJECT_MESSAGE } from "../../../../common/message/Project.message";
 
@@ -19,9 +18,7 @@ export default function ProjectEditPage() {
   const { replaceParamPath } = usePathUtils();
 
   const { mutation } = useProjectUpdate();
-  const updateProjectFromList = useProjectsStore(
-    (state) => state.updateProject
-  );
+
   const updateProject = useProjectStore((state) => state.updateProject);
 
   const router = useRouter();
@@ -56,9 +53,7 @@ export default function ProjectEditPage() {
               updateProject({
                 ...updated,
               });
-              updateProjectFromList({
-                ...updated,
-              });
+
               router.push(
                 replaceParamPath(PROJECT_PATH.details, {
                   projectId: projectId as string,

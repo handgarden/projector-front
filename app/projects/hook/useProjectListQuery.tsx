@@ -1,14 +1,10 @@
 import { useLazyQuery } from "@apollo/client";
 import { graphql } from "../../../gql";
-import { useEffect, useState } from "react";
-import { GetProjectsQuery } from "../../../gql/graphql";
 
 export const GET_PROJECTS = graphql(
   `
-    query getProjects($lastKey: ID, $size: Int = 10) {
-      projects: projectsScrollable(
-        scrollable: { lastKey: $lastKey, size: $size }
-      ) {
+    query getProjects($page: Int = 1, $size: Int = 10) {
+      projects: projectsPageable(pageable: { page: $page, size: $size }) {
         items {
           id
           title
@@ -22,7 +18,9 @@ export const GET_PROJECTS = graphql(
 );
 
 export default function useProjectListQuery() {
-  const [fetch, { loading }] = useLazyQuery(GET_PROJECTS);
+  const [fetch, { loading }] = useLazyQuery(GET_PROJECTS, {
+    fetchPolicy: "network-only",
+  });
 
   return {
     fetch,
