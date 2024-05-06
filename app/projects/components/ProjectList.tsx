@@ -1,57 +1,45 @@
 "use client";
-import { CircularProgress, Progress } from "@nextui-org/react";
+import { CircularProgress } from "@nextui-org/react";
 import useProjectListQuery from "../hook/useProjectListQuery";
 import { ProjectListItem } from "./ProjectListItem";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Pageable } from "../../../types/common/Pageable.type";
-import { GetProjectsQuery } from "../../../gql/graphql";
+import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useProjectsStore } from "../../../store/useProjectsStore";
 
-type Props = {
-  layout?: "vertical" | "horizontal";
-};
-
-export function ProjectList({ layout = "vertical" }: Props) {
-  const [pageable, setPageable] = useState<Pageable>({
-    page: 1,
-    size: 10,
-  });
-
-  const [data, setData] = useState<GetProjectsQuery["projects"]["items"]>([]);
-  const [hasNext, setHasNext] = useState<boolean>(true);
+export function ProjectList() {
+  const [projects, hasNext, scrollable, addProjects] = useProjectsStore(
+    (state) => [
+      state.projects,
+      state.hasNext,
+      state.scrollable,
+      state.addProjects,
+    ]
+  );
 
   const { fetch, loading } = useProjectListQuery();
 
   const divRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const handleIntersect = useCallback(
     ([entry]: IntersectionObserverEntry[]) => {
-      if (entry.isIntersecting && !loading) {
-        setPageable((prev) => ({
-          ...prev,
-          page: prev.page + 1,
-        }));
+      if (!entry.isIntersecting) {
+        return;
       }
+      if (loading || !hasNext) return;
+      fetch({
+        variables: scrollable,
+        onCompleted: (data) => {
+          addProjects(data.projects.items, data.projects.hasNext);
+        },
+        onError: () => {
+          addProjects([], false);
+          router.push("/error");
+        },
+      });
     },
-    [loading]
+    [loading, hasNext, fetch, scrollable, addProjects, router]
   );
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!hasNext) return;
-    fetch({
-      variables: pageable,
-      onCompleted: (data) => {
-        setData((prev) => [...prev, ...data.projects.items]);
-        setHasNext(data.projects.hasNext);
-      },
-      onError(err) {
-        setHasNext(false);
-        router.push("/error");
-      },
-    });
-  }, [fetch, hasNext, pageable, router]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersect, {
@@ -67,14 +55,14 @@ export function ProjectList({ layout = "vertical" }: Props) {
   }, [handleIntersect]);
 
   return (
-    <div className={layout === "horizontal" ? "flex flex-wrap" : ""}>
-      {data.map((p) => (
+    <div className={"flex flex-wrap relative min-h-[100vh+1rem]"}>
+      {projects.map((p) => (
         <ProjectListItem key={p.id} project={p} />
       ))}
       <div
         ref={divRef}
         id="project-infinite"
-        className="h-16 flex justify-center"
+        className="h-4 flex justify-center absolute bottom-0 left-0 w-full"
       >
         {loading && <CircularProgress aria-label="project-loading" />}
       </div>
