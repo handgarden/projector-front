@@ -1,61 +1,73 @@
-import { useState } from "react";
-import { CreateSlideImageInput, CreateSlideInput } from "../../../gql/graphql";
-import usePathUtils from "../../../common/hook/usePathUtils";
-import useSlideValidation from "../hook/useSlideValidation";
-import Image from "next/image";
-import { UploadImage } from "../../../common/components/UploadImage";
-import { FormErrorText } from "../../../common/components/form/FormErrorText";
+"use client";
 import { Button, Input } from "@nextui-org/react";
-import TextEditor from "../../../common/components/TextEditor";
-import { BackLinkButton } from "../../../common/components/button/BackLinkButton";
-import { PROJECT_PATH } from "../../../common/path/ProjectPath";
 import { FormLabel } from "../../../common/components/form/FormLabel";
 import { SLIDE_MESSAGE } from "../../../common/message/Slide.message";
-import { UploadFileType } from "../../../types/file/UploadFileType";
-import { FiTrash } from "react-icons/fi";
-import { DeleteItemButton } from "../../../common/components/button/DeleteItemButton";
-import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 import { SimpleCarousel } from "../../../common/components/carousel/SimpleCarousel";
+import { UploadImage } from "../../../common/components/UploadImage";
+import { useState } from "react";
+import TextEditor from "../../../common/components/TextEditor";
+import { GetSlideQuery, UpdateSlideInput } from "../../../gql/graphql";
+import { UploadFileType } from "../../../types/file/UploadFileType";
+import useSlideValidation from "../hook/useSlideValidation";
+import { DeleteItemButton } from "../../../common/components/button/DeleteItemButton";
+import { FormErrorText } from "../../../common/components/form/FormErrorText";
+import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
 
-type Props = {
-  projectId: number;
-  onSubmit: (slide: CreateSlideInput) => void;
-};
-
-type SlideFormData = Omit<CreateSlideInput, "images"> & {
+type SlideFormData = Omit<UpdateSlideInput, "images"> & {
   images: UploadFileType[];
 };
 
-export function SlideForm({ onSubmit, projectId }: Props) {
+type Props = {
+  projectId: number;
+  initialSlide: GetSlideQuery["slide"];
+  onSubmit: (slide: GetSlideQuery["slide"]) => void;
+};
+
+export default function UpdateSlideForm({
+  projectId,
+  onSubmit,
+  initialSlide,
+}: Props) {
   const [slide, setSlide] = useState<SlideFormData>({
+    ...initialSlide,
+    slideId: initialSlide.id.toString(),
     projectId: projectId,
-    title: "",
-    description: "",
-    images: [],
+    images: [...initialSlide.images]
+      .sort((a, b) => a.seq - b.seq)
+      .map((f) => ({
+        key: f.file.key,
+        originalName: f.file.originalName,
+        url: f.file.url,
+      })),
   });
 
   const { validate, validationMessage, clearMessage } = useSlideValidation();
 
+  const [isTitleFocused, setIsTitleFocused] = useState(false);
+  const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
+
   const submit = () => {
+    if (!slide) return;
     const isValid = validate(slide);
     if (!isValid) {
       return;
     }
-    const slideInput: CreateSlideInput = {
+    const slideInput: GetSlideQuery["slide"] = {
       ...slide,
-      images: slide.images.map((f, i) => {
-        return {
+      id: initialSlide.id,
+      seq: initialSlide.seq,
+      images: slide.images.map((f, i) => ({
+        seq: i + 1,
+        file: {
           key: f.key,
-          seq: i + 1,
-        };
-      }),
+          originalName: f.originalName,
+          url: f.url,
+        },
+      })),
     };
 
     onSubmit(slideInput);
   };
-
-  const [isTitleFocused, setIsTitleFocused] = useState(false);
-  const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
 
   return (
     <div>
@@ -64,10 +76,21 @@ export function SlideForm({ onSubmit, projectId }: Props) {
         <SimpleCarousel urls={slide.images.map((f) => f.url)} />
         <UploadImage
           onChange={(files) => {
-            setSlide((prev) => ({
-              ...prev,
-              images: [...prev.images, ...files],
-            }));
+            setSlide((prev) => {
+              if (!prev) return prev;
+
+              return {
+                ...prev,
+                images: [
+                  ...prev.images,
+                  ...files.map((f) => ({
+                    key: f.key,
+                    originalName: f.originalName,
+                    url: f.url,
+                  })),
+                ],
+              };
+            });
             if (files.length) {
               clearMessage("images");
             }
@@ -82,10 +105,14 @@ export function SlideForm({ onSubmit, projectId }: Props) {
             <DeleteItemButton
               onDelete={() => {
                 {
-                  setSlide((prev) => ({
-                    ...prev,
-                    images: prev.images.filter((i) => i.key !== f.key),
-                  }));
+                  setSlide((prev) => {
+                    if (!prev) return prev;
+
+                    return {
+                      ...prev,
+                      images: prev.images.filter((i) => i.key !== f.key),
+                    };
+                  });
                 }
               }}
             />
@@ -104,10 +131,14 @@ export function SlideForm({ onSubmit, projectId }: Props) {
           value={slide.title}
           onChange={(e) => {
             const value = e.target.value;
-            setSlide((prev) => ({
-              ...prev,
-              title: value,
-            }));
+            setSlide((prev) => {
+              if (!prev) return prev;
+
+              return {
+                ...prev,
+                title: value,
+              };
+            });
             if (value.length) {
               clearMessage("title");
             }
@@ -137,10 +168,14 @@ export function SlideForm({ onSubmit, projectId }: Props) {
             setIsDescriptionFocused(false);
           }}
           onChange={(v) => {
-            setSlide((prev) => ({
-              ...prev,
-              description: v,
-            }));
+            setSlide((prev) => {
+              if (!prev) return prev;
+
+              return {
+                ...prev,
+                description: v,
+              };
+            });
             if (v.length) {
               clearMessage("description");
             }
@@ -151,7 +186,7 @@ export function SlideForm({ onSubmit, projectId }: Props) {
         )}
       </div>
       <Button fullWidth onClick={submit} className="mt-4">
-        {DEFAULT_MESSAGE_KR.button.create}
+        {DEFAULT_MESSAGE_KR.button.update}
       </Button>
     </div>
   );
