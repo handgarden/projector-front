@@ -8,5 +8,6 @@ export const PROJECT_MESSAGE = {
     title: "제목",
     description: "설명",
     slides: "슬라이드",
+    show: "슬라이드 쇼",
   },
 } as const;
