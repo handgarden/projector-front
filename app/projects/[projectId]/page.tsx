@@ -15,6 +15,7 @@ import { DeleteItemButton } from "../../../common/components/button/DeleteItemBu
 import { BackLinkButton } from "../../../common/components/button/BackLinkButton";
 import { DefaultHeader } from "../../../common/components/DefaultHeader";
 import { DEFAULT_MESSAGE_KR } from "../../../common/message/Default.message";
+import { ProjectSlideShow } from "../components/ProjectSlideShow";
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -64,6 +65,7 @@ export default function ProjectDetailPage() {
       <div className="w-full flex justify-between items-center">
         <BackLinkButton path={PROJECT_PATH.root} />
         <div className="flex justify-end items-center gap-2">
+          <ProjectSlideShow project={project} />
           <EditLinkButton
             path={replaceParamPath(PROJECT_PATH.edit, {
               projectId: project.id,

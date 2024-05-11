@@ -10,6 +10,10 @@ export const DEFAULT_MESSAGE_KR = {
     update: "수정",
     delete: "삭제",
     upload: "업로드",
+    prev: "이전",
+    next: "다음",
+    vertical: "세로",
+    horizontal: "가로",
   },
   alert: {
     confirm: {
