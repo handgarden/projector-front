@@ -8,7 +8,7 @@ import { API_MESSAGE_KR } from "../../../common/message/API.message";
 import ProjectForm from "../components/ProjectForm";
 import { useProjectCreate } from "../hook/useProjectCreate";
 
-export default function CreatePresentationPage() {
+export default function CreateProjectPage() {
   const router = useRouter();
 
   const { parse } = useGqlValidationErrorParser();
